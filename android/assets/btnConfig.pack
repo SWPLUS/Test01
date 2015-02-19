@@ -3,14 +3,14 @@ btnconfig1.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-cover
+coverdown
   rotate: false
   xy: 2, 2
   size: 298, 201
   orig: 298, 201
   offset: 0, 0
   index: 1
-cover
+coverup
   rotate: false
   xy: 302, 2
   size: 297, 200
