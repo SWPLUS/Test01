@@ -6,10 +6,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.audio.Music;
+
 
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+    private Music bgMusic;
+
 
     @Override
 	public void create () {
@@ -22,20 +26,21 @@ public class MyGdxGame extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 1, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
+
         Sprite pantalla;
         pantalla = new Sprite(img);
 
         pantalla.setPosition(0,0);
-        //pantalla.rotate90(false);
         pantalla.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
 		batch.begin();
 		//batch.draw(img, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),false,false);
-
         pantalla.draw(batch);
         batch.end();
-        //pantalla.setRotation(pantalla.getRotation() - 90);
 
+        bgMusic.setLooping(true);
+        bgMusic.play();
 
 
 	}
