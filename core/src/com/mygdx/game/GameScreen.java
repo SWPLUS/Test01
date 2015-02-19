@@ -1,5 +1,9 @@
 package com.mygdx.game;
 
+/**
+ * Created by Ivan on 19/02/15.
+ */
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
@@ -15,9 +19,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
-public class MyGdxGame extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+import com.badlogic.gdx.Screen;
+
+
+
+
+public class GameScreen implements Screen {
+
+    SpriteBatch batch;
+    Texture img;
     Sound bgMusic;
     //BUTTON
     TextureAtlas atlas;
@@ -26,20 +36,16 @@ public class MyGdxGame extends ApplicationAdapter {
     Table table;
 
 
+    public GameScreen(final MainScreen gam) {
+        batch = new SpriteBatch();
+        img = new Texture("cover_0000s_0004_Cover.png");
+    }
+
+
     @Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("cover_0000s_0004_Cover.png");
-
-        bgMusic = Gdx.audio.newSound(Gdx.files.internal("groove.mp3"));
-        waitForLoadCompleted(bgMusic);
-        bgMusic.loop();
-	}
-
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 1, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    public void render (float delta) {
+        Gdx.gl.glClearColor(1, 1, 0, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         Sprite pantalla;
         pantalla = new Sprite(img);
@@ -47,34 +53,42 @@ public class MyGdxGame extends ApplicationAdapter {
         pantalla.setPosition(0,0);
         pantalla.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-		batch.begin();
-		//batch.draw(img, 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight(), 0, 0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight(),false,false);
-
-        //BUTTON
-        stage = new Stage();
-        atlas = new TextureAtlas("btnConfigPack");
-        skin = new Skin(atlas);
-        table = new Table(skin);
-
+        batch.begin();
 
         pantalla.draw(batch);
         batch.end();
-	}
+    }
+
 
     @Override
+    public void resize(int width, int height) {
+    }
+
+
+    @Override
+    public void show() {
+
+    }
+
+    @Override
+    public void hide() {
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+
     public void dispose() {
         batch.dispose();
         bgMusic.dispose();
     }
 
-    private long waitForLoadCompleted(Sound sound) {
-        long id;
-        while ((id = sound.play(0)) == -1) {
-            long t = TimeUtils.nanoTime();
-            while (TimeUtils.nanoTime() - t < 100000000);
-        }
-        return id;
-    }
+
 
 
 }
