@@ -34,7 +34,6 @@ public class MyGdxGame extends ApplicationAdapter {
 
         pantalla.draw(batch);
         batch.end();
-
         //pantalla.setRotation(pantalla.getRotation() - 90);
 
 
