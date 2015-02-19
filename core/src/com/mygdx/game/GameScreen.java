@@ -28,7 +28,7 @@ public class GameScreen implements Screen {
 
     SpriteBatch batch;
     Texture img;
-    Sound bgMusic;
+    Music bgMusic;
     //BUTTON
     TextureAtlas atlas;
     Skin skin;
@@ -39,6 +39,11 @@ public class GameScreen implements Screen {
     public GameScreen(final MainScreen gam) {
         batch = new SpriteBatch();
         img = new Texture("cover_0000s_0004_Cover.png");
+
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
+        bgMusic.setLooping(true);
+
+
     }
 
 
@@ -67,7 +72,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void show() {
-
+        bgMusic.play();
     }
 
     @Override
