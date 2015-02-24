@@ -124,11 +124,11 @@ public class SettingsScreen implements Screen {
 
         if (game.BoolSound) {
             StyleButtonSound.up = SkinSettings.getDrawable("stngs_0005_sonido");
-            StyleButtonSound.down = SkinSettings.getDrawable("stngs_0004_sonido-off");
+            //StyleButtonSound.down = SkinSettings.getDrawable("stngs_0004_sonido-off");
         }
         else {
             StyleButtonSound.up = SkinSettings.getDrawable("stngs_0004_sonido-off");
-            StyleButtonSound.down = SkinSettings.getDrawable("stngs_0005_sonido");
+            //StyleButtonSound.down = SkinSettings.getDrawable("stngs_0005_sonido");
         }
 
         StyleButtonSound.font = font;
@@ -147,20 +147,14 @@ public class SettingsScreen implements Screen {
                 if (game.BoolSound) {
                     game.prefs.putBoolean("Sound", false);
                     game.BoolSound = false;
+                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0004_sonido-off");
                 }
                 else {
                     game.prefs.putBoolean("Sound", true);
                     game.BoolSound = true;
+                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0005_sonido");
                 }
                 game.prefs.flush();
-                if (game.BoolSound) {
-                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0005_sonido");
-                    ButtonSound.getStyle().down = SkinSettings.getDrawable("stngs_0004_sonido-off");
-                }
-                else {
-                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0004_sonido-off");
-                    ButtonSound.getStyle().down = SkinSettings.getDrawable("stngs_0005_sonido");
-                }
             }
         });
 
