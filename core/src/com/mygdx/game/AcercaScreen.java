@@ -57,8 +57,9 @@ public class AcercaScreen implements Screen {
         TextButton.TextButtonStyle btnStyle = new TextButton.TextButtonStyle();
         btnStyle.font = font;
         TextButton btnCerrar = new TextButton("Cerrar", btnStyle);
+        btnCerrar.getLabel().setColor(1,0.56078f,0,1);
         btnCerrar.getLabel().setAlignment(Align.left);
-        btnCerrar.getLabel().setColor(Color.ORANGE);
+        //.argb8888(1,255,143,0)
         btnCerrar.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed");
@@ -69,7 +70,7 @@ public class AcercaScreen implements Screen {
             }
         });
         TextButton btnTerminos = new TextButton("Terminos y Condiciones", btnStyle);
-        //btnTerminos.getLabel().setAlignment(Align.left);
+        btnTerminos.getLabel().setColor(1,0.56078f,0,1);
         btnTerminos.setWidth((Gdx.graphics.getWidth()/2));
         btnTerminos.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -81,7 +82,7 @@ public class AcercaScreen implements Screen {
             }
         });
         TextButton btnAviso = new TextButton("Aviso de Privacidad", btnStyle);
-        //btnAviso.getLabel().setAlignment(Align.left);
+        btnAviso.getLabel().setColor(1,0.56078f,0,1);
         btnAviso.setWidth(Gdx.graphics.getWidth()/2);
         btnAviso.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -108,8 +109,6 @@ public class AcercaScreen implements Screen {
         table.add(btnAviso).width(Gdx.graphics.getWidth() / 2).height(35);
         table.row();
         table.add(pane).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight()-75).colspan(2);
-
-        table.debug();
 
         stage.addActor(imgBack);
         stage.addActor(table);
