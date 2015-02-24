@@ -5,12 +5,22 @@ package com.mygdx.game;
  */
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.utils.Align;
 
 public class AcercaScreen implements Screen {
 
@@ -20,6 +30,8 @@ public class AcercaScreen implements Screen {
     Image imgBack;
     private Stage stage;
     String text;
+    Label lbl;
+    LabelStyle textStyle;
 
     public AcercaScreen(final MainScreen gam) {
         // batch = new SpriteBatch();
@@ -37,7 +49,70 @@ public class AcercaScreen implements Screen {
         text = file.readString();
         font = new BitmapFont();
 
+        textStyle = new LabelStyle();
+        textStyle.font = font;
+        lbl = new Label(text,textStyle);
+        lbl.setWrap(true);
+
+        TextButton.TextButtonStyle btnStyle = new TextButton.TextButtonStyle();
+        btnStyle.font = font;
+        TextButton btnCerrar = new TextButton("Cerrar", btnStyle);
+        btnCerrar.getLabel().setAlignment(Align.left);
+        btnCerrar.getLabel().setColor(Color.ORANGE);
+        btnCerrar.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
+        TextButton btnTerminos = new TextButton("Terminos y Condiciones", btnStyle);
+        //btnTerminos.getLabel().setAlignment(Align.left);
+        btnTerminos.setWidth((Gdx.graphics.getWidth()/2));
+        btnTerminos.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
+        TextButton btnAviso = new TextButton("Aviso de Privacidad", btnStyle);
+        //btnAviso.getLabel().setAlignment(Align.left);
+        btnAviso.setWidth(Gdx.graphics.getWidth()/2);
+        btnAviso.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
+
+        ButtonGroup btns = new ButtonGroup(btnTerminos,btnAviso);
+        btns.setMaxCheckCount(1);
+        btns.setMinCheckCount(1);
+
+        ScrollPane pane = new ScrollPane(lbl);
+        Table table = new Table();
+        table.setPosition(0,0);
+        table.setWidth(Gdx.graphics.getWidth());
+        table.setHeight(Gdx.graphics.getHeight());
+        table.add(btnCerrar).width(Gdx.graphics.getWidth() / 2).height(35);
+        table.row();
+        table.add(btnTerminos).width(Gdx.graphics.getWidth() / 2).height(35);
+        table.add(btnAviso).width(Gdx.graphics.getWidth() / 2).height(35);
+        table.row();
+        table.add(pane).width(Gdx.graphics.getWidth()).height(Gdx.graphics.getHeight()-75).colspan(2);
+
+        table.debug();
+
         stage.addActor(imgBack);
+        stage.addActor(table);
     }
 
     @Override
@@ -53,8 +128,6 @@ public class AcercaScreen implements Screen {
 
         game.batch.end();
         stage.act(delta);
-        stage.getBatch().begin();
-        font.draw(stage.getBatch(),text,100,100);
         stage.draw();
 
     }
