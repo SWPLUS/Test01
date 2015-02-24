@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.Preferences;
 
 
 public class MainScreen extends Game {
@@ -17,7 +18,16 @@ public class MainScreen extends Game {
     public BitmapFont font;
     public Music bgMusic;
 
+    public Preferences prefs;
+    public Boolean BoolMusic;
+
     public void create() {
+
+        prefs = Gdx.app.getPreferences("My Preferences");
+        BoolMusic = prefs.getBoolean("Music", true);
+
+        Gdx.app.log("my app", BoolMusic.toString());
+
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
@@ -34,6 +44,25 @@ public class MainScreen extends Game {
         batch.dispose();
         font.dispose();
     }
+
+
+    public int calcSize(int objSize,boolean width){
+
+        int pantalla;
+        int imgSize;
+        if (width){
+            pantalla = Gdx.graphics.getWidth();
+            imgSize = 1080;
+        } else {
+            pantalla = Gdx.graphics.getHeight();
+            imgSize = 1920;
+        }
+
+        return (objSize * pantalla)/imgSize;
+
+    }
+
+
 
 
 }

@@ -19,6 +19,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+
+
 public class MainMenuScreen implements Screen {
 
     final MainScreen game;
@@ -39,6 +41,8 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(final MainScreen gam) {
        // batch = new SpriteBatch();
         game = gam;
+
+
         img = new Texture("cover_0000s_0004_Cover.png");
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -138,7 +142,9 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        game.bgMusic.play();
+        if (game.BoolMusic){
+            game.bgMusic.play();
+        }
     }
 
     @Override

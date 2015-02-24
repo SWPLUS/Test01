@@ -1,0 +1,88 @@
+settings.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+stngs_0000_atras-off-copy
+  rotate: false
+  xy: 310, 1450
+  size: 221, 200
+  orig: 221, 200
+  offset: 0, 0
+  index: -1
+stngs_0001_atras-on-copy
+  rotate: false
+  xy: 309, 1652
+  size: 221, 200
+  orig: 221, 200
+  offset: 0, 0
+  index: -1
+stngs_0002_musica-off
+  rotate: false
+  xy: 2, 1586
+  size: 305, 218
+  orig: 305, 218
+  offset: 0, 0
+  index: -1
+stngs_0003_musica
+  rotate: false
+  xy: 2, 1365
+  size: 306, 219
+  orig: 306, 219
+  offset: 0, 0
+  index: -1
+stngs_0004_sonido-off
+  rotate: false
+  xy: 2, 1142
+  size: 306, 221
+  orig: 306, 221
+  offset: 0, 0
+  index: -1
+stngs_0005_sonido
+  rotate: true
+  xy: 310, 1142
+  size: 306, 221
+  orig: 306, 221
+  offset: 0, 0
+  index: -1
+stngs_0006_url-off
+  rotate: false
+  xy: 2, 2
+  size: 561, 176
+  orig: 561, 176
+  offset: 0, 0
+  index: -1
+stngs_0007_url-on
+  rotate: false
+  xy: 2, 180
+  size: 561, 176
+  orig: 561, 176
+  offset: 0, 0
+  index: -1
+stngs_0008_acerca-de-off-copy
+  rotate: false
+  xy: 2, 714
+  size: 529, 212
+  orig: 529, 212
+  offset: 0, 0
+  index: -1
+stngs_0009_acerca-de-on-copy
+  rotate: false
+  xy: 2, 928
+  size: 529, 212
+  orig: 529, 212
+  offset: 0, 0
+  index: -1
+stngs_0010_url-off
+  rotate: false
+  xy: 2, 358
+  size: 561, 176
+  orig: 561, 176
+  offset: 0, 0
+  index: -1
+stngs_0011_url-on
+  rotate: false
+  xy: 2, 536
+  size: 561, 176
+  orig: 561, 176
+  offset: 0, 0
+  index: -1
