@@ -61,6 +61,7 @@ public class LoginScreen implements Screen {
             }
             public void failed(Throwable t) {
                 Gdx.app.log("my app", t.getMessage());
+
             }
 
             public void cancel() {
