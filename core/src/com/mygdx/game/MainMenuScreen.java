@@ -6,12 +6,9 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -28,14 +25,16 @@ public class MainMenuScreen implements Screen {
 
     Texture img;
     Image imgBack;
-    Music bgMusic;
+    //Music bgMusic;
     OrthographicCamera camera;
     private Stage stage; //** stage holds the Button **//
     private BitmapFont font; //** same as that used in Tut 7 **//
     private TextureAtlas buttonsAtlas; //** image of buttons **//
     private Skin buttonSkin; //** images are used as skins of the button **//
-    private TextButton button; //** the button - the only actor in program **//
-
+    private TextButton buttonConfig; //** the button - the only actor in program **//
+    private TextButton buttonPlay; //** the button - the only actor in program **//
+    private Skin buttonPlaySkin;
+    private TextureAtlas buttonPlayAtlas;
 
     public MainMenuScreen(final MainScreen gam) {
        // batch = new SpriteBatch();
@@ -44,8 +43,8 @@ public class MainMenuScreen implements Screen {
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
-        bgMusic.setLooping(true);
+        //bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
+        //bgMusic.setLooping(true);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -56,6 +55,10 @@ public class MainMenuScreen implements Screen {
         buttonSkin.addRegions(buttonsAtlas); //** skins for on and off **//
         font = new BitmapFont(Gdx.files.internal("fonts/white.fnt"),false); //** font **//
 
+        buttonPlayAtlas = new TextureAtlas("btnPlay.pack"); //** button atlas image **//
+        buttonPlaySkin = new Skin();
+        buttonPlaySkin.addRegions(buttonPlayAtlas); //** skins for on and off **//
+
         stage = new Stage();        //** window is stage **//
         stage.clear();
         Gdx.input.setInputProcessor(stage); //** stage is responsive **//
@@ -64,24 +67,42 @@ public class MainMenuScreen implements Screen {
         style.up = buttonSkin.getDrawable("coverdown");
         style.down = buttonSkin.getDrawable("coverup");
         style.font = font;
-
-        button = new TextButton("", style); //** Button text and style **//
-        button.setPosition(10, 10); //** Button location **//
-        button.setHeight(50); //** Button Height **//
-        button.setWidth(100); //** Button Width **//
-        button.addListener(new InputListener() {
+        buttonConfig = new TextButton("", style); //** Button text and style **//
+        buttonConfig.setPosition(10, 10); //** Button location **//
+        buttonConfig.setHeight(calcSize(201,false)); //** Button Height **//
+        buttonConfig.setWidth(calcSize(298,true)); //** Button Width **//
+        buttonConfig.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed"); //** Usually used to start Game, etc. **//
                 return true;
             }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+                game.setScreen(new SettingsScreen(game));
+            }
+        });
 
+        TextButtonStyle stylePlay = new TextButtonStyle(); //** Button properties **//
+        stylePlay.up = buttonPlaySkin.getDrawable("coverplay");
+        stylePlay.down = buttonPlaySkin.getDrawable("coverplaydown");
+        stylePlay.font = font;
+        buttonPlay = new TextButton("", stylePlay); //** Button text and style **//
+        buttonPlay.setPosition(Gdx.graphics.getWidth()-10-calcSize(298,true),10); //** Button location **//
+        buttonPlay.setHeight(calcSize(201,false)); //** Button Height **//
+        buttonPlay.setWidth(calcSize(298,true)); //** Button Width **//
+        buttonPlay.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed"); //** Usually used to start Game, etc. **//
+                return true;
+            }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
             }
         });
 
         stage.addActor(imgBack);
-        stage.addActor(button);
+        stage.addActor(buttonConfig);
+        stage.addActor(buttonPlay);
 
     }
 
@@ -117,7 +138,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        bgMusic.play();
+        game.bgMusic.play();
     }
 
     @Override
@@ -135,5 +156,20 @@ public class MainMenuScreen implements Screen {
     public void dispose() {
     }
 
+    public int calcSize(int objSize,boolean width){
+
+        int pantalla;
+        int imgSize;
+        if (width){
+            pantalla = Gdx.graphics.getWidth();
+            imgSize = 1080;
+        } else {
+            pantalla = Gdx.graphics.getHeight();
+            imgSize = 1920;
+        }
+
+        return (objSize * pantalla)/imgSize;
+
+    }
 
 }

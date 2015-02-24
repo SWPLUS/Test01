@@ -7,19 +7,23 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 
 
 public class MainScreen extends Game {
 
     public SpriteBatch batch;
     public BitmapFont font;
+    public Music bgMusic;
 
     public void create() {
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = new BitmapFont();
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
+        bgMusic.setLooping(true);
         this.setScreen(new MainMenuScreen(this));
-
     }
 
     public void render() {
