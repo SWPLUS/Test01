@@ -10,7 +10,6 @@ import com.badlogic.gdx.Net.HttpRequest;
 import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
-
 import org.json.JSONObject;
 
 
@@ -41,10 +40,6 @@ public class LoginScreen implements Screen {
 
         stage.addActor(imgBack);
 
-
-
-
-
         HttpRequest httpPost = new HttpRequest(HttpMethods.POST);
         httpPost.setUrl("http://tang.com.mx/webservices/ws003");
         httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -53,11 +48,12 @@ public class LoginScreen implements Screen {
 
         Gdx.net.sendHttpRequest (httpPost, new HttpResponseListener() {
             public void handleHttpResponse(HttpResponse httpResponse) {
-
                 JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
-                JSONObject success = jObject.getJSONObject("success");
-
-                Gdx.app.log("my app", success.toString());
+                boolean success = jObject.getBoolean("success");
+                if (success){
+                    Gdx.app.log("hola mundo", jObject.get("game_data").toString());
+                }
+                //Gdx.app.log("my app", success.toString());
             }
             public void failed(Throwable t) {
                 Gdx.app.log("my app", t.getMessage());
