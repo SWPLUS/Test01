@@ -20,11 +20,13 @@ public class MainScreen extends Game {
 
     public Preferences prefs;
     public Boolean BoolMusic;
+    public Boolean BoolSound;
 
     public void create() {
 
         prefs = Gdx.app.getPreferences("My Preferences");
         BoolMusic = prefs.getBoolean("Music", true);
+        BoolSound = prefs.getBoolean("Sound", true);
 
         Gdx.app.log("my app", BoolMusic.toString());
 

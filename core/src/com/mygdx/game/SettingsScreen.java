@@ -29,6 +29,9 @@ public class SettingsScreen implements Screen {
     private Skin SkinSettings;
     private TextButton ButtonBack;
     private TextButton ButtonMusic;
+    private TextButton ButtonSound;
+    private TextButton ButtonTang;
+    private TextButton ButtonAcerca;
 
 
     public SettingsScreen(final MainScreen gam) {
@@ -53,8 +56,8 @@ public class SettingsScreen implements Screen {
 
 
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.up = SkinSettings.getDrawable("stngs_0000_atras-off-copy");
-        style.down = SkinSettings.getDrawable("stngs_0001_atras-on-copy");
+        style.up = SkinSettings.getDrawable("stngs_0001_atras-on-copy");
+        style.down = SkinSettings.getDrawable("stngs_0000_atras-off-copy");
         style.font = font;
         ButtonBack = new TextButton("", style);
         ButtonBack.setPosition(10, 10);
@@ -76,16 +79,16 @@ public class SettingsScreen implements Screen {
 
         if (game.BoolMusic) {
             StyleButtonMusic.up = SkinSettings.getDrawable("stngs_0003_musica");
-            StyleButtonMusic.down = SkinSettings.getDrawable("stngs_0002_musica-off");
+            //StyleButtonMusic.down = SkinSettings.getDrawable("stngs_0002_musica-off");
         }
         else {
             StyleButtonMusic.up = SkinSettings.getDrawable("stngs_0002_musica-off");
-            StyleButtonMusic.down = SkinSettings.getDrawable("stngs_0003_musica");
+            //StyleButtonMusic.down = SkinSettings.getDrawable("stngs_0003_musica");
         }
 
         StyleButtonMusic.font = font;
         ButtonMusic = new TextButton("", StyleButtonMusic);
-        ButtonMusic.setPosition(200, 500);
+        ButtonMusic.setPosition(game.calcSize(((1080/2)-(305/2)),true), game.calcSize((1920-200)-219,false));
         ButtonMusic.setHeight(game.calcSize(219,false));
         ButtonMusic.setWidth(game.calcSize(305,true));
         ButtonMusic.addListener(new InputListener() {
@@ -100,23 +103,113 @@ public class SettingsScreen implements Screen {
                     game.prefs.putBoolean("Music", false);
                     game.BoolMusic = false;
                     game.bgMusic.stop();
+                    ButtonMusic.getStyle().up = SkinSettings.getDrawable("stngs_0002_musica-off");
+                    //ButtonMusic.getStyle().down = SkinSettings.getDrawable("stngs_0002_musica-off");
                 }
                 else {
                     game.prefs.putBoolean("Music", true);
                     game.BoolMusic = true;
                     game.bgMusic.setLooping(true);
                     game.bgMusic.play();
+                    ButtonMusic.getStyle().up = SkinSettings.getDrawable("stngs_0003_musica");
+                    //ButtonMusic.getStyle().down = SkinSettings.getDrawable("stngs_0003_musica");
                 }
-
+                game.prefs.flush();
             }
         });
 
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
+        TextButton.TextButtonStyle StyleButtonSound = new TextButton.TextButtonStyle();
+
+        if (game.BoolSound) {
+            StyleButtonSound.up = SkinSettings.getDrawable("stngs_0005_sonido");
+            StyleButtonSound.down = SkinSettings.getDrawable("stngs_0004_sonido-off");
+        }
+        else {
+            StyleButtonSound.up = SkinSettings.getDrawable("stngs_0004_sonido-off");
+            StyleButtonSound.down = SkinSettings.getDrawable("stngs_0005_sonido");
+        }
+
+        StyleButtonSound.font = font;
+        ButtonSound = new TextButton("", StyleButtonSound);
+        ButtonSound.setPosition(game.calcSize(((1080/2)-(306/2)),true), game.calcSize(((1920-200)-440)-75,false));
+        ButtonSound.setHeight(game.calcSize(221,false));
+        ButtonSound.setWidth(game.calcSize(306,true));
+        ButtonSound.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+
+                if (game.BoolSound) {
+                    game.prefs.putBoolean("Sound", false);
+                    game.BoolSound = false;
+                }
+                else {
+                    game.prefs.putBoolean("Sound", true);
+                    game.BoolSound = true;
+                }
+                game.prefs.flush();
+                if (game.BoolSound) {
+                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0005_sonido");
+                    ButtonSound.getStyle().down = SkinSettings.getDrawable("stngs_0004_sonido-off");
+                }
+                else {
+                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0004_sonido-off");
+                    ButtonSound.getStyle().down = SkinSettings.getDrawable("stngs_0005_sonido");
+                }
+            }
+        });
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+
+        TextButton.TextButtonStyle StyleButtonAcerca = new TextButton.TextButtonStyle();
+        StyleButtonAcerca.up = SkinSettings.getDrawable("stngs_0009_acerca-de-on-copy");
+        StyleButtonAcerca.down = SkinSettings.getDrawable("stngs_0008_acerca-de-off-copy");
+        StyleButtonAcerca.font = font;
+        ButtonAcerca = new TextButton("", StyleButtonAcerca);
+        ButtonAcerca.setPosition(game.calcSize(((1080/2)-(529/2)),true), game.calcSize(((1920-200)-652)-165,false));
+        ButtonAcerca.setHeight(game.calcSize(212,false));
+        ButtonAcerca.setWidth(game.calcSize(529,true));
+        ButtonAcerca.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+
+        TextButton.TextButtonStyle StyleButtonTang = new TextButton.TextButtonStyle();
+        StyleButtonTang.up = SkinSettings.getDrawable("stngs_0011_url-on");
+        StyleButtonTang.down = SkinSettings.getDrawable("stngs_0010_url-off");
+        StyleButtonTang.font = font;
+        ButtonTang = new TextButton("", StyleButtonTang);
+        ButtonTang.setPosition(game.calcSize(((1080/2)-(561/2)),true), game.calcSize(((1920-200)-828)-300,false));
+        ButtonTang.setHeight(game.calcSize(212,false));
+        ButtonTang.setWidth(game.calcSize(561,true));
+        ButtonTang.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
 
         stage.addActor(imgBack);
         stage.addActor(ButtonBack);
         stage.addActor(ButtonMusic);
-
+        stage.addActor(ButtonSound);
+        stage.addActor(ButtonAcerca);
+        stage.addActor(ButtonTang);
     }
 
     @Override
