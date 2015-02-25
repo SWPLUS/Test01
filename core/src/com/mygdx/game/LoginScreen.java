@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,9 +16,14 @@ import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
 import org.json.JSONObject;
 
+//BUTONES Y IMAGENES
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
+//DIALOG
 
 
 
@@ -40,6 +47,12 @@ public class LoginScreen implements Screen {
     Texture logo;
     Image imgLogo;
     Image imgOlvide;
+    Image imgUsuario;
+    TextField txtUsername;
+    Image imgPassword;
+    TextField txtPassword;
+    Texture cursor;
+    Image imgCursor;
 
     public LoginScreen(final MainScreen gam) {
         game = gam;
@@ -65,6 +78,24 @@ public class LoginScreen implements Screen {
         btnRegistro.setPosition((Gdx.graphics.getWidth() / 2) - game.calcSize(281,true), game.calcSize(650,false));
         btnRegistro.setHeight(game.calcSize(157,false));
         btnRegistro.setWidth(game.calcSize(562,true));
+        btnRegistro.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+
+                Texture dialogBackground = new Texture("Login/regpasso1/dialogo.png");
+                Image imgDialogBackground = new Image(dialogBackground);
+                Window.WindowStyle style=new Window.WindowStyle();
+                style.titleFont=new BitmapFont();
+                style.titleFontColor= Color.WHITE;
+                style.background =imgDialogBackground.getDrawable();
+                com.mygdx.game.ModalDialog dialogo = new ModalDialog(style);
+                dialogo.show(stage);
+            }
+        });
 
         TextButton.TextButtonStyle connectSyle = new TextButton.TextButtonStyle();
         connectSyle.font = font;
@@ -92,8 +123,38 @@ public class LoginScreen implements Screen {
         imgOlvide.setDrawable(SkinLogin.getDrawable("olvidecontrasena"));
         imgOlvide.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((426 / 2),true),game.calcSize(520,false),game.calcSize(426,true),game.calcSize(44,false));
 
+        imgUsuario = new Image();
+        imgUsuario.setDrawable(SkinLogin.getDrawable("usuariotang"));
+        Gdx.app.log("gotDrawable", "usuariotang");
+        imgUsuario.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((671 / 2),true),game.calcSize(1459-46,false),game.calcSize(671,true),game.calcSize(44,false));
+
+        TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(font, Color.BLACK,null,null,SkinLogin.getDrawable("cajatexto"));
+        FileHandle file = Gdx.files.internal("fonts/font.fnt");
+        txtStyle.font = new BitmapFont(file);
+        txtStyle.fontColor = Color.BLACK;
+        txtStyle.background.setLeftWidth(txtStyle.background.getLeftWidth() + 10);
+        cursor = new Texture("Login/cursor.png");
+        imgCursor = new Image(cursor);
+        txtStyle.cursor = imgCursor.getDrawable();
+        //txtStyle.cursor.setTopHeight(game.calcSize(125,false));
+        txtUsername = new TextField("",txtStyle);
+        txtUsername.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((811 / 2),true),game.calcSize(1459-48-133,false),game.calcSize(811,true),game.calcSize(133,false));
+
+        imgPassword = new Image();
+        imgPassword.setDrawable(SkinLogin.getDrawable("contrasena"));
+        imgPassword.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((385 / 2),true),game.calcSize(1459-181-58,false),game.calcSize(385,true),game.calcSize(56,false));
+
+        txtPassword = new TextField("",txtStyle);
+        txtPassword.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((811 / 2),true),game.calcSize(1459-181-60-133,false),game.calcSize(811,true),game.calcSize(133,false));
+        txtPassword.setPasswordMode(true);
+        txtPassword.setPasswordCharacter('*');
+
         stage.addActor(imgBack);
         stage.addActor(imgLogo);
+        stage.addActor(imgUsuario);
+        stage.addActor(txtUsername);
+        stage.addActor(imgPassword);
+        stage.addActor(txtPassword);
         stage.addActor(btnConnect);
         stage.addActor(btnRegistro);
         stage.addActor(imgOlvide);

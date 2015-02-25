@@ -1,0 +1,75 @@
+
+regpasso11.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+seguinteon
+  rotate: false
+  xy: 2, 2
+  size: 310, 112
+  orig: 310, 112
+  offset: 0, 0
+  index: -1
+seguinteoff
+  rotate: false
+  xy: 2, 116
+  size: 310, 112
+  orig: 310, 112
+  offset: 0, 0
+  index: -1
+cajatexto
+  rotate: true
+  xy: 2, 230
+  size: 665, 92
+  orig: 665, 92
+  offset: 0, 0
+  index: -1
+correopapas
+  rotate: false
+  xy: 96, 230
+  size: 376, 45
+  orig: 376, 45
+  offset: 0, 0
+  index: -1
+repitecontrasena
+  rotate: true
+  xy: 96, 277
+  size: 571, 44
+  orig: 571, 44
+  offset: 0, 0
+  index: -1
+contrasena
+  rotate: false
+  xy: 142, 277
+  size: 322, 44
+  orig: 322, 44
+  offset: 0, 0
+  index: -1
+usuario
+  rotate: true
+  xy: 142, 323
+  size: 496, 35
+  orig: 496, 35
+  offset: 0, 0
+  index: -1
+nombre
+  rotate: false
+  xy: 314, 2
+  size: 194, 35
+  orig: 194, 35
+  offset: 0, 0
+  index: -1
+correo
+  rotate: false
+  xy: 314, 39
+  size: 193, 34
+  orig: 193, 34
+  offset: 0, 0
+  index: -1
+apellido
+  rotate: false
+  xy: 179, 323
+  size: 222, 32
+  orig: 222, 32
+  offset: 0, 0
+  index: -1
