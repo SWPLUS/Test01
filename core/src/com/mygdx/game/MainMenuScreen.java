@@ -42,7 +42,6 @@ public class MainMenuScreen implements Screen {
        // batch = new SpriteBatch();
         game = gam;
 
-
         img = new Texture("cover_0000s_0004_Cover.png");
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
