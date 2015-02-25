@@ -1,0 +1,75 @@
+
+loginsprite1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+cajatexto
+  rotate: false
+  xy: 2, 2
+  size: 811, 133
+  orig: 811, 133
+  offset: 0, 0
+  index: -1
+usuariotang
+  rotate: false
+  xy: 2, 137
+  size: 671, 44
+  orig: 671, 44
+  offset: 0, 0
+  index: -1
+conectaup
+  rotate: false
+  xy: 2, 183
+  size: 563, 157
+  orig: 563, 157
+  offset: 0, 0
+  index: -1
+conectadown
+  rotate: false
+  xy: 2, 342
+  size: 563, 157
+  orig: 563, 157
+  offset: 0, 0
+  index: -1
+registraup
+  rotate: false
+  xy: 2, 501
+  size: 562, 157
+  orig: 562, 157
+  offset: 0, 0
+  index: -1
+registradown
+  rotate: false
+  xy: 2, 660
+  size: 562, 157
+  orig: 562, 157
+  offset: 0, 0
+  index: -1
+olvidecontrasena
+  rotate: false
+  xy: 567, 183
+  size: 426, 44
+  orig: 426, 44
+  offset: 0, 0
+  index: -1
+contrasena
+  rotate: false
+  xy: 567, 229
+  size: 385, 56
+  orig: 385, 56
+  offset: 0, 0
+  index: -1
+loginup
+  rotate: false
+  xy: 566, 501
+  size: 226, 204
+  orig: 226, 204
+  offset: 0, 0
+  index: -1
+logindown
+  rotate: false
+  xy: 794, 501
+  size: 225, 204
+  orig: 225, 204
+  offset: 0, 0
+  index: -1
