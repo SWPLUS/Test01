@@ -40,6 +40,8 @@ public class LevelSelectionScreen implements Screen {
     private String StarsName1, StarsName2, StarsName3, StarsName4, StarsName5, StarsName6;
     private boolean UnlockLevel1, UnlockLevel2, UnlockLevel3, UnlockLevel4, UnlockLevel5, UnlockLevel6;
 
+    TextButton btnBack;
+
 
     public LevelSelectionScreen(final MainScreen gam) {
         game = gam;
@@ -123,6 +125,8 @@ public class LevelSelectionScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 if (UnlockLevel1){
                     Gdx.app.log("my app", "Abrir pantalla de juego Nivel 1");
+                    game.setScreen(new GamePlayScreen(game,1));
+
                 }
 
             }
@@ -160,6 +164,7 @@ public class LevelSelectionScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 if (UnlockLevel2){
                     Gdx.app.log("my app", "Abrir pantalla de juego Nivel 2");
+                    game.setScreen(new GamePlayScreen(game,2));
                 }
             }
         });
@@ -198,6 +203,7 @@ public class LevelSelectionScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 if (UnlockLevel3){
                     Gdx.app.log("my app", "Abrir pantalla de juego Nivel 3");
+                    game.setScreen(new GamePlayScreen(game,3));
                 }
             }
         });
@@ -235,6 +241,7 @@ public class LevelSelectionScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 if (UnlockLevel4){
                     Gdx.app.log("my app", "Abrir pantalla de juego Nivel 4");
+                    game.setScreen(new GamePlayScreen(game,4));
                 }
             }
         });
@@ -273,6 +280,7 @@ public class LevelSelectionScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 if (UnlockLevel5){
                     Gdx.app.log("my app", "Abrir pantalla de juego Nivel 5");
+                    game.setScreen(new GamePlayScreen(game,5));
                 }
             }
         });
@@ -309,6 +317,7 @@ public class LevelSelectionScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 if (UnlockLevel6){
                     Gdx.app.log("my app", "Abrir pantalla de juego Nivel 6");
+                    game.setScreen(new GamePlayScreen(game,6));
                 }
             }
         });
@@ -320,6 +329,27 @@ public class LevelSelectionScreen implements Screen {
                     game.calcSize(202,true),game.calcSize(75,false));
             stage.addActor(StarsLevel6);
         }
+
+
+        TextButton.TextButtonStyle connectSyle = new TextButton.TextButtonStyle();
+        connectSyle.font = font;
+        connectSyle.up = SkinLevels.getDrawable("niveles_0016_atras-on");
+        connectSyle.down = SkinLevels.getDrawable("niveles_0015_atras-off");
+        btnBack = new TextButton("",connectSyle);
+        btnBack.setPosition(10, 10 );
+        btnBack.setHeight(game.calcSize(200,false));
+        btnBack.setWidth(game.calcSize(221,true));
+        btnBack.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+        stage.addActor(btnBack);
 
 
     }
@@ -335,6 +365,10 @@ public class LevelSelectionScreen implements Screen {
 
         stage.draw();
         game.batch.end();
+
+
+
+
 
     }
 

@@ -52,6 +52,7 @@ public class LoginScreen implements Screen {
     Image imgOlvide;
     Image imgUsuario;
     TextField txtUsername;
+
     Image imgPassword;
     TextField txtPassword;
     Texture cursor;
@@ -178,6 +179,7 @@ public class LoginScreen implements Screen {
                 Gdx.app.log("my app", "Released");
 
                 Login(txtUsername.getText(), txtPassword.getText());
+                Gdx.input.setOnscreenKeyboardVisible(false);
                 //Login("swplus", "tokey");
 
             }
@@ -276,6 +278,8 @@ public class LoginScreen implements Screen {
 
         stage.draw();
         game.batch.end();
+
+
 
     }
 

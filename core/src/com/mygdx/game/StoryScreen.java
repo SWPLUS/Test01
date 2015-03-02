@@ -246,6 +246,8 @@ public class StoryScreen implements Screen {
         }
 
 
+
+
     }
 
     @Override
