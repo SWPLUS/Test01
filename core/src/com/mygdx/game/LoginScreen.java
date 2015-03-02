@@ -139,7 +139,9 @@ public class LoginScreen implements Screen {
                 skinRegPasso1 = new Skin(atlasRegPasso1);
                 Texture textureCursor = new Texture("Login/cursor.png");
                 imgCursor = new Image(textureCursor);
-                TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(font,Color.BLACK,imgCursor.getDrawable(),null,skinRegPasso1.getDrawable("cajatexto"));
+                TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(game.getFont(16),Color.BLACK,imgCursor.getDrawable(),null,skinRegPasso1.getDrawable("cajatexto"));
+                txtStyle.background.setLeftWidth(txtStyle.background.getLeftWidth() + 10);
+
                 TextField txtCorreo = new TextField("",txtStyle);
                 txtCorreo.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(227,false));
                 txtCorreo.setWidth(game.calcSize(665,true));

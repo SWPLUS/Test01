@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 
 public class MainScreen extends Game {
@@ -66,6 +68,12 @@ public class MainScreen extends Game {
 
         return (objSize * pantalla)/imgSize;
 
+    }
+
+    public BitmapFont getFont(int dp){
+        com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/arial.ttf");
+        FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
+        return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
     }
 
 
