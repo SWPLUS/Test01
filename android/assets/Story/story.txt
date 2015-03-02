@@ -1,0 +1,74 @@
+story.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+story_0000_sig-off
+  rotate: true
+  xy: 945, 1727
+  size: 223, 203
+  orig: 223, 203
+  offset: 0, 0
+  index: -1
+story_0001_sig-on
+  rotate: false
+  xy: 753, 761
+  size: 223, 203
+  orig: 223, 203
+  offset: 0, 0
+  index: -1
+story_0002
+  rotate: false
+  xy: 2, 1727
+  size: 941, 116
+  orig: 941, 116
+  offset: 0, 0
+  index: -1
+story_0003
+  rotate: true
+  xy: 753, 2
+  size: 757, 236
+  orig: 757, 236
+  offset: 0, 0
+  index: -1
+story_0004
+  rotate: true
+  xy: 978, 761
+  size: 768, 103
+  orig: 768, 103
+  offset: 0, 0
+  index: -1
+story_0005
+  rotate: false
+  xy: 2, 1845
+  size: 855, 101
+  orig: 855, 101
+  offset: 0, 0
+  index: -1
+story_0006_Layer-129
+  rotate: false
+  xy: 2, 969
+  size: 962, 378
+  orig: 962, 378
+  offset: 0, 0
+  index: -1
+story_0007_Group-7
+  rotate: true
+  xy: 2, 2
+  size: 965, 381
+  orig: 965, 381
+  offset: 0, 0
+  index: -1
+story_0008_Group-3
+  rotate: false
+  xy: 2, 1349
+  size: 962, 376
+  orig: 962, 376
+  offset: 0, 0
+  index: -1
+story_0009_Group-2
+  rotate: true
+  xy: 385, 2
+  size: 965, 366
+  orig: 965, 366
+  offset: 0, 0
+  index: -1

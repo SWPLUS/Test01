@@ -1,0 +1,95 @@
+niveles.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+niveles_0004
+  rotate: false
+  xy: 358, 2
+  size: 354, 419
+  orig: 354, 419
+  offset: 0, 0
+  index: 4
+niveles_0005
+  rotate: false
+  xy: 714, 2
+  size: 354, 419
+  orig: 354, 419
+  offset: 0, 0
+  index: 4
+niveles_0006
+  rotate: false
+  xy: 714, 423
+  size: 354, 418
+  orig: 354, 418
+  offset: 0, 0
+  index: 6
+niveles_0007
+  rotate: false
+  xy: 714, 843
+  size: 354, 418
+  orig: 354, 418
+  offset: 0, 0
+  index: 6
+niveles_0008
+  rotate: false
+  xy: 2, 2
+  size: 354, 420
+  orig: 354, 420
+  offset: 0, 0
+  index: 5
+niveles_0009
+  rotate: false
+  xy: 2, 424
+  size: 354, 420
+  orig: 354, 420
+  offset: 0, 0
+  index: 5
+niveles_0010
+  rotate: false
+  xy: 2, 846
+  size: 354, 419
+  orig: 354, 419
+  offset: 0, 0
+  index: 3
+niveles_0011
+  rotate: false
+  xy: 358, 423
+  size: 354, 419
+  orig: 354, 419
+  offset: 0, 0
+  index: 3
+niveles_0012
+  rotate: true
+  xy: 2, 1267
+  size: 354, 416
+  orig: 354, 416
+  offset: 0, 0
+  index: 2
+niveles_0013
+  rotate: true
+  xy: 420, 1263
+  size: 354, 416
+  orig: 354, 416
+  offset: 0, 0
+  index: 2
+niveles_0014
+  rotate: false
+  xy: 358, 844
+  size: 354, 417
+  orig: 354, 417
+  offset: 0, 0
+  index: 1
+niveles_0015_atras-off
+  rotate: false
+  xy: 838, 1263
+  size: 221, 200
+  orig: 221, 200
+  offset: 0, 0
+  index: -1
+niveles_0016_atras-on
+  rotate: false
+  xy: 838, 1465
+  size: 221, 200
+  orig: 221, 200
+  offset: 0, 0
+  index: -1

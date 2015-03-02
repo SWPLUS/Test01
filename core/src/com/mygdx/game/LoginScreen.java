@@ -25,7 +25,9 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 //DIALOG
 
-
+import java.util.Iterator;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by Ivan on 24/02/15.
@@ -97,14 +99,8 @@ public class LoginScreen implements Screen {
             }
         });
 
-        TextButton.TextButtonStyle connectSyle = new TextButton.TextButtonStyle();
-        connectSyle.font = font;
-        connectSyle.up = SkinLogin.getDrawable("conectaup");
-        connectSyle.down = SkinLogin.getDrawable("conectadown");
-        btnConnect = new TextButton("",connectSyle);
-        btnConnect.setPosition((Gdx.graphics.getWidth() / 2) - game.calcSize(281,true), game.calcSize(700,false) + game.calcSize(157,false) );
-        btnConnect.setHeight(game.calcSize(157,false));
-        btnConnect.setWidth(game.calcSize(563,true));
+
+
 
         TextButton.TextButtonStyle backSyle = new TextButton.TextButtonStyle();
         backSyle.font = font;
@@ -149,6 +145,30 @@ public class LoginScreen implements Screen {
         txtPassword.setPasswordMode(true);
         txtPassword.setPasswordCharacter('*');
 
+
+        TextButton.TextButtonStyle connectSyle = new TextButton.TextButtonStyle();
+        connectSyle.font = font;
+        connectSyle.up = SkinLogin.getDrawable("conectaup");
+        connectSyle.down = SkinLogin.getDrawable("conectadown");
+        btnConnect = new TextButton("",connectSyle);
+        btnConnect.setPosition((Gdx.graphics.getWidth() / 2) - game.calcSize(281,true), game.calcSize(700,false) + game.calcSize(157,false) );
+        btnConnect.setHeight(game.calcSize(157,false));
+        btnConnect.setWidth(game.calcSize(563,true));
+        btnConnect.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+
+                //Login(txtUsername.getText(), txtPassword.getText());
+                //Login("swplus", "tokey");
+                game.setScreen(new StoryScreen(game));
+            }
+        });
+
+
         stage.addActor(imgBack);
         stage.addActor(imgLogo);
         stage.addActor(imgUsuario);
@@ -160,30 +180,70 @@ public class LoginScreen implements Screen {
         stage.addActor(imgOlvide);
         stage.addActor(btnBack);
 
+
+
+
+
+    }
+
+
+
+    public void Login (String username, String password) {
+
         HttpRequest httpPost = new HttpRequest(HttpMethods.POST);
         httpPost.setUrl("http://tang.com.mx/webservices/ws003");
         httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-        httpPost.setContent("username=swplus&password=tokey");
-        Gdx.net.sendHttpRequest (httpPost, new HttpResponseListener() {
+        httpPost.setContent("username=" + username + "&password=" + password);
+        Gdx.net.sendHttpRequest(httpPost, new HttpResponseListener() {
             public void handleHttpResponse(HttpResponse httpResponse) {
                 JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
+                JSONObject user_data;
+                JSONObject game_data;
+
                 boolean success = jObject.getBoolean("success");
-                if (success){
-                    Gdx.app.log("hola mundo", jObject.get("game_data").toString());
+                if (success) {
+                    user_data = jObject.getJSONObject("user_data");
+                    game_data = jObject.getJSONObject("game_data");
+
+                    game.player.Logged = true;
+                    game.player.UserId = user_data.getString("id_user");
+                    game.player.Name = user_data.getString("first_name");
+                    game.player.LastName = user_data.getString("last_name");
+                    game.player.Mail = user_data.getString("email");
+
+                    List<GameData> DataList = new  ArrayList<GameData>();
+                    Iterator<?> keys = game_data.keys();
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        GameData MyData =  new GameData();
+                        MyData.Score = game_data.getJSONObject(key).getInt("score");
+                        MyData.Level = game_data.getJSONObject(key).getInt("level");
+                        MyData.Stars = game_data.getJSONObject(key).getInt("stars");
+                        DataList.add(MyData);
+
+                        Gdx.app.log("hola mundo", "" + MyData.Level);
+                    }
+
+                    game.player.Data = DataList;
+
+                    Gdx.app.log("hola mundo", "" + game.player.Data.toString());
+
+
+                } else {
+                    Gdx.app.log("my app", "Usuario o contraseña incorrecta");
                 }
-                //Gdx.app.log("my app", success.toString());
             }
+
+
             public void failed(Throwable t) {
                 Gdx.app.log("my app", t.getMessage());
-
             }
+            public void cancelled() {}
 
-            public void cancel() {
-            }
 
-            public void cancelled() {
-            }
         });
+
+
 
     }
 

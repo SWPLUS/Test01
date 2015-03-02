@@ -21,6 +21,8 @@ public class MainScreen extends Game {
     public Preferences prefs;
     public Boolean BoolMusic;
     public Boolean BoolSound;
+    public Player player;
+
 
     public void create() {
 
@@ -29,6 +31,8 @@ public class MainScreen extends Game {
         BoolSound = prefs.getBoolean("Sound", true);
 
         Gdx.app.log("my app", BoolMusic.toString());
+
+        player = new Player();
 
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
