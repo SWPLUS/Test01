@@ -27,7 +27,7 @@ public class ModalDialog extends Dialog {
     }
 
     private void initialize() {
-        padTop(60); // set padding on top of the dialog title
+        //padTop(60); // set padding on top of the dialog title
         //getButtonTable().defaults().height(60); // set buttons height
         setModal(true);
         setMovable(false);

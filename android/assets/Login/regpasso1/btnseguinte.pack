@@ -1,0 +1,19 @@
+
+seguintebutton1.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+seguinteon
+  rotate: false
+  xy: 2, 2
+  size: 310, 112
+  orig: 310, 112
+  offset: 0, 0
+  index: -1
+seguinteoff
+  rotate: false
+  xy: 314, 2
+  size: 310, 112
+  orig: 310, 112
+  offset: 0, 0
+  index: -1

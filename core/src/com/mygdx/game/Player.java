@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,6 +13,11 @@ public class Player {
     public String Name;
     public String LastName;
     public String Mail;
+    public String Password;
+    public String Username;
+    public Date Birthday;
+    public String Street;
+    public boolean Gender;
 
     public List<GameData> Data;
 

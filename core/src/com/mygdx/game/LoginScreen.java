@@ -24,11 +24,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
-//DIALOG
 
+//DIALOG
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 /**
  * Created by Ivan on 24/02/15.
@@ -102,16 +103,133 @@ public class LoginScreen implements Screen {
                 style.titleFontColor= Color.WHITE;
                 style.background =imgDialogBackground.getDrawable();
                 com.mygdx.game.ModalDialog dialogo = new ModalDialog(style);
+                dialogo.setSize(game.calcSize(966, true),game.calcSize(1438, false));
                 dialogo.show(stage);
 
-                //Label.LabelStyle lblStyle = new Label.LabelStyle(new BitmapFont(),Color.WHITE);
-                //Label lbl = new Label("Prueba XPTO",lblStyle);
-                //dialogo.getStage().addActor(lbl);
+                final Table container = new Table();
+
                 TextureAtlas atlasRegPasso1 = new TextureAtlas("Login/regpasso1/regpasso1.pack");
-                Skin skinRegPasso1 = new Skin(atlasRegPasso1);
-                Image imgCorreopapas = new Image();
-                imgCorreopapas.setDrawable(skinRegPasso1.getDrawable("correopapas"));
-                dialogo.getStage().addActor(imgCorreopapas);
+                TextureAtlas atlasseguinte = new TextureAtlas("Login/regpasso1/btnseguinte.pack");
+                Skin skinRegPasso1 = new Skin(atlasseguinte);
+
+                TextButton.TextButtonStyle txtButtonStyle = new TextButton.TextButtonStyle();
+                txtButtonStyle.font = font;
+                txtButtonStyle.up = skinRegPasso1.getDrawable("seguinteon");
+                txtButtonStyle.down = skinRegPasso1.getDrawable("seguinteoff");
+                TextButton btnSeguinte = new TextButton("",txtButtonStyle);
+                btnSeguinte.setPosition((dialogo.getWidth()/2) - game.calcSize(155,true),game.calcSize(55,false));
+                btnSeguinte.setWidth(game.calcSize(310,true));
+                btnSeguinte.setHeight(game.calcSize(112,false));
+                btnSeguinte.addListener(new InputListener() {
+                    public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                        Gdx.app.log("my app", "Pressed");
+                        return true;
+                    }
+                    public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                        Gdx.app.log("my app", "Released");
+
+                        container.setVisible(false);
+                        //Login("swplus", "tokey");
+
+                    }
+                });
+
+                //40px y 15xp
+
+                skinRegPasso1 = new Skin(atlasRegPasso1);
+                Texture textureCursor = new Texture("Login/cursor.png");
+                imgCursor = new Image(textureCursor);
+                TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(font,Color.BLACK,imgCursor.getDrawable(),null,skinRegPasso1.getDrawable("cajatexto"));
+                TextField txtCorreo = new TextField("",txtStyle);
+                txtCorreo.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(227,false));
+                txtCorreo.setWidth(game.calcSize(665,true));
+                txtCorreo.setHeight(game.calcSize(92,false));
+
+                Image imgCorreo = new Image(skinRegPasso1.getDrawable("correo"));
+                imgCorreo.setPosition((dialogo.getWidth()/2) - game.calcSize(86,true),game.calcSize(334,false));
+                imgCorreo.setWidth(game.calcSize(193,true));
+                imgCorreo.setHeight(game.calcSize(34, false));
+
+                TextField txtRepiteContrasena = new TextField("",txtStyle);
+                txtRepiteContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(428,false));
+                txtRepiteContrasena.setWidth(game.calcSize(665,true));
+                txtRepiteContrasena.setHeight(game.calcSize(92,false));
+
+                Image imgRepiteContrasena = new Image(skinRegPasso1.getDrawable("repitecontrasena"));
+                imgRepiteContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(285,true),game.calcSize(534,false));
+                imgRepiteContrasena.setWidth(game.calcSize(571,true));
+                imgRepiteContrasena.setHeight(game.calcSize(44,false));
+
+                TextField txtContrasena = new TextField("",txtStyle);
+                txtContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(639,false));
+                txtContrasena.setWidth(game.calcSize(665,true));
+                txtContrasena.setHeight(game.calcSize(92,false));
+
+                Image imgContrasena = new Image(skinRegPasso1.getDrawable("contrasena"));
+                imgContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(161,true),game.calcSize(746,false));
+                imgContrasena.setWidth(game.calcSize(322,true));
+                imgContrasena.setHeight(game.calcSize(44,false));
+
+                TextField txtUsuario = new TextField("",txtStyle);
+                txtUsuario.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(850,false));
+                txtUsuario.setWidth(game.calcSize(665,true));
+                txtUsuario.setHeight(game.calcSize(92,false));
+
+                Image imgUsuario = new Image(skinRegPasso1.getDrawable("usuario"));
+                imgUsuario.setPosition((dialogo.getWidth()/2) - game.calcSize(248,true),game.calcSize(957,false));
+                imgUsuario.setWidth(game.calcSize(496,true));
+                imgUsuario.setHeight(game.calcSize(35,false));
+
+                TextField txtApellido = new TextField("",txtStyle);
+                txtApellido.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(1052,false));
+                txtApellido.setWidth(game.calcSize(665,true));
+                txtApellido.setHeight(game.calcSize(92,false));
+
+                Image imgApellido = new Image(skinRegPasso1.getDrawable("apellido"));
+                imgApellido.setPosition((dialogo.getWidth()/2) - game.calcSize(111,true),game.calcSize(1159,false));
+                imgApellido.setWidth(game.calcSize(222,true));
+                imgApellido.setHeight(game.calcSize(32,false));
+
+                TextField txtNombre = new TextField("",txtStyle);
+                txtNombre.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(1251,false));
+                txtNombre.setWidth(game.calcSize(665,true));
+                txtNombre.setHeight(game.calcSize(92,false));
+
+                Image imgNombre = new Image(skinRegPasso1.getDrawable("nombre"));
+                imgNombre.setPosition((dialogo.getWidth()/2) - game.calcSize(87,true),game.calcSize(1358,false));
+                //imgNombre.setPosition(200,200);
+                imgNombre.setWidth(game.calcSize(194,true));
+                imgNombre.setHeight(game.calcSize(35,false));
+
+                //dialogo.addActor(btnSeguinte);
+                //dialogo.addActor(txtCorreo);
+                //dialogo.addActor(imgCorreo);
+                //dialogo.addActor(txtRepiteContrasena);
+                //dialogo.addActor(imgRepiteContrasena);
+                //dialogo.addActor(txtContrasena);
+                //dialogo.addActor(imgContrasena);
+                //dialogo.addActor(txtUsuario);
+                //dialogo.addActor(imgUsuario);
+                //dialogo.addActor(txtApellido);
+                //dialogo.addActor(imgApellido);
+                //dialogo.addActor(txtNombre);
+                //dialogo.addActor(imgNombre);
+                container.addActor(btnSeguinte);
+                container.addActor(txtCorreo);
+                container.addActor(imgCorreo);
+                container.addActor(txtRepiteContrasena);
+                container.addActor(imgRepiteContrasena);
+                container.addActor(txtContrasena);
+                container.addActor(imgContrasena);
+                container.addActor(txtUsuario);
+                container.addActor(imgUsuario);
+                container.addActor(txtApellido);
+                container.addActor(imgApellido);
+                container.addActor(txtNombre);
+                container.addActor(imgNombre);
+
+                container.setSize(dialogo.getWidth(),dialogo.getHeight());
+                dialogo.addActor(container);
             }
         });
 
