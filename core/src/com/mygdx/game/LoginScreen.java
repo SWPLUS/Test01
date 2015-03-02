@@ -177,9 +177,9 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
-                //Login(txtUsername.getText(), txtPassword.getText());
+                Login(txtUsername.getText(), txtPassword.getText());
                 //Login("swplus", "tokey");
-                game.setScreen(new StoryScreen(game));
+
             }
         });
 
@@ -267,6 +267,9 @@ public class LoginScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (game.player.Logged){
+            game.setScreen(new StoryScreen(game));
+        }
         stage.act(delta);
 
         game.batch.begin();
