@@ -17,6 +17,7 @@ import com.badlogic.gdx.Net.HttpResponseListener;
 import org.json.JSONObject;
 
 //BUTONES Y IMAGENES
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -88,6 +89,11 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
+                Texture blackBackground = new Texture("Login/regpasso1/background.png");
+                Image imgBackBlack = new Image(blackBackground);
+                imgBackBlack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+                stage.addActor(imgBackBlack);
+
                 Texture dialogBackground = new Texture("Login/regpasso1/dialogo.png");
                 Image imgDialogBackground = new Image(dialogBackground);
                 Window.WindowStyle style=new Window.WindowStyle();
@@ -96,6 +102,15 @@ public class LoginScreen implements Screen {
                 style.background =imgDialogBackground.getDrawable();
                 com.mygdx.game.ModalDialog dialogo = new ModalDialog(style);
                 dialogo.show(stage);
+
+                //Label.LabelStyle lblStyle = new Label.LabelStyle(new BitmapFont(),Color.WHITE);
+                //Label lbl = new Label("Prueba XPTO",lblStyle);
+                //dialogo.getStage().addActor(lbl);
+                TextureAtlas atlasRegPasso1 = new TextureAtlas("Login/regpasso1/regpasso1.pack");
+                Skin skinRegPasso1 = new Skin(atlasRegPasso1);
+                Image imgCorreopapas = new Image();
+                imgCorreopapas.setDrawable(skinRegPasso1.getDrawable("correopapas"));
+                dialogo.getStage().addActor(imgCorreopapas);
             }
         });
 

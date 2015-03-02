@@ -17,13 +17,13 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 public class ModalDialog extends Dialog {
 
     Skin dialogSkin;
+    TextureAtlas AtlasReg1;
 
-    public ModalDialog (Window.WindowStyle window) {
-        //AtlasReg1 = new TextureAtlas(Gdx.files.internal("Login/regpasso1/regpasso1.pack"));
-        //skin = new Skin(AtlasReg1);
+    public ModalDialog (WindowStyle window) {
+
         super("",window);
-        //dialogSkin = skin;
         initialize();
+
     }
 
     private void initialize() {
