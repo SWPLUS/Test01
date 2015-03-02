@@ -1,0 +1,46 @@
+colors.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+levels-color-0001
+  rotate: false
+  xy: 2, 2
+  size: 1080, 138
+  orig: 1080, 138
+  offset: 0, 0
+  index: 1
+levels-color-0002
+  rotate: false
+  xy: 2, 142
+  size: 1080, 138
+  orig: 1080, 138
+  offset: 0, 0
+  index: 2
+levels-color-0003
+  rotate: false
+  xy: 2, 282
+  size: 1080, 138
+  orig: 1080, 138
+  offset: 0, 0
+  index: 3
+levels-color-0004
+  rotate: false
+  xy: 2, 422
+  size: 1080, 138
+  orig: 1080, 138
+  offset: 0, 0
+  index: 4
+levels-color-0005
+  rotate: false
+  xy: 2, 562
+  size: 1080, 138
+  orig: 1080, 138
+  offset: 0, 0
+  index: 5
+levels-color-0006
+  rotate: false
+  xy: 2, 702
+  size: 1080, 138
+  orig: 1080, 138
+  offset: 0, 0
+  index: 6
