@@ -54,7 +54,7 @@ public class MainScreen extends Game {
     }
 
 
-    public int calcSize(int objSize,boolean width){
+    public static int calcSize(int objSize,boolean width){
 
         int pantalla;
         int imgSize;

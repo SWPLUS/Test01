@@ -16,6 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+
+import java.awt.Color;
 
 /**
  * Created by Ivan on 02/03/15.
@@ -32,18 +35,17 @@ public class GamePlayScreen implements Screen {
     private BitmapFont font;
     private TextureAtlas AtlasHeader;
     private Skin SkinHeader;
-
     private TextureAtlas AtlasOrange;
     private TextureRegion RegionOrange;
     private Animation AnimationOrange;
-
     private float ScreenWidth, ScreenHeight;
 
     Image HeaderImage;
     String HeaderName;
     int Lives = 5;
     int Special = 0;
-    Bubble bbl;
+    private int Score;
+
     BubbleArray bubbles;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
@@ -65,21 +67,38 @@ public class GamePlayScreen implements Screen {
         ScreenHeight = Gdx.graphics.getHeight();
 
         stage = new Stage();
-        stage.clear();
+        //stage.clear();
+
+        TextField.TextFieldStyle style = new TextField.TextFieldStyle(game.getFont(16),com.badlogic.gdx.graphics.Color.BLUE,null,null,null);
+        final TextField txtScore = new TextField("0",style);
+        txtScore.setPosition(100,game.calcSize(1850,false));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 int pointedX = screenX;
                 int pointedY = Gdx.graphics.getHeight() - screenY;
-                for(int i = 0; i<= bubbles.items.size()-1;i++){
-                    float bIX = bubbles.items.get(i).Position.x;
-                    float bFX= bubbles.items.get(i).Position.x + bubbles.items.get(i).sizeX;
-                    if((pointedX >= bIX) && (pointedX <= bFX)){
-                        float bIY = bubbles.items.get(i).Position.y;
-                        float bFY= bubbles.items.get(i).Position.y + bubbles.items.get(i).sizeX;
-                        if((pointedY >= bIY) && (pointedY <= bFY)){
-                            bubbles.items.get(i).Explode();
-                            Gdx.app.log("ahuevo", "Exploded");
+                java.util.Iterator<Bubble> i = bubbles.items.iterator();
+                while (i.hasNext()) {
+                    Bubble b = i.next();
+                    if (!b.Exploted) {
+                        float bIX = b.Position.x;
+                        float bFX = b.Position.x + b.sizeX;
+                        if ((pointedX >= bIX) && (pointedX <= bFX)) {
+                            float bIY = b.Position.y;
+                            float bFY = b.Position.y + b.sizeY;
+                            if ((pointedY >= bIY) && (pointedY <= bFY)) {
+                                if (b.TipoFruta != Bubble.Fruta.DOUBLE){
+                                    Score += b.Explode();
+                                    txtScore.setText(String.valueOf(Score));
+                                } else {
+                                    if (b.tappedUno) {
+                                        Score += b.Explode();
+                                        txtScore.setText(String.valueOf(Score));
+                                    } else {
+                                        b.tappedUno = true;
+                                    }
+                                }
+                            }
                         }
                     }
                 }
@@ -92,9 +111,9 @@ public class GamePlayScreen implements Screen {
         HeaderImage.setBounds(0,ScreenHeight - game.calcSize(138,false),
                 game.calcSize(1080,true),game.calcSize(138,false));
 
-
         stage.addActor(imgBack);
         stage.addActor(HeaderImage);
+        stage.addActor(txtScore);
 
 
         bubbles = new BubbleArray();
@@ -105,6 +124,8 @@ public class GamePlayScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        stage.draw();
 
         game.batch.begin();
 
@@ -117,7 +138,11 @@ public class GamePlayScreen implements Screen {
                 if (b.Position.y < -(game.calcSize(306, false))) {
                     i.remove();
                 } else {
-                    game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                    if (!b.ExplotedAndFinished){
+                        b.sizeX = game.calcSize(b.RegionBubble.getRegionWidth(),true);
+                        b.sizeY = game.calcSize(b.RegionBubble.getRegionHeight(),false);
+                        game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                    }
                 }
             }
         }
@@ -134,7 +159,7 @@ public class GamePlayScreen implements Screen {
         Timer.schedule(new Task(){
             @Override
             public void run() {
-                bubbles.createNew(game.calcSize(343, true),game.calcSize(325, false),game.calcSize(1080,false),game.calcSize(1980,false),Level);
+                bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level);
             }}, 0,(2 / (Level*0.75f)));
     }
 

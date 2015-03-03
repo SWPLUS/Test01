@@ -14,8 +14,8 @@ public class BubbleArray {
         items = new ArrayList<Bubble>();
     }
 
-    public void createNew(int mySizeX, int mySizeY,int screenWidth,int screenHeight,int lvl){
-        Bubble bbl = new Bubble(mySizeX,mySizeY,screenWidth,screenHeight,lvl);
+    public void createNew(int screenWidth,int screenHeight,int lvl){
+        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl);
         items.add(bbl);
     }
 
