@@ -83,7 +83,7 @@ public class GamePlayScreen implements Screen {
             @Override
             public void run() {
                 bubbles.createNew(game.calcSize(343, true),game.calcSize(325, false),game.calcSize(1080,false),game.calcSize(1980,false),Level);
-            }}, 0,2);
+            }}, 0,(2 / Level));
 
     }
 
