@@ -45,6 +45,7 @@ public class Bubble {
         AnimationBubble = new Animation(0.20f, trAni);
         stateTime = 0f;
     }
+    //asa
 
     public void update(float delta){
         Position.add(0,-2);
