@@ -1,0 +1,60 @@
+mango.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org
+  rotate: false
+  xy: 817, 356
+  size: 386, 387
+  orig: 386, 387
+  offset: 0, 0
+  index: 1
+org
+  rotate: false
+  xy: 1205, 374
+  size: 404, 370
+  orig: 404, 370
+  offset: 0, 0
+  index: 2
+org
+  rotate: false
+  xy: 410, 2
+  size: 403, 352
+  orig: 403, 352
+  offset: 0, 0
+  index: 3
+org
+  rotate: false
+  xy: 815, 2
+  size: 405, 352
+  orig: 405, 352
+  offset: 0, 0
+  index: 4
+org
+  rotate: false
+  xy: 2, 2
+  size: 406, 337
+  orig: 406, 337
+  offset: 0, 0
+  index: 5
+org
+  rotate: false
+  xy: 2, 341
+  size: 406, 352
+  orig: 406, 352
+  offset: 0, 0
+  index: 6
+org
+  rotate: false
+  xy: 410, 356
+  size: 405, 352
+  orig: 405, 352
+  offset: 0, 0
+  index: 7
+org
+  rotate: false
+  xy: 1222, 2
+  size: 393, 370
+  orig: 393, 370
+  offset: 0, 0
+  index: 8
