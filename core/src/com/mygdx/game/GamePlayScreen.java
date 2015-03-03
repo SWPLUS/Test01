@@ -79,11 +79,6 @@ public class GamePlayScreen implements Screen {
 
 
         bubbles = new BubbleArray();
-        Timer.schedule(new Task(){
-            @Override
-            public void run() {
-                bubbles.createNew(game.calcSize(343, true),game.calcSize(325, false),game.calcSize(1080,false),game.calcSize(1980,false),Level);
-            }}, 0,(2 / Level));
 
     }
 
@@ -117,7 +112,11 @@ public class GamePlayScreen implements Screen {
 
     @Override
     public void show() {
-
+        Timer.schedule(new Task(){
+            @Override
+            public void run() {
+                bubbles.createNew(game.calcSize(343, true),game.calcSize(325, false),game.calcSize(1080,false),game.calcSize(1980,false),Level);
+            }}, 0,(2 / (Level*0.75f)));
     }
 
     @Override
