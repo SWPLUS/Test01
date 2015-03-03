@@ -24,7 +24,7 @@ public class Bubble {
     private Animation AnimationBubble;
 
     public enum Fruta {
-        NARANJA //, MANZANA,FRESA,PINA,MANGO,UVA
+        NARANJA, MANZANA,FRESA,PINA,MANGO,UVA
     }
 
     public Bubble(int mySizeX, int mySizeY,int screenWidth,int screenHeight){
