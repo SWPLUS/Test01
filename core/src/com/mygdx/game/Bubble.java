@@ -24,18 +24,36 @@ public class Bubble {
     private Animation AnimationBubble;
 
     public enum Fruta {
-        NARANJA, MANZANA,FRESA,PINA,MANGO,UVA
+        NARANJA,LIMON,FRESA,PINA,MANGO,UVA
     }
 
     public Bubble(int mySizeX, int mySizeY,int screenWidth,int screenHeight){
         Random randomX = new Random();
         sizeX = mySizeX;
         sizeY = mySizeY;
-        Position = new Vector2(randomX.nextInt((screenWidth - (0-(mySizeX/2)) + 1) + (mySizeX/2)),screenHeight);
+        int min = 0-(mySizeX/2);
+        int max = screenWidth - (mySizeX/2);
+        Position = new Vector2(randomX.nextInt((max - min) + 1) + min,screenHeight);
         TipoFruta = randomEnum(Fruta.class);
         switch (TipoFruta){
             case NARANJA:
                 AtlasBubble = BubblesAtlas.OrangeAtlas;
+                break;
+            case LIMON:
+                AtlasBubble = BubblesAtlas.LemonAtlas;
+                break;
+            case FRESA:
+                AtlasBubble = BubblesAtlas.StrawberryAtlas;
+                break;
+            case PINA:
+                AtlasBubble = BubblesAtlas.PineappleAtlas;
+                break;
+            case MANGO:
+                AtlasBubble = BubblesAtlas.MangoAtlas;
+                break;
+            case UVA:
+                AtlasBubble = BubblesAtlas.GrapeAtlas;
+                break;
         }
         AtlasRegion[] trAni = new AtlasRegion[8];
         for(int ct = 0; ct < 8; ct++)

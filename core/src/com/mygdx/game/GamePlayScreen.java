@@ -82,7 +82,7 @@ public class GamePlayScreen implements Screen {
         Timer.schedule(new Task(){
             @Override
             public void run() {
-                bubbles.createNew(game.calcSize(343, true),game.calcSize(306, false),game.calcSize(1080,false)-(game.calcSize(343, true)/2),game.calcSize(1980,false));
+                bubbles.createNew(game.calcSize(343, true),game.calcSize(325, false),game.calcSize(1080,false),game.calcSize(1980,false));
             }}, 0,2);
 
     }
