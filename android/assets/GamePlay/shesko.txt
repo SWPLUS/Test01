@@ -1,0 +1,60 @@
+shesko.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org_1
+  rotate: false
+  xy: 2, 2
+  size: 343, 324
+  orig: 343, 324
+  offset: 0, 0
+  index: -1
+org_2
+  rotate: false
+  xy: 2, 328
+  size: 343, 318
+  orig: 343, 318
+  offset: 0, 0
+  index: -1
+org_3
+  rotate: false
+  xy: 692, 2
+  size: 343, 300
+  orig: 343, 300
+  offset: 0, 0
+  index: -1
+org_4
+  rotate: false
+  xy: 347, 322
+  size: 343, 294
+  orig: 343, 294
+  offset: 0, 0
+  index: -1
+org_5
+  rotate: false
+  xy: 347, 618
+  size: 343, 282
+  orig: 343, 282
+  offset: 0, 0
+  index: -1
+org_6
+  rotate: false
+  xy: 692, 606
+  size: 343, 294
+  orig: 343, 294
+  offset: 0, 0
+  index: -1
+org_7
+  rotate: false
+  xy: 692, 304
+  size: 343, 300
+  orig: 343, 300
+  offset: 0, 0
+  index: -1
+org_8
+  rotate: false
+  xy: 347, 2
+  size: 343, 318
+  orig: 343, 318
+  offset: 0, 0
+  index: -1

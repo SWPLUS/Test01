@@ -1,0 +1,60 @@
+double.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org_1
+  rotate: false
+  xy: 2, 2
+  size: 354, 335
+  orig: 354, 335
+  offset: 0, 0
+  index: -1
+org_2
+  rotate: false
+  xy: 2, 339
+  size: 354, 321
+  orig: 354, 321
+  offset: 0, 0
+  index: -1
+org_3
+  rotate: false
+  xy: 714, 2
+  size: 354, 311
+  orig: 354, 311
+  offset: 0, 0
+  index: -1
+org_4
+  rotate: false
+  xy: 358, 325
+  size: 354, 300
+  orig: 354, 300
+  offset: 0, 0
+  index: -1
+org_5
+  rotate: false
+  xy: 714, 628
+  size: 354, 282
+  orig: 354, 282
+  offset: 0, 0
+  index: -1
+org_6
+  rotate: false
+  xy: 358, 627
+  size: 354, 300
+  orig: 354, 300
+  offset: 0, 0
+  index: -1
+org_7
+  rotate: false
+  xy: 714, 315
+  size: 354, 311
+  orig: 354, 311
+  offset: 0, 0
+  index: -1
+org_8
+  rotate: false
+  xy: 358, 2
+  size: 354, 321
+  orig: 354, 321
+  offset: 0, 0
+  index: -1
