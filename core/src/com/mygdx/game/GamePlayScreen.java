@@ -9,9 +9,12 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.utils.Timer.Task;
 
 /**
  * Created by Ivan on 02/03/15.
@@ -39,8 +42,8 @@ public class GamePlayScreen implements Screen {
     String HeaderName;
     int Lives = 5;
     int Special = 0;
-
-    float stateTime;
+    Bubble bbl;
+    BubbleArray bubbles;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
@@ -52,12 +55,10 @@ public class GamePlayScreen implements Screen {
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        AtlasOrange = new TextureAtlas("GamePlay/orange.txt");
-
         AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
         SkinHeader = new Skin();
         SkinHeader.addRegions(AtlasHeader);
-        font = new BitmapFont(Gdx.files.internal("fonts/white.fnt"),false);
+        font = game.getFont(16);
 
         ScreenWidth = Gdx.graphics.getWidth();
         ScreenHeight = Gdx.graphics.getHeight();
@@ -73,19 +74,19 @@ public class GamePlayScreen implements Screen {
                 game.calcSize(1080,true),game.calcSize(138,false));
 
 
-        AtlasRegion[] trAni = new AtlasRegion[8];
-        for(int ct = 0; ct < 8; ct++)
-        {
-            trAni[ct] =AtlasOrange.findRegion("org_" + (ct +1));
-            Gdx.app.log("my app", "org_" + (ct +1));
-        }
-        AnimationOrange = new Animation(0.20f, trAni);
-        stateTime = 0f;
-
-
         stage.addActor(imgBack);
         stage.addActor(HeaderImage);
 
+
+        bubbles = new BubbleArray();
+        //bubbles.createNew(game.calcSize(343, true),game.calcSize(306, false),game.calcSize(1080,false),game.calcSize(1980,false));
+        Timer.schedule(new Task(){
+            @Override
+            public void run() {
+                bubbles.createNew(game.calcSize(343, true),game.calcSize(306, false),game.calcSize(1080,false),game.calcSize(1980,false));
+            }}, 0,2);
+
+        //bbl = new Bubble(game.calcSize(343, true),game.calcSize(306, false),game.calcSize(1080,false),game.calcSize(1980,false));
 
     }
 
@@ -94,16 +95,24 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stateTime += Gdx.graphics.getDeltaTime();
-        RegionOrange = AnimationOrange.getKeyFrame(stateTime, true);
-
-        //stage.act(delta);
-
         game.batch.begin();
-        //stage.draw();
-        game.batch.draw(RegionOrange,200,200,game.calcSize(343,true),game.calcSize(306,false));
-        game.batch.end();
 
+        float d = Gdx.graphics.getDeltaTime();
+        if (bubbles.items.size() > 0) {
+            java.util.Iterator<Bubble> i = bubbles.items.iterator();
+            while (i.hasNext()) {
+                Bubble b = i.next();
+                b.update(d);
+                if (b.Position.y < -(game.calcSize(306, false))) {
+                    b.dispose();
+                    i.remove();
+                } else {
+                    game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                }
+            }
+        }
+
+        game.batch.end();
 
     }
     @Override

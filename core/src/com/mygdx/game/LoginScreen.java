@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.Net.HttpRequest;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
@@ -30,6 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 
 /**
  * Created by Ivan on 24/02/15.
@@ -102,11 +104,28 @@ public class LoginScreen implements Screen {
                 style.titleFont=new BitmapFont();
                 style.titleFontColor= Color.WHITE;
                 style.background =imgDialogBackground.getDrawable();
-                com.mygdx.game.ModalDialog dialogo = new ModalDialog(style);
+                final com.mygdx.game.ModalDialog dialogo = new com.mygdx.game.ModalDialog(style);
+
+                //com.mygdx.game.ModalDialog
                 dialogo.setSize(game.calcSize(966, true),game.calcSize(1438, false));
                 dialogo.show(stage);
-
                 final Table container = new Table();
+                //TextField.OnscreenKeyboard keyboard = new TextField.OnscreenKeyboard() {
+                //@Override
+                //    public void show(boolean visible) {
+                //    Gdx.app.log("keyboard", "opening with");
+                //    Gdx.app.log("keyboard", game.valueOf(visible));
+                //        Gdx.input.setOnscreenKeyboardVisible(visible);
+                        // Hmmmm...
+                //        dialogo.invalidate();
+                //        if (visible) {
+                            // TODO get OsK height somehow!!!
+                //            dialogo.padBottom(310);
+                //        } else {
+                //            dialogo.padBottom(0);
+                //        }
+                //    }
+                //};
 
                 TextureAtlas atlasRegPasso1 = new TextureAtlas("Login/regpasso1/regpasso1.pack");
                 TextureAtlas atlasseguinte = new TextureAtlas("Login/regpasso1/btnseguinte.pack");
@@ -127,14 +146,9 @@ public class LoginScreen implements Screen {
                     }
                     public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                         Gdx.app.log("my app", "Released");
-
                         container.setVisible(false);
-                        //Login("swplus", "tokey");
-
                     }
                 });
-
-                //40px y 15xp
 
                 skinRegPasso1 = new Skin(atlasRegPasso1);
                 Texture textureCursor = new Texture("Login/cursor.png");
@@ -199,23 +213,9 @@ public class LoginScreen implements Screen {
 
                 Image imgNombre = new Image(skinRegPasso1.getDrawable("nombre"));
                 imgNombre.setPosition((dialogo.getWidth()/2) - game.calcSize(87,true),game.calcSize(1358,false));
-                //imgNombre.setPosition(200,200);
                 imgNombre.setWidth(game.calcSize(194,true));
                 imgNombre.setHeight(game.calcSize(35,false));
 
-                //dialogo.addActor(btnSeguinte);
-                //dialogo.addActor(txtCorreo);
-                //dialogo.addActor(imgCorreo);
-                //dialogo.addActor(txtRepiteContrasena);
-                //dialogo.addActor(imgRepiteContrasena);
-                //dialogo.addActor(txtContrasena);
-                //dialogo.addActor(imgContrasena);
-                //dialogo.addActor(txtUsuario);
-                //dialogo.addActor(imgUsuario);
-                //dialogo.addActor(txtApellido);
-                //dialogo.addActor(imgApellido);
-                //dialogo.addActor(txtNombre);
-                //dialogo.addActor(imgNombre);
                 container.addActor(btnSeguinte);
                 container.addActor(txtCorreo);
                 container.addActor(imgCorreo);
@@ -232,11 +232,10 @@ public class LoginScreen implements Screen {
 
                 container.setSize(dialogo.getWidth(),dialogo.getHeight());
                 dialogo.addActor(container);
+
+
             }
         });
-
-
-
 
         TextButton.TextButtonStyle backSyle = new TextButton.TextButtonStyle();
         backSyle.font = font;
@@ -317,10 +316,6 @@ public class LoginScreen implements Screen {
         stage.addActor(btnRegistro);
         stage.addActor(imgOlvide);
         stage.addActor(btnBack);
-
-
-
-
 
     }
 

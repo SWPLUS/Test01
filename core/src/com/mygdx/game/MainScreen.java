@@ -76,7 +76,9 @@ public class MainScreen extends Game {
         return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
     }
 
-
+    public static String valueOf(Object obj) {
+        return (obj == null) ? "null" : obj.toString();
+    }
 
 
 }
