@@ -104,6 +104,7 @@ public class StoryScreen implements Screen {
 
 
 
+
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
         style.up = SkinStory.getDrawable("story_0001_sig-on");
         style.down = SkinStory.getDrawable("story_0000_sig-off");
