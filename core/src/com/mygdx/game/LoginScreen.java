@@ -298,9 +298,10 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
-                Login(txtUsername.getText(), txtPassword.getText());
+                Login("swplus", "tokey");
+                //Login(txtUsername.getText(), txtPassword.getText());
                 Gdx.input.setOnscreenKeyboardVisible(false);
-                //Login("swplus", "tokey");
+
 
             }
         });

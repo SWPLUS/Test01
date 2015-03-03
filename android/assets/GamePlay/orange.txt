@@ -1,0 +1,60 @@
+orange.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org_8
+  rotate: false
+  xy: 2, 329
+  size: 343, 316
+  orig: 343, 316
+  offset: 0, 0
+  index: 8
+org_7
+  rotate: false
+  xy: 692, 2
+  size: 343, 306
+  orig: 343, 306
+  offset: 0, 0
+  index: 7
+org_6
+  rotate: false
+  xy: 347, 311
+  size: 343, 297
+  orig: 343, 297
+  offset: 0, 0
+  index: 6
+org_5
+  rotate: false
+  xy: 692, 612
+  size: 343, 285
+  orig: 343, 285
+  offset: 0, 0
+  index: 5
+org_4
+  rotate: false
+  xy: 347, 610
+  size: 343, 292
+  orig: 343, 292
+  offset: 0, 0
+  index: 4
+org_3
+  rotate: false
+  xy: 692, 310
+  size: 343, 300
+  orig: 343, 300
+  offset: 0, 0
+  index: 3
+org_2
+  rotate: false
+  xy: 347, 2
+  size: 343, 307
+  orig: 343, 307
+  offset: 0, 0
+  index: 2
+org_1
+  rotate: false
+  xy: 2, 2
+  size: 343, 325
+  orig: 343, 325
+  offset: 0, 0
+  index: 1

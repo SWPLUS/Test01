@@ -6,6 +6,9 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -26,6 +29,10 @@ public class GamePlayScreen implements Screen {
     private TextureAtlas AtlasHeader;
     private Skin SkinHeader;
 
+    private TextureAtlas AtlasOrange;
+    private TextureRegion RegionOrange;
+    private Animation AnimationOrange;
+
     private float ScreenWidth, ScreenHeight;
 
     Image HeaderImage;
@@ -33,7 +40,7 @@ public class GamePlayScreen implements Screen {
     int Lives = 5;
     int Special = 0;
 
-
+    float stateTime;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
@@ -44,6 +51,8 @@ public class GamePlayScreen implements Screen {
         img = new Texture("Settings/background.png");
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        AtlasOrange = new TextureAtlas("GamePlay/orange.txt");
 
         AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
         SkinHeader = new Skin();
@@ -64,6 +73,16 @@ public class GamePlayScreen implements Screen {
                 game.calcSize(1080,true),game.calcSize(138,false));
 
 
+        AtlasRegion[] trAni = new AtlasRegion[8];
+        for(int ct = 0; ct < 8; ct++)
+        {
+            trAni[ct] =AtlasOrange.findRegion("org_" + (ct +1));
+            Gdx.app.log("my app", "org_" + (ct +1));
+        }
+        AnimationOrange = new Animation(0.20f, trAni);
+        stateTime = 0f;
+
+
         stage.addActor(imgBack);
         stage.addActor(HeaderImage);
 
@@ -75,11 +94,14 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        stage.act(delta);
+        stateTime += Gdx.graphics.getDeltaTime();
+        RegionOrange = AnimationOrange.getKeyFrame(stateTime, true);
+
+        //stage.act(delta);
 
         game.batch.begin();
-
-        stage.draw();
+        //stage.draw();
+        game.batch.draw(RegionOrange,200,200,game.calcSize(343,true),game.calcSize(306,false));
         game.batch.end();
 
 
