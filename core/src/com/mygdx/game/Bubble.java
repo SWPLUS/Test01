@@ -67,7 +67,7 @@ public class Bubble {
     }
 
     public void update(float delta){
-        Position.add(0,-(Level * 2));
+        Position.add(0,-((Level * 0.75f) * 2));
         stateTime += delta;
         RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
     }
