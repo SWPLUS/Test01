@@ -41,6 +41,7 @@ public class StoryScreen implements Screen {
 
     private float ScreenWidth, ScreenHeight;
     private int avance = 0;
+    private boolean IsRunningAction = false;
 
     public StoryScreen(final MainScreen gam) {
         game = gam;
@@ -122,87 +123,6 @@ public class StoryScreen implements Screen {
             }
         });
 
-
-
-        StoryText1.addAction(sequence(Actions.moveTo((ScreenWidth - game.calcSize(855,true))/2, StoryText1.getY(), 2),
-                run(new Runnable(){
-                    @Override
-                    public void run() {
-                        avance = 1;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-        StoryImage1.addAction(sequence(Actions.delay(4),Actions.moveTo((ScreenWidth - game.calcSize(965,true))/2, StoryImage1.getY(), 2),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        avance = 2;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-
-        StoryText2.addAction(sequence(Actions.delay(8),Actions.moveTo((ScreenWidth - game.calcSize(768,true))/2, StoryText2.getY(), 2),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        avance = 3;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-        StoryImage2.addAction(sequence(Actions.delay(12),Actions.moveTo((ScreenWidth - game.calcSize(962,true))/2, StoryImage2.getY(), 2),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        avance = 4;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-
-        StoryText3.addAction(sequence(Actions.delay(16),Actions.moveTo((ScreenWidth - game.calcSize(757,true))/2, StoryText3.getY(), 2),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        avance = 5;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-        StoryImage3.addAction(sequence(Actions.delay(20),Actions.moveTo((ScreenWidth - game.calcSize(965,true))/2, StoryImage3.getY(), 2),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        avance = 6;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-
-        StoryText4.addAction(sequence(Actions.delay(24),Actions.moveTo((ScreenWidth - game.calcSize(941,true))/2, StoryText4.getY(), 2),
-                run(new Runnable() {
-                    @Override
-                    public void run() {
-                        avance = 7;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-        StoryImage4.addAction(sequence(Actions.delay(28),Actions.moveTo((ScreenWidth - game.calcSize(962,true))/2, StoryImage4.getY(), 2),
-                run(new Runnable(){
-                    @Override
-                    public void run() {
-                        avance = 8;
-                        Gdx.app.log("STATUS", "avance: " + avance);
-                    }
-
-                })));
-
-
-
-
         stage.addActor(StoryText1);
         stage.addActor(StoryImage1);
         stage.addActor(StoryText2);
@@ -228,32 +148,184 @@ public class StoryScreen implements Screen {
         stage.draw();
         game.batch.end();
 
-        if (Gdx.input.isTouched()) {
-            //Aqui avanzar la animacion ¿¿¿???
-            Gdx.app.log("hola mundo", "Tap");
-            /*
-            StoryText1.addAction(sequence(Actions.moveTo((ScreenWidth - game.calcSize(855,true))/2, StoryText1.getY(), 2),
-                    run(new Runnable(){
+
+        if (Gdx.input.justTouched()) {
+            switch (avance) {
+                case 0:
+                    StoryText1.clearActions();
+                    StoryText1.setPosition((ScreenWidth - game.calcSize(855,true))/2, StoryText1.getY());
+                    IsRunningAction = false;
+                    avance = 1;
+                    break;
+                case 1:
+                    StoryImage1.clearActions();
+                    StoryImage1.setPosition((ScreenWidth - game.calcSize(965, true)) / 2, StoryImage1.getY());
+                    IsRunningAction = false;
+                    avance = 2;
+                    break;
+                case 2:
+                    StoryText2.clearActions();
+                    StoryText2.setPosition((ScreenWidth - game.calcSize(768,true))/2, StoryText2.getY());
+                    IsRunningAction = false;
+                    avance = 3;
+                    break;
+                case 3:
+                    StoryImage2.clearActions();
+                    StoryImage2.setPosition((ScreenWidth - game.calcSize(962,true))/2, StoryImage2.getY());
+                    IsRunningAction = false;
+                    avance = 4;
+                    break;
+                case 4:
+                    StoryText3.clearActions();
+                    StoryText3.setPosition((ScreenWidth - game.calcSize(757,true))/2, StoryText3.getY());
+                    IsRunningAction = false;
+                    avance = 5;
+                    break;
+                case 5:
+                    StoryImage3.clearActions();
+                    StoryImage3.setPosition((ScreenWidth - game.calcSize(965,true))/2, StoryImage3.getY());
+                    IsRunningAction = false;
+                    avance = 6;
+                    break;
+                case 6:
+                    StoryText4.clearActions();
+                    StoryText4.setPosition((ScreenWidth - game.calcSize(941,true))/2, StoryText4.getY());
+                    IsRunningAction = false;
+                    avance = 7;
+                    break;
+                case 7:
+                    StoryImage4.clearActions();
+                    StoryImage4.setPosition((ScreenWidth - game.calcSize(962,true))/2, StoryImage4.getY());
+                    IsRunningAction = false;
+                    avance = 8;
+                    break;
+            }
+        }
+
+        runActions();
+    }
+
+
+
+    private void runActions(){
+        if (avance == 0 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryText1.addAction(sequence(Actions.moveTo((ScreenWidth - game.calcSize(855, true)) / 2, StoryText1.getY(), 2),
+                    run(new Runnable() {
                         @Override
                         public void run() {
                             avance = 1;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
+                    })));
+        }
+        if (avance == 1 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryImage1.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(965, true)) / 2, StoryImage1.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 2;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
+                    })));
+        }
+        if (avance == 2 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryText2.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(768, true)) / 2, StoryText2.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 3;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
+                    })));
+        }
+        if (avance == 3 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryImage2.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(962, true)) / 2, StoryImage2.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 4;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
+                    })));
+        }
+        if (avance == 4 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryText3.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(757, true)) / 2, StoryText3.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 5;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
+                    })));
+        }
+        if (avance == 5 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryImage3.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(965, true)) / 2, StoryImage3.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 6;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
+                    })));
+        }
+        if (avance == 6 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryText4.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(941, true)) / 2, StoryText4.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 7;
+                            IsRunningAction = false;
                             Gdx.app.log("STATUS", "avance: " + avance);
                         }
 
                     })));
-            */
+        }
+        if (avance == 7 && IsRunningAction == false) {
+            IsRunningAction = true;
+            StoryImage4.addAction(sequence(Actions.delay(2), Actions.moveTo((ScreenWidth - game.calcSize(962, true)) / 2, StoryImage4.getY(), 2),
+                    run(new Runnable() {
+                        @Override
+                        public void run() {
+                            avance = 8;
+                            IsRunningAction = false;
+                            Gdx.app.log("STATUS", "avance: " + avance);
+                        }
 
+                    })));
         }
 
+    }
 
-
+    private void clearActions() {
+        StoryText1.clearActions();
+        StoryImage1.clearActions();
+        StoryText2.clearActions();
+        StoryImage2.clearActions();
+        StoryText3.clearActions();
+        StoryImage3.clearActions();
+        StoryText4.clearActions();
+        StoryImage4.clearActions();
 
     }
+
+
 
     @Override
     public void resize(int width, int height) {
     }
-
 
     @Override
     public void show() {
@@ -274,7 +346,5 @@ public class StoryScreen implements Screen {
 
     public void dispose() {
     }
-
-
 
 }
