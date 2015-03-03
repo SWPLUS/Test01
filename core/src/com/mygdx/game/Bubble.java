@@ -20,6 +20,7 @@ public class Bubble {
     public float sizeX;
     public float sizeY;
     public TextureRegion RegionBubble;
+    public int Level;
     private TextureAtlas AtlasBubble;
     private Animation AnimationBubble;
 
@@ -27,7 +28,8 @@ public class Bubble {
         NARANJA,LIMON,FRESA,PINA,MANGO,UVA
     }
 
-    public Bubble(int mySizeX, int mySizeY,int screenWidth,int screenHeight){
+    public Bubble(int mySizeX, int mySizeY,int screenWidth,int screenHeight, int lvl){
+        Level = lvl;
         Random randomX = new Random();
         sizeX = mySizeX;
         sizeY = mySizeY;
@@ -65,7 +67,7 @@ public class Bubble {
     }
 
     public void update(float delta){
-        Position.add(0,-2);
+        Position.add(0,-(Level * 2));
         stateTime += delta;
         RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
     }
