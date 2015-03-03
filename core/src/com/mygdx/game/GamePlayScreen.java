@@ -78,7 +78,7 @@ public class GamePlayScreen implements Screen {
                         float bIY = bubbles.items.get(i).Position.y;
                         float bFY= bubbles.items.get(i).Position.y + bubbles.items.get(i).sizeX;
                         if((pointedY >= bIY) && (pointedY <= bFY)){
-                        //    bubbles.items.get(i).Explode();
+                            bubbles.items.get(i).Explode();
                             Gdx.app.log("ahuevo", "Exploded");
                         }
                     }

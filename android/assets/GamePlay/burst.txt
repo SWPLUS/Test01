@@ -2,35 +2,35 @@ burst.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
-bt
+org_1
   rotate: false
   xy: 1527, 2
   size: 304, 303
   orig: 304, 303
   offset: 0, 0
   index: 1
-bt
+org_2
   rotate: false
   xy: 1199, 2
   size: 326, 324
   orig: 326, 324
   offset: 0, 0
   index: 2
-bt
+org_3
   rotate: false
   xy: 825, 2
   size: 372, 366
   orig: 372, 366
   offset: 0, 0
   index: 3
-bt
+org_4
   rotate: false
   xy: 425, 2
   size: 398, 384
   orig: 398, 384
   offset: 0, 0
   index: 4
-bt
+org_5
   rotate: false
   xy: 2, 2
   size: 421, 422

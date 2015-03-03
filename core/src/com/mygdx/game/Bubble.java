@@ -70,7 +70,11 @@ public class Bubble {
     public void update(float delta){
         Position.add(0,-((Level * 0.75f) * 2));
         stateTime += delta;
-        RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
+        if (!Exploted){
+            RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
+        } else {
+            RegionBubble = AnimationBubble.getKeyFrame(stateTime, false);
+        }
     }
 
     //public void dispose(){
@@ -84,7 +88,15 @@ public class Bubble {
     }
 
     public void Explode(){
-
+        Exploted = true;
+        AtlasBubble = BubblesAtlas.BurstAtlas;
+        AtlasRegion[] trAni = new AtlasRegion[5];
+        for(int ct = 0; ct < 5; ct++)
+        {
+            trAni[ct] =AtlasBubble.findRegion("org_" + (ct +1));
+        }
+        AnimationBubble = new Animation(0.20f, trAni);
+        stateTime = 0f;
     }
 
 }
