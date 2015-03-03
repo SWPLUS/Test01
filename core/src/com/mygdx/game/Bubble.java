@@ -31,7 +31,7 @@ public class Bubble {
         Random randomX = new Random();
         sizeX = mySizeX;
         sizeY = mySizeY;
-        Position = new Vector2(randomX.nextInt(screenWidth),screenHeight);
+        Position = new Vector2(randomX.nextInt((screenWidth - (0-(mySizeX/2)) + 1) + (mySizeX/2)),screenHeight);
         TipoFruta = randomEnum(Fruta.class);
         switch (TipoFruta){
             case NARANJA:
@@ -45,7 +45,6 @@ public class Bubble {
         AnimationBubble = new Animation(0.20f, trAni);
         stateTime = 0f;
     }
-    //asa
 
     public void update(float delta){
         Position.add(0,-2);
