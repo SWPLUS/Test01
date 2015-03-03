@@ -104,7 +104,6 @@ public class GamePlayScreen implements Screen {
                 Bubble b = i.next();
                 b.update(d);
                 if (b.Position.y < -(game.calcSize(306, false))) {
-                    b.dispose();
                     i.remove();
                 } else {
                     game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);

@@ -35,17 +35,17 @@ public class Bubble {
         TipoFruta = randomEnum(Fruta.class);
         switch (TipoFruta){
             case NARANJA:
-                AtlasBubble = new TextureAtlas("GamePlay/orange.txt");
-                AtlasRegion[] trAni = new AtlasRegion[8];
-                for(int ct = 0; ct < 8; ct++)
-                {
-                    trAni[ct] =AtlasBubble.findRegion("org_" + (ct +1));
-                    Gdx.app.log("my app", "org_" + (ct +1));
-                }
-                AnimationBubble = new Animation(0.20f, trAni);
-                stateTime = 0f;
+                AtlasBubble = BubblesAtlas.OrangeAtlas;
         }
+        AtlasRegion[] trAni = new AtlasRegion[8];
+        for(int ct = 0; ct < 8; ct++)
+        {
+            trAni[ct] =AtlasBubble.findRegion("org_" + (ct +1));
+        }
+        AnimationBubble = new Animation(0.20f, trAni);
+        stateTime = 0f;
     }
+    //asa
 
     public void update(float delta){
         Position.add(0,-2);
@@ -53,9 +53,9 @@ public class Bubble {
         RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
     }
 
-    public void dispose(){
-        AtlasBubble.dispose();
-    }
+    //public void dispose(){
+    //    AtlasBubble.dispose();
+    //}
 
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
         Random random = new Random();
