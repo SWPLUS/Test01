@@ -31,6 +31,7 @@ public class GamePlayScreen implements Screen {
 
     Texture img;
     Image imgBack;
+    final TextField txtScore;
 
     private BitmapFont font;
     private TextureAtlas AtlasHeader;
@@ -52,12 +53,6 @@ public class GamePlayScreen implements Screen {
         game = gam;
         Level = lev;
 
-
-
-        img = new Texture("Settings/background.png");
-        imgBack = new Image(img);
-        imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-
         AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
         SkinHeader = new Skin();
         SkinHeader.addRegions(AtlasHeader);
@@ -66,12 +61,22 @@ public class GamePlayScreen implements Screen {
         ScreenWidth = Gdx.graphics.getWidth();
         ScreenHeight = Gdx.graphics.getHeight();
 
+        img = new Texture("Settings/background.png");
+        imgBack = new Image(img);
+        imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
+
         stage = new Stage();
         //stage.clear();
 
-        TextField.TextFieldStyle style = new TextField.TextFieldStyle(game.getFont(16),com.badlogic.gdx.graphics.Color.BLUE,null,null,null);
-        final TextField txtScore = new TextField("0",style);
-        txtScore.setPosition(100,game.calcSize(1850,false));
+        Texture textureScore = new Texture("GamePlay/score-bar.png");
+        Image imgScore = new Image(textureScore);
+        TextField.TextFieldStyle style = new TextField.TextFieldStyle(game.getFont(16),com.badlogic.gdx.graphics.Color.BLUE,null,null,imgScore.getDrawable());
+        style.background.setLeftWidth(style.background.getLeftWidth() + 15);
+        style.background.setTopHeight(style.background.getTopHeight() + 8);
+        txtScore = new TextField("0",style);
+        txtScore.setWidth(game.calcSize(237,true));
+        txtScore.setHeight(game.calcSize(160,false));
+        txtScore.setPosition((ScreenWidth/2) - (game.calcSize(237,true) / 2),game.calcSize(1920-175,false));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -108,12 +113,9 @@ public class GamePlayScreen implements Screen {
         HeaderName = "levels-color-000" + Level;
         HeaderImage = new Image();
         HeaderImage.setDrawable(SkinHeader.getDrawable(HeaderName));
-        HeaderImage.setBounds(0,ScreenHeight - game.calcSize(138,false),
-                game.calcSize(1080,true),game.calcSize(138,false));
+        HeaderImage.setBounds(0,ScreenHeight - game.calcSize(190,false), game.calcSize(1080,true),game.calcSize(190,false));
 
         stage.addActor(imgBack);
-        stage.addActor(HeaderImage);
-        stage.addActor(txtScore);
 
 
         bubbles = new BubbleArray();
@@ -146,6 +148,11 @@ public class GamePlayScreen implements Screen {
                 }
             }
         }
+
+        //game.batch.draw(HeaderImage,0,ScreenHeight - game.calcSize(190,false), game.calcSize(1080,true),game.calcSize(190,false));
+        //game.batch.draw(txtScore,(ScreenWidth/2) - (game.calcSize(237,true) / 2),game.calcSize(1920-175,false),game.calcSize(237,true),game.calcSize(160,false));
+        HeaderImage.draw(game.batch,1);
+        txtScore.draw(game.batch,1);
 
         game.batch.end();
 

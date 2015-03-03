@@ -13,11 +13,9 @@ public class BubblesAtlas {
     public static TextureAtlas MangoAtlas = new TextureAtlas("GamePlay/mango.txt");
     public static TextureAtlas PineappleAtlas = new TextureAtlas("GamePlay/pineapple.txt");
     public static TextureAtlas StrawberryAtlas = new TextureAtlas("GamePlay/strawberry.txt");
-
     public static TextureAtlas DoubleAtlas = new TextureAtlas("GamePlay/double.txt");
     public static TextureAtlas SimpleAtlas = new TextureAtlas("GamePlay/simple.txt");
     public static TextureAtlas SheskoAtlas = new TextureAtlas("GamePlay/shesko.txt");
-
     public static TextureAtlas BurstAtlas = new TextureAtlas("GamePlay/burst.txt");
 
 }
