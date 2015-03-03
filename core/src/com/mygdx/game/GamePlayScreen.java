@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
+import com.badlogic.gdx.InputAdapter;
 
 /**
  * Created by Ivan on 02/03/15.
@@ -65,7 +66,25 @@ public class GamePlayScreen implements Screen {
 
         stage = new Stage();
         stage.clear();
-        Gdx.input.setInputProcessor(stage);
+
+        Gdx.input.setInputProcessor(new InputAdapter() {
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                int pointedX = screenX;
+                int pointedY = Gdx.graphics.getHeight() - screenY;
+                for(int i = 0; i<= bubbles.items.size()-1;i++){
+                    float bIX = bubbles.items.get(i).Position.x;
+                    float bFX= bubbles.items.get(i).Position.x + bubbles.items.get(i).sizeX;
+                    if((pointedX >= bIX) && (pointedX <= bFX)){
+                        float bIY = bubbles.items.get(i).Position.y;
+                        float bFY= bubbles.items.get(i).Position.y + bubbles.items.get(i).sizeX;
+                        if((pointedY >= bIY) && (pointedY <= bFY)){
+                        //    bubbles.items.get(i).Explode();
+                            Gdx.app.log("ahuevo", "Exploded");
+                        }
+                    }
+                }
+                return true;
+            }});
 
         HeaderName = "levels-color-000" + Level;
         HeaderImage = new Image();

@@ -21,6 +21,7 @@ public class Bubble {
     public float sizeY;
     public TextureRegion RegionBubble;
     public int Level;
+    public boolean Exploted;
     private TextureAtlas AtlasBubble;
     private Animation AnimationBubble;
 
@@ -80,6 +81,10 @@ public class Bubble {
         Random random = new Random();
         int x = random.nextInt(clazz.getEnumConstants().length);
         return clazz.getEnumConstants()[x];
+    }
+
+    public void Explode(){
+
     }
 
 }
