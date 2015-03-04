@@ -74,8 +74,8 @@ public class GamePlayScreen implements Screen {
         txtScore = new TextField("0",style);
         txtScore.setWidth(game.calcSize(237,true));
         txtScore.setHeight(game.calcSize(160,false));
-        style.background.setLeftWidth((game.calcSize(237,true)/2) - (game.getFont(16).getBounds("0").width/2));
-        style.background.setTopHeight(style.background.getTopHeight() + 12);
+        style.background.setLeftWidth((game.calcSize(237,true)/2) - (game.font.getBounds("0").width/2));
+        style.background.setTopHeight(style.background.getTopHeight() + 15);
         txtScore.setPosition((ScreenWidth/2) - (game.calcSize(237,true) / 2),game.calcSize(1920-175,false));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -95,12 +95,12 @@ public class GamePlayScreen implements Screen {
                                 if (b.TipoFruta != Bubble.Fruta.DOUBLE){
                                     Score += b.Explode();
                                     txtScore.setText(String.valueOf(Score));
-                                    //txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (game.getFont(16).getBounds(String.valueOf(Score)).width/2));
+                                    txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (game.font.getBounds(String.valueOf(Score)).width/2));
                                 } else {
                                     if (b.tappedUno) {
                                         Score += b.Explode();
                                         txtScore.setText(String.valueOf(Score));
-                                        //txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (game.getFont(16).getBounds(String.valueOf(Score)).width/2));
+                                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (game.font.getBounds(String.valueOf(Score)).width/2));
                                     } else {
                                         b.tappedUno = true;
                                     }

@@ -17,13 +17,14 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 public class MainScreen extends Game {
 
     public SpriteBatch batch;
-    public BitmapFont font;
+    //public BitmapFont font;
     public Music bgMusic;
 
     public Preferences prefs;
     public Boolean BoolMusic;
     public Boolean BoolSound;
     public Player player;
+    public static BitmapFont font;
 
 
     public void create() {
@@ -38,7 +39,7 @@ public class MainScreen extends Game {
 
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
-        font = new BitmapFont();
+        font = getFont(16);
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
         bgMusic.setLooping(true);
         this.setScreen(new MainMenuScreen(this));

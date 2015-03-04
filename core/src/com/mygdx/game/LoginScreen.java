@@ -5,7 +5,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -27,6 +30,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 //DIALOG
+import java.text.Format;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
@@ -93,10 +97,15 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
-                Texture blackBackground = new Texture("Login/regpasso1/background.png");
-                Image imgBackBlack = new Image(blackBackground);
-                imgBackBlack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-                stage.addActor(imgBackBlack);
+                int ScreenHeight = Gdx.graphics.getHeight();
+                int ScreenWidth = Gdx.graphics.getWidth();
+
+                //Pixmap background = new Pixmap(ScreenWidth, ScreenHeight, Pixmap.Format.RGBA8888);
+                //background.setColor(0, 0, 0, .6f);
+                //background.fillRectangle(0, 0, ScreenWidth,ScreenHeight);
+                //background.setBlending(Pixmap.Blending.None);
+                //Image imgBackBlack = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(background))));
+                //stage.addActor(imgBackBlack);
 
                 Texture dialogBackground = new Texture("Login/regpasso1/dialogo.png");
                 Image imgDialogBackground = new Image(dialogBackground);
@@ -104,7 +113,7 @@ public class LoginScreen implements Screen {
                 style.titleFont=new BitmapFont();
                 style.titleFontColor= Color.WHITE;
                 style.background =imgDialogBackground.getDrawable();
-                final com.mygdx.game.ModalDialog dialogo = new com.mygdx.game.ModalDialog(style);
+                final com.mygdx.game.ModalDialog dialogo = new com.mygdx.game.ModalDialog(style, stage);
 
                 //com.mygdx.game.ModalDialog
                 dialogo.setSize(game.calcSize(966, true),game.calcSize(1438, false));
@@ -119,7 +128,6 @@ public class LoginScreen implements Screen {
                         // Hmmmm...
                 //        dialogo.invalidate();
                 //        if (visible) {
-                            // TODO get OsK height somehow!!!
                 //            dialogo.padBottom(310);
                 //        } else {
                 //            dialogo.padBottom(0);
@@ -232,7 +240,6 @@ public class LoginScreen implements Screen {
 
                 container.setSize(dialogo.getWidth(),dialogo.getHeight());
                 dialogo.addActor(container);
-
 
             }
         });
