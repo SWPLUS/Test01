@@ -100,13 +100,6 @@ public class LoginScreen implements Screen {
                 int ScreenHeight = Gdx.graphics.getHeight();
                 int ScreenWidth = Gdx.graphics.getWidth();
 
-                //Pixmap background = new Pixmap(ScreenWidth, ScreenHeight, Pixmap.Format.RGBA8888);
-                //background.setColor(0, 0, 0, .6f);
-                //background.fillRectangle(0, 0, ScreenWidth,ScreenHeight);
-                //background.setBlending(Pixmap.Blending.None);
-                //Image imgBackBlack = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(background))));
-                //stage.addActor(imgBackBlack);
-
                 Texture dialogBackground = new Texture("Login/regpasso1/dialogo.png");
                 Image imgDialogBackground = new Image(dialogBackground);
                 Window.WindowStyle style=new Window.WindowStyle();
@@ -115,7 +108,6 @@ public class LoginScreen implements Screen {
                 style.background =imgDialogBackground.getDrawable();
                 final com.mygdx.game.ModalDialog dialogo = new com.mygdx.game.ModalDialog(style, stage);
 
-                //com.mygdx.game.ModalDialog
                 dialogo.setSize(game.calcSize(966, true),game.calcSize(1438, false));
                 dialogo.show(stage);
                 final Table container = new Table();

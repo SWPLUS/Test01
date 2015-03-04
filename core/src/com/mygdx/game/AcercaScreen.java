@@ -56,7 +56,7 @@ public class AcercaScreen implements Screen {
         textTerminos = file.readString();
         file = Gdx.files.internal("Settings/Acerca/aviso.txt");
         textAviso = file.readString();
-        font = new BitmapFont();
+        font = MainScreen.font;
 
         textStyle = new LabelStyle();
         textStyle.font = font;
