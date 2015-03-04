@@ -51,6 +51,11 @@ public class LoginScreen implements Screen {
     private BitmapFont font;
     private TextureAtlas AtlasLogin;
     private Skin SkinLogin;
+
+    private TextureAtlas AtlasDefault;
+    private Skin SkinDefault;
+
+
     TextButton btnRegistro;
     TextButton btnConnect;
     TextButton btnBack;
@@ -80,6 +85,11 @@ public class LoginScreen implements Screen {
         AtlasLogin = new TextureAtlas("Login/login.pack");
         SkinLogin = new Skin();
         SkinLogin.addRegions(AtlasLogin);
+
+        AtlasDefault = new TextureAtlas("uiskin.atlas");
+        SkinDefault = new Skin();
+        SkinDefault.addRegions(AtlasDefault);
+
 
         TextButton.TextButtonStyle registroSyle = new TextButton.TextButtonStyle();
         registroSyle.font = font;
@@ -304,13 +314,33 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
-                Login("swplus", "tokey");
+                //Login("swplus", "tokey");
                 //Login(txtUsername.getText(), txtPassword.getText());
-                Gdx.input.setOnscreenKeyboardVisible(false);
+                //Gdx.input.setOnscreenKeyboardVisible(false);
 
+                Skin uiSkin = new Skin(Gdx.files.internal("uiskin.json"));
+                Dialog dlg = new Dialog("Atención",uiSkin,"dialog") {
+                    {
+                        setModal(true);
+                        setPosition(0,0);
+                        text("Usuario o contraseña incorrecta");
+                        button("OK", "OK");
+                    }
+                    @Override
+                    protected void result (Object object){
+
+                    }
+                };
+                dlg.show(stage);
 
             }
         });
+
+
+        //Window.WindowStyle style=new Window.WindowStyle();
+        //style.titleFont=new BitmapFont();
+        //style.titleFontColor= Color.WHITE;
+
 
 
         stage.addActor(imgBack);
@@ -370,6 +400,9 @@ public class LoginScreen implements Screen {
 
 
                 } else {
+
+
+
                     Gdx.app.log("my app", "Usuario o contraseña incorrecta");
                 }
             }
