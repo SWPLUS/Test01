@@ -43,6 +43,7 @@ public class MainMenuScreen implements Screen {
         game = gam;
 
         img = new Texture("cover_0000s_0004_Cover.png");
+        img.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
@@ -67,6 +68,8 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage); //** stage is responsive **//
 
         TextButtonStyle style = new TextButtonStyle(); //** Button properties **//
+        buttonSkin.getRegion("coverdown").getTexture().setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
+        buttonSkin.getRegion("coverup").getTexture().setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         style.up = buttonSkin.getDrawable("coverdown");
         style.down = buttonSkin.getDrawable("coverup");
         style.font = font;
@@ -161,6 +164,7 @@ public class MainMenuScreen implements Screen {
     }
 
     public void dispose() {
+        img.dispose();
     }
 
     public int calcSize(int objSize,boolean width){

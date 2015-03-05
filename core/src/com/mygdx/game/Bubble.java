@@ -26,59 +26,65 @@ public class Bubble {
     private Animation AnimationBubble;
     public boolean ExplotedAndFinished;
     public boolean tappedUno;
+    private int[] speed = new int[2];
+    public int mySpeed;
 
     public enum Fruta {
-        NARANJA,LIMON,FRESA,PINA,MANGO,UVA,SHESKO,DOUBLE,SIMPLE
+        NARANJA,LIMON,FRESA,PINA,MANGO,UVA,DOUBLE,SHESKO //,DOUBLE,SIMPLE
     }
 
     public Bubble(int screenWidth,int screenHeight, int lvl){
         Level = lvl;
         Random randomX = new Random();
-        TipoFruta = randomEnum(Fruta.class);
-        switch (TipoFruta){
-            case NARANJA:
-                AtlasBubble = BubblesAtlas.OrangeAtlas;
-                break;
-            case LIMON:
-                AtlasBubble = BubblesAtlas.LemonAtlas;
-                break;
-            case FRESA:
-                AtlasBubble = BubblesAtlas.StrawberryAtlas;
-                break;
-            case PINA:
-                AtlasBubble = BubblesAtlas.PineappleAtlas;
-                break;
-            case MANGO:
-                AtlasBubble = BubblesAtlas.MangoAtlas;
-                break;
-            case UVA:
-                AtlasBubble = BubblesAtlas.GrapeAtlas;
-                break;
-            case SHESKO:
-                AtlasBubble = BubblesAtlas.SheskoAtlas;
-                break;
-            case DOUBLE:
-                AtlasBubble = BubblesAtlas.DoubleAtlas;
-                break;
-            case SIMPLE:
-                AtlasBubble = BubblesAtlas.SimpleAtlas;
-                break;
-        }
+            TipoFruta = randomEnum(Fruta.class);
+            switch (TipoFruta) {
+                case NARANJA:
+                    AtlasBubble = BubblesAtlas.OrangeAtlas;
+                    break;
+                case LIMON:
+                    AtlasBubble = BubblesAtlas.LemonAtlas;
+                    break;
+                case FRESA:
+                    AtlasBubble = BubblesAtlas.StrawberryAtlas;
+                    break;
+                case PINA:
+                    AtlasBubble = BubblesAtlas.PineappleAtlas;
+                    break;
+                case MANGO:
+                    AtlasBubble = BubblesAtlas.MangoAtlas;
+                    break;
+                case UVA:
+                    AtlasBubble = BubblesAtlas.GrapeAtlas;
+                    break;
+                case SHESKO:
+                    AtlasBubble = BubblesAtlas.SheskoAtlas;
+                    break;
+                case DOUBLE:
+                    AtlasBubble = BubblesAtlas.DoubleAtlas;
+                    break;
+            }
         AtlasRegion[] trAni = new AtlasRegion[8];
         for(int ct = 0; ct < 8; ct++)
         {
             trAni[ct] =AtlasBubble.findRegion("org_" + (ct +1));
         }
-        AnimationBubble = new Animation(0.20f, trAni);
+        AnimationBubble = new Animation(0.10f, trAni);
         stateTime = 0f;
         int midvalue = MainScreen.calcSize(trAni[0].getRegionWidth(),true) / 2;
         int min = 0-midvalue;
         int max = screenWidth - midvalue;
-        Position = new Vector2(randomX.nextInt((max - min) + 1) + min,screenHeight);
+        midvalue = randomX.nextInt((max - min) + 1) + min;
+        Position = new Vector2(midvalue,0-(trAni[0].getRegionHeight()));
+
+        speed = Levels.GetLevelPPF(Level,screenHeight);
+        min = speed[1];
+        max = speed[0];
+        mySpeed = randomX.nextInt((max - min)) + min;
+
     }
 
     public void update(float delta){
-        Position.add(0,-((Level * 0.75f) * MainScreen.calcSize(8,false)));
+        Position.add(0,MainScreen.calcSize(mySpeed,false));
         stateTime += delta;
         if (!Exploted){
             RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
@@ -89,10 +95,6 @@ public class Bubble {
             }
         }
     }
-
-    //public void dispose(){
-    //    AtlasBubble.dispose();
-    //}
 
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
         Random random = new Random();
@@ -108,20 +110,19 @@ public class Bubble {
         {
             trAni[ct] =AtlasBubble.findRegion("org_" + (ct +1));
         }
-        AnimationBubble = new Animation(0.20f, trAni);
+        AnimationBubble = new Animation(0.10f, trAni);
         stateTime = 0f;
 
         //TODO CONFORME EL TIPO DEL BUBBLE RETORNA UN SCORE DIFERENTE
-        switch (TipoFruta){
-            case SHESKO:
-                return -10;
-            case DOUBLE:
-                return 10;
-            case SIMPLE:
-                return 10;
-            default:
-                return 5;
-        }
+
+            switch (TipoFruta){
+                case DOUBLE:
+                    return 10;
+                case SHESKO:
+                    return -10;
+                default:
+                    return 5;
+            }
     }
 
 }

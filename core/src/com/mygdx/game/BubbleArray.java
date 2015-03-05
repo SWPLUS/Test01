@@ -8,15 +8,16 @@ import  java.util.*;
 
 public class BubbleArray {
 
-    public List<Bubble> items;
+    public List<Bubble> bubbles;
+    public List<Bubble> sheskos;
 
     public BubbleArray(){
-        items = new ArrayList<Bubble>();
+        bubbles = new ArrayList<Bubble>();
     }
 
     public void createNew(int screenWidth,int screenHeight,int lvl){
         Bubble bbl = new Bubble(screenWidth,screenHeight,lvl);
-        items.add(bbl);
+        bubbles.add(bbl);
     }
 
 }

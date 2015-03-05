@@ -82,7 +82,7 @@ public class GamePlayScreen implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 int pointedX = screenX;
                 int pointedY = Gdx.graphics.getHeight() - screenY;
-                java.util.Iterator<Bubble> i = bubbles.items.iterator();
+                java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
                 while (i.hasNext()) {
                     Bubble b = i.next();
                     if (!b.Exploted) {
@@ -105,6 +105,7 @@ public class GamePlayScreen implements Screen {
                                         b.tappedUno = true;
                                     }
                                 }
+                                break;
                             }
                         }
                     }
@@ -129,17 +130,25 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        if (bubbles.bubbles.size() == 0){
+            Timer.schedule(new Task(){
+                @Override
+                public void run() {
+                    bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level);
+                }}, 0,Levels.GetFruitDelay(Level) * 2);
+        }
+
         stage.draw();
 
         game.batch.begin();
 
         float d = Gdx.graphics.getDeltaTime();
-         if (bubbles.items.size() > 0) {
-            java.util.Iterator<Bubble> i = bubbles.items.iterator();
+        if (bubbles.bubbles.size() > 0) {
+            java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
             while (i.hasNext()) {
-                Bubble b = i.next();
-                b.update(d);
-                if (b.Position.y < -(game.calcSize(306, false))) {
+            Bubble b = i.next();
+            b.update(d);
+                if (b.Position.y > (game.calcSize(1920,false) + (game.calcSize(b.RegionBubble.getRegionHeight(), false)))) {
                     i.remove();
                 } else {
                     if (!b.ExplotedAndFinished){
@@ -165,11 +174,6 @@ public class GamePlayScreen implements Screen {
 
     @Override
     public void show() {
-        Timer.schedule(new Task(){
-            @Override
-            public void run() {
-                bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level);
-            }}, 0,(2 / (Level*0.75f)));
     }
 
     @Override
