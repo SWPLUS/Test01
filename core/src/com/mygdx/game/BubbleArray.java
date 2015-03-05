@@ -15,13 +15,13 @@ public class BubbleArray {
         bubbles = new ArrayList<Bubble>();
     }
 
-    public void createNew(int screenWidth,int screenHeight,int lvl){
-        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl,false);
+    public void createNew(int screenWidth,int screenHeight,int lvl, boolean left, boolean right){
+        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl,false,left,right);
         bubbles.add(bbl);
     }
 
-    public void createSpecial(int screenWidth,int screenHeight,int lvl){
-        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl,true);
+    public void createSpecial(int screenWidth,int screenHeight,int lvl, boolean left, boolean right){
+        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl,true,left,right);
         bubbles.add(bbl);
     }
 

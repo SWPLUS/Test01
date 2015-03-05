@@ -76,14 +76,15 @@ public class GamePlayScreen implements Screen {
         //stage.clear();
 
         Texture textureScore = new Texture("GamePlay/score-bar.png");
+        textureScore.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         Image imgScore = new Image(textureScore);
-        TextField.TextFieldStyle style = new TextField.TextFieldStyle(game.getFont(16),com.badlogic.gdx.graphics.Color.BLUE,null,null,imgScore.getDrawable());
+        TextField.TextFieldStyle style = new TextField.TextFieldStyle(MainScreen.fontScore,com.badlogic.gdx.graphics.Color.BLUE,null,null,imgScore.getDrawable());
         txtScore = new TextField("0",style);
-        txtScore.setWidth(game.calcSize(237,true));
-        txtScore.setHeight(game.calcSize(160,false));
+        txtScore.setWidth(game.calcSize((int)imgScore.getWidth(),true));
+        txtScore.setHeight(game.calcSize((int)imgScore.getHeight(),false));
         style.background.setLeftWidth((game.calcSize(237,true)/2) - (game.font.getBounds("0").width/2));
-        style.background.setTopHeight(style.background.getTopHeight() + 15);
-        txtScore.setPosition((ScreenWidth/2) - (game.calcSize(237,true) / 2),game.calcSize(1920-175,false));
+        style.background.setTopHeight(style.background.getTopHeight() + 26);
+        txtScore.setPosition((ScreenWidth/2) - (game.calcSize(237,true) / 2),((int)ScreenHeight - MainScreen.calcSize(138,false)) + MainScreen.calcSize((138-98)/2,false));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -102,24 +103,35 @@ public class GamePlayScreen implements Screen {
                                 if (b.TipoFruta != Bubble.Fruta.DOUBLE){
                                     Score += b.Explode();
                                     txtScore.setText(String.valueOf(Score));
-                                    txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.font.getBounds(String.valueOf(Score)).width/2));
+                                    txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width/2));
                                     plop.play();
                                 } else {
                                     if (b.tappedUno) {
                                         Score += b.Explode();
                                         txtScore.setText(String.valueOf(Score));
-                                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.font.getBounds(String.valueOf(Score)).width/2));
+                                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width/2));
                                         plop.play();
                                     } else {
                                         b.tappedUno = true;
                                     }
                                 }
                                 if ((Score >= nextFruit) && (nextFruit>0)){
-                                    Timer.schedule(new Task(){
-                                        @Override
-                                        public void run() {
-                                            bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),Level);
-                                        }}, 1);
+                                    if (Level != 6) {
+                                        Timer.schedule(new Task(){
+                                            @Override
+                                            public void run() {
+                                                //TODO IF LEVEL 6 RANDOM ORIENTATION
+                                                bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),Level,false,false);
+                                            }}, 1);
+                                    } else {
+                                        final boolean myLeft = Math.random() > 0.5;
+                                        Timer.schedule(new Task(){
+                                            @Override
+                                            public void run() {
+                                                //TODO IF LEVEL 6 RANDOM ORIENTATION
+                                                bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),Level,myLeft,!myLeft);
+                                            }}, 1);
+                                    }
                                     nextFruit = Levels.GetNextScoreSpecial(Level,nextFruit);
                                 }
                                 break;
@@ -133,7 +145,7 @@ public class GamePlayScreen implements Screen {
         HeaderName = "levels-color-000" + Level;
         HeaderImage = new Image();
         HeaderImage.setDrawable(SkinHeader.getDrawable(HeaderName));
-        HeaderImage.setBounds(0,ScreenHeight - game.calcSize(190,false), game.calcSize(1080,true),game.calcSize(190,false));
+        HeaderImage.setBounds(0,ScreenHeight - game.calcSize(138,false), game.calcSize(1080,true),game.calcSize(138,false));
 
         stage.addActor(imgBack);
 
@@ -149,11 +161,25 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if (bubbles.bubbles.size() == 0){
-            Timer.schedule(new Task(){
-                @Override
-                public void run() {
-                    bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level);
-                }}, 0,Levels.GetFruitDelay(Level) * 2);
+            if (Level != 6){
+                Timer.schedule(new Task(){
+                    @Override
+                    public void run() {
+                        bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level,false,false);
+                    }}, 0,Levels.GetFruitDelay(Level) * 2);
+            } else {
+                Timer.schedule(new Task(){
+                    @Override
+                    public void run() {
+                        bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level,true,false);
+                    }}, 0,Levels.GetFruitDelay(Level) * 2);
+                Timer.schedule(new Task(){
+                    @Override
+                    public void run() {
+                        bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level,false,true);
+                    }}, 0,Levels.GetFruitDelay(Level) * 2);
+            }
+
         }
 
         stage.draw();

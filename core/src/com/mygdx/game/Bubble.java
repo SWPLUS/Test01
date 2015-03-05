@@ -28,12 +28,14 @@ public class Bubble {
     public boolean tappedUno;
     private int[] speed = new int[2];
     public int mySpeed;
+    private boolean isLeft;
+    private boolean isRight;
 
     public enum Fruta {
         NARANJA,LIMON,FRESA,PINA,MANGO,UVA,DOUBLE,SHESKO //,DOUBLE,SIMPLE
     }
 
-    public Bubble(int screenWidth,int screenHeight, int lvl, boolean special){
+    public Bubble(int screenWidth,int screenHeight, int lvl, boolean special, boolean left, boolean right){
         Level = lvl;
         Random randomX = new Random();
         if (!special) {
@@ -72,13 +74,33 @@ public class Bubble {
         {
             trAni[ct] =AtlasBubble.findRegion("org_" + (ct +1));
         }
-        AnimationBubble = new Animation(0.10f, trAni);
+        float animationSpeed = 0.10f;
+        if (special){
+            animationSpeed = animationSpeed / 2;
+        }
+        AnimationBubble = new Animation(animationSpeed, trAni);
         stateTime = 0f;
-        int midvalue = MainScreen.calcSize(trAni[0].getRegionWidth(),true) / 2;
-        int min = 0-midvalue;
-        int max = screenWidth - midvalue;
-        midvalue = randomX.nextInt((max - min) + 1) + min;
-        Position = new Vector2(midvalue,0-(trAni[0].getRegionHeight()));
+        int min;
+        int max;
+        if ((!left) && (!right)){
+            int midvalue = MainScreen.calcSize(trAni[0].getRegionWidth(),true) / 2;
+            min = 0-midvalue;
+            max = screenWidth - midvalue;
+            midvalue = randomX.nextInt((max - min) + 1) + min;
+            Position = new Vector2(midvalue,0-(trAni[0].getRegionHeight()));
+        } else {
+            int midvalue = MainScreen.calcSize(trAni[0].getRegionHeight(),true) / 2;
+            min = 0-midvalue;
+            max = screenHeight - midvalue;
+            midvalue = randomX.nextInt((max - min) + 1) + min;
+            if (left){
+                Position = new Vector2(0-(trAni[0].getRegionWidth()),midvalue);
+                isLeft = true;
+            } else {
+                Position = new Vector2(screenHeight-(trAni[0].getRegionWidth()),midvalue);
+                isRight = true;
+            }
+        }
 
         speed = Levels.GetLevelPPF(Level,screenHeight);
         min = speed[1];
@@ -88,7 +110,15 @@ public class Bubble {
     }
 
     public void update(float delta){
-        Position.add(0,mySpeed);
+        if ((!isLeft) && (!isRight)){
+            Position.add(0,mySpeed);
+        } else {
+            if (isLeft){
+                Position.add(mySpeed,0);
+            } else {
+                Position.add(-mySpeed,0);
+            }
+        }
         stateTime += delta;
         if (!Exploted){
             RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);

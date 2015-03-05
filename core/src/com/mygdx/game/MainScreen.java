@@ -25,7 +25,7 @@ public class MainScreen extends Game {
     public Boolean BoolSound;
     public Player player;
     public static BitmapFont font;
-
+    public static BitmapFont fontScore;
 
     public void create() {
 
@@ -40,6 +40,7 @@ public class MainScreen extends Game {
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
         font = getFont(16);
+        fontScore = getScoreFont(18);
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
         bgMusic.setLooping(true);
         this.setScreen(new MainMenuScreen(this));
@@ -73,6 +74,12 @@ public class MainScreen extends Game {
 
     public BitmapFont getFont(int dp){
         com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/arial.ttf");
+        FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
+        return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
+    }
+
+    public BitmapFont getScoreFont(int dp){
+        com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/ufonts.com_house-a-rama-kingpin.ttf");
         FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
         return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
     }
