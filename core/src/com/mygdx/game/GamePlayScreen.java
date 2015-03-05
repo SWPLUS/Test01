@@ -134,7 +134,7 @@ public class GamePlayScreen implements Screen {
         game.batch.begin();
 
         float d = Gdx.graphics.getDeltaTime();
-        if (bubbles.items.size() > 0) {
+         if (bubbles.items.size() > 0) {
             java.util.Iterator<Bubble> i = bubbles.items.iterator();
             while (i.hasNext()) {
                 Bubble b = i.next();
