@@ -66,7 +66,7 @@ public class GamePlayScreen implements Screen {
         ScreenWidth = Gdx.graphics.getWidth();
         ScreenHeight = Gdx.graphics.getHeight();
 
-        plop = new Gdx.audio.newSound(Gdx.files.internal("plop.mp3"));
+        plop = Gdx.audio.newSound(Gdx.files.internal("plop.mp3"));
 
         img = new Texture("Settings/background.png");
         imgBack = new Image(img);
