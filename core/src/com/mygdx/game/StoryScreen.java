@@ -133,7 +133,7 @@ public class StoryScreen implements Screen {
         stage.addActor(StoryText4);
         stage.addActor(StoryImage4);
 
-        stage.addActor(ButtonBack);
+
 
     }
 
@@ -163,6 +163,7 @@ public class StoryScreen implements Screen {
                     StoryImage1.setPosition((ScreenWidth - game.calcSize(965, true)) / 2, StoryImage1.getY());
                     IsRunningAction = false;
                     avance = 2;
+
                     break;
                 case 2:
                     StoryText2.clearActions();
@@ -175,6 +176,7 @@ public class StoryScreen implements Screen {
                     StoryImage2.setPosition((ScreenWidth - game.calcSize(962,true))/2, StoryImage2.getY());
                     IsRunningAction = false;
                     avance = 4;
+                    stage.addActor(ButtonBack);
                     break;
                 case 4:
                     StoryText3.clearActions();
@@ -229,6 +231,7 @@ public class StoryScreen implements Screen {
                         public void run() {
                             avance = 2;
                             IsRunningAction = false;
+
                             Gdx.app.log("STATUS", "avance: " + avance);
                         }
                     })));
@@ -253,6 +256,7 @@ public class StoryScreen implements Screen {
                         public void run() {
                             avance = 4;
                             IsRunningAction = false;
+                            stage.addActor(ButtonBack);
                             Gdx.app.log("STATUS", "avance: " + avance);
                         }
                     })));
