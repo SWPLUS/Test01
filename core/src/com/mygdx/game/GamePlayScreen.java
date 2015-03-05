@@ -113,6 +113,7 @@ public class GamePlayScreen implements Screen {
                 return true;
             }});
 
+
         HeaderName = "levels-color-000" + Level;
         HeaderImage = new Image();
         HeaderImage.setDrawable(SkinHeader.getDrawable(HeaderName));
