@@ -16,7 +16,12 @@ public class BubbleArray {
     }
 
     public void createNew(int screenWidth,int screenHeight,int lvl){
-        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl);
+        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl,false);
+        bubbles.add(bbl);
+    }
+
+    public void createSpecial(int screenWidth,int screenHeight,int lvl){
+        Bubble bbl = new Bubble(screenWidth,screenHeight,lvl,true);
         bubbles.add(bbl);
     }
 

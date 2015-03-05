@@ -33,9 +33,10 @@ public class Bubble {
         NARANJA,LIMON,FRESA,PINA,MANGO,UVA,DOUBLE,SHESKO //,DOUBLE,SIMPLE
     }
 
-    public Bubble(int screenWidth,int screenHeight, int lvl){
+    public Bubble(int screenWidth,int screenHeight, int lvl, boolean special){
         Level = lvl;
         Random randomX = new Random();
+        if (!special) {
             TipoFruta = randomEnum(Fruta.class);
             switch (TipoFruta) {
                 case NARANJA:
@@ -63,6 +64,9 @@ public class Bubble {
                     AtlasBubble = BubblesAtlas.DoubleAtlas;
                     break;
             }
+        } else {
+            AtlasBubble = Levels.GetSpecialBubble(lvl);
+        }
         AtlasRegion[] trAni = new AtlasRegion[8];
         for(int ct = 0; ct < 8; ct++)
         {
@@ -84,7 +88,7 @@ public class Bubble {
     }
 
     public void update(float delta){
-        Position.add(0,MainScreen.calcSize(mySpeed,false));
+        Position.add(0,mySpeed);
         stateTime += delta;
         if (!Exploted){
             RegionBubble = AnimationBubble.getKeyFrame(stateTime, true);
@@ -114,7 +118,7 @@ public class Bubble {
         stateTime = 0f;
 
         //TODO CONFORME EL TIPO DEL BUBBLE RETORNA UN SCORE DIFERENTE
-
+        if (!(TipoFruta == null)){
             switch (TipoFruta){
                 case DOUBLE:
                     return 10;
@@ -123,6 +127,10 @@ public class Bubble {
                 default:
                     return 5;
             }
+        } else {
+            return 15;
+        }
+
     }
 
 }

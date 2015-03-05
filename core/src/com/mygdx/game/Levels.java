@@ -15,11 +15,22 @@ public class Levels {
 
     public static TextureAtlas GetSpecialBubble(int level){
 
-        if (level == 1){
-            return BubblesAtlas.SpecialOrangeAtlas;
+        switch (level){
+            case 1:
+                return BubblesAtlas.SpecialOrangeAtlas;
+            case 2:
+                return BubblesAtlas.SpecialLemonAtlas;
+            case 3:
+                return BubblesAtlas.SpecialStrawberryAtlas;
+            case 4:
+                return BubblesAtlas.SpecialPineappleAtlas;
+            case 5:
+                return BubblesAtlas.SpecialMangoAtlas;
+            case 6:
+                return BubblesAtlas.SpecialGrapeAtlas;
+            default:
+                return BubblesAtlas.SpecialOrangeAtlas;
         }
-
-        return BubblesAtlas.OrangeAtlas;
     }
 
     public static float GetFruitDelay(int level){
@@ -83,11 +94,153 @@ public class Levels {
                 seconds[1] = 5;
                 break;
         }
-        Gdx.app.log("myfps",String.valueOf(Gdx.graphics.getFramesPerSecond()));
+
         speed[0] = screenHeight / (int)(seconds[0] * Gdx.graphics.getFramesPerSecond());
         speed[1] = screenHeight / (int)(seconds[1] * Gdx.graphics.getFramesPerSecond());
-        Gdx.app.log("myfps",String.valueOf(speed[0]));
+
         return speed;
+    }
+
+    public static int GetNextScoreSpecial(int level, int lastScore){
+        int nextScore;
+        switch (level){
+            case 1:
+                switch (lastScore){
+                    case 0:
+                        nextScore = 45;
+                        break;
+                    case 45:
+                        nextScore = 90;
+                        break;
+                    case 90:
+                        nextScore = 135;
+                        break;
+                    case 135:
+                        nextScore = 180;
+                        break;
+                    case 180:
+                        nextScore = 225;
+                        break;
+                    default:
+                        nextScore = -1;
+                        break;
+                }
+                break;
+            case 2:
+                switch (lastScore){
+                    case 0:
+                        nextScore = 90;
+                        break;
+                    case 90:
+                        nextScore = 180;
+                        break;
+                    case 180:
+                        nextScore = 270;
+                        break;
+                    case 270:
+                        nextScore = 360;
+                        break;
+                    case 360:
+                        nextScore = 450;
+                        break;
+                    default:
+                        nextScore = -1;
+                        break;
+                }
+                break;
+            case 3:
+                switch (lastScore){
+                    case 0:
+                        nextScore = 135;
+                        break;
+                    case 135:
+                        nextScore = 270;
+                        break;
+                    case 270:
+                        nextScore = 405;
+                        break;
+                    case 405:
+                        nextScore = 540;
+                        break;
+                    case 540:
+                        nextScore = 675;
+                        break;
+                    default:
+                        nextScore = -1;
+                        break;
+                }
+                break;
+            case 4:
+                switch (lastScore){
+                    case 0:
+                        nextScore = 225;
+                        break;
+                    case 225:
+                        nextScore = 360;
+                        break;
+                    case 360:
+                        nextScore = 540;
+                        break;
+                    case 540:
+                        nextScore = 720;
+                        break;
+                    case 720:
+                        nextScore = 900;
+                        break;
+                    default:
+                        nextScore = -1;
+                        break;
+                }
+                break;
+            case 5:
+                switch (lastScore){
+                    case 0:
+                        nextScore = 270;
+                        break;
+                    case 270:
+                        nextScore = 540;
+                        break;
+                    case 540:
+                        nextScore = 810;
+                        break;
+                    case 810:
+                        nextScore = 1080;
+                        break;
+                    case 1800:
+                        nextScore = 1350;
+                        break;
+                    default:
+                        nextScore = -1;
+                        break;
+                }
+                break;
+            case 6:
+                switch (lastScore){
+                    case 0:
+                        nextScore = 360;
+                        break;
+                    case 360:
+                        nextScore = 720;
+                        break;
+                    case 720:
+                        nextScore = 1080;
+                        break;
+                    case 1080:
+                        nextScore = 1440;
+                        break;
+                    case 1440:
+                        nextScore = 1800;
+                        break;
+                    default:
+                        nextScore = -1;
+                        break;
+                }
+                break;
+                default:
+                    nextScore=-1;
+                    break;
+        }
+        return nextScore;
     }
 
 }
