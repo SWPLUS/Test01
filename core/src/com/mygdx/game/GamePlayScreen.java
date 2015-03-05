@@ -193,7 +193,11 @@ public class GamePlayScreen implements Screen {
             Bubble b = i.next();
             b.update(d);
                 if (b.Position.y > (game.calcSize(1920,false) + (game.calcSize(b.RegionBubble.getRegionHeight(), false)))) {
+                    Gdx.app.log("bubble","gonna be removed!");
                     i.remove();
+                    if ((!b.Exploted) && (b.TipoFruta != Bubble.Fruta.SHESKO)){
+                        Gdx.input.vibrate(500);
+                    }
                 } else {
                     if (!b.ExplotedAndFinished){
                         b.sizeX = game.calcSize(b.RegionBubble.getRegionWidth(),true);
