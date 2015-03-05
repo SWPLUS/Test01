@@ -148,13 +148,15 @@ public class GamePlayScreen implements Screen {
             while (i.hasNext()) {
             Bubble b = i.next();
             b.update(d);
+            TextureRegion tr = b.RegionBubble;
                 if (b.Position.y > (game.calcSize(1920,false) + (game.calcSize(b.RegionBubble.getRegionHeight(), false)))) {
                     i.remove();
                 } else {
                     if (!b.ExplotedAndFinished){
-                        b.sizeX = game.calcSize(b.RegionBubble.getRegionWidth(),true);
-                        b.sizeY = game.calcSize(b.RegionBubble.getRegionHeight(),false);
-                        game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                        b.sizeX = game.calcSize(tr.getRegionWidth(),true);
+                        b.sizeY = game.calcSize(tr.getRegionHeight(),false);
+                        //Gdx.app.log("my app", "" + tr.getRegionWidth() + " - " +  tr.getRegionHeight());
+                        game.batch.draw(tr, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
                     }
                 }
             }
