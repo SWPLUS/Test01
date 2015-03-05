@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.audio.Sound;
 
 import java.awt.Color;
 
@@ -40,19 +41,23 @@ public class GamePlayScreen implements Screen {
     private TextureRegion RegionOrange;
     private Animation AnimationOrange;
     private float ScreenWidth, ScreenHeight;
+    private int nextFruit;
 
     Image HeaderImage;
     String HeaderName;
     int Lives = 5;
     int Special = 0;
     private int Score;
-
+    private Sound plop;
     BubbleArray bubbles;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
         Level = lev;
 
+        //DUMMY BUBBLE TEXTURES INIT
+        AtlasHeader = BubblesAtlas.BurstAtlas;
+        //
         AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
         SkinHeader = new Skin();
         SkinHeader.addRegions(AtlasHeader);
@@ -60,6 +65,8 @@ public class GamePlayScreen implements Screen {
 
         ScreenWidth = Gdx.graphics.getWidth();
         ScreenHeight = Gdx.graphics.getHeight();
+
+        plop = new Gdx.audio.newSound(Gdx.files.internal("plop.mp3"));
 
         img = new Texture("Settings/background.png");
         imgBack = new Image(img);
@@ -95,15 +102,25 @@ public class GamePlayScreen implements Screen {
                                 if (b.TipoFruta != Bubble.Fruta.DOUBLE){
                                     Score += b.Explode();
                                     txtScore.setText(String.valueOf(Score));
-                                    txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (game.font.getBounds(String.valueOf(Score)).width/2));
+                                    txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.font.getBounds(String.valueOf(Score)).width/2));
+                                    plop.play();
                                 } else {
                                     if (b.tappedUno) {
                                         Score += b.Explode();
                                         txtScore.setText(String.valueOf(Score));
-                                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (game.font.getBounds(String.valueOf(Score)).width/2));
+                                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.font.getBounds(String.valueOf(Score)).width/2));
+                                        plop.play();
                                     } else {
                                         b.tappedUno = true;
                                     }
+                                }
+                                if ((Score >= nextFruit) && (nextFruit>0)){
+                                    Timer.schedule(new Task(){
+                                        @Override
+                                        public void run() {
+                                            bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),Level);
+                                        }}, 1);
+                                    nextFruit = Levels.GetNextScoreSpecial(Level,nextFruit);
                                 }
                                 break;
                             }
@@ -112,7 +129,6 @@ public class GamePlayScreen implements Screen {
                 }
                 return true;
             }});
-
 
         HeaderName = "levels-color-000" + Level;
         HeaderImage = new Image();
@@ -123,6 +139,7 @@ public class GamePlayScreen implements Screen {
 
 
         bubbles = new BubbleArray();
+        nextFruit = Levels.GetNextScoreSpecial(Level,0);
 
     }
 
@@ -149,15 +166,13 @@ public class GamePlayScreen implements Screen {
             while (i.hasNext()) {
             Bubble b = i.next();
             b.update(d);
-            TextureRegion tr = b.RegionBubble;
                 if (b.Position.y > (game.calcSize(1920,false) + (game.calcSize(b.RegionBubble.getRegionHeight(), false)))) {
                     i.remove();
                 } else {
                     if (!b.ExplotedAndFinished){
-                        b.sizeX = game.calcSize(tr.getRegionWidth(),true);
-                        b.sizeY = game.calcSize(tr.getRegionHeight(),false);
-                        //Gdx.app.log("my app", "" + tr.getRegionWidth() + " - " +  tr.getRegionHeight());
-                        game.batch.draw(tr, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                        b.sizeX = game.calcSize(b.RegionBubble.getRegionWidth(),true);
+                        b.sizeY = game.calcSize(b.RegionBubble.getRegionHeight(),false);
+                        game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
                     }
                 }
             }
