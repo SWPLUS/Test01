@@ -5,23 +5,18 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.Net.HttpRequest;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
 import org.json.JSONObject;
 
 //BUTONES Y IMAGENES
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -30,15 +25,14 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 
 //DIALOG
-import java.text.Format;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 
 /**
  * Created by Ivan on 24/02/15.
+ * Last Modified by Luis Mirandela on 06/03/2015
  */
 
 
@@ -48,9 +42,9 @@ public class LoginScreen implements Screen {
 
     Texture img;
     Image imgBack;
-    private BitmapFont font;
-    private TextureAtlas AtlasLogin;
-    private Skin SkinLogin;
+    BitmapFont font;
+    TextureAtlas AtlasLogin;
+    Skin SkinLogin;
     TextButton btnRegistro;
     TextButton btnConnect;
     TextButton btnBack;
@@ -86,9 +80,9 @@ public class LoginScreen implements Screen {
         registroSyle.up = SkinLogin.getDrawable("registraup");
         registroSyle.down = SkinLogin.getDrawable("registradown");
         btnRegistro = new TextButton("",registroSyle);
-        btnRegistro.setPosition((Gdx.graphics.getWidth() / 2) - game.calcSize(281,true), game.calcSize(650,false));
-        btnRegistro.setHeight(game.calcSize(157,false));
-        btnRegistro.setWidth(game.calcSize(562,true));
+        btnRegistro.setPosition((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize(281,true), MainScreen.calcSize(650,false));
+        btnRegistro.setHeight(MainScreen.calcSize(157,false));
+        btnRegistro.setWidth(MainScreen.calcSize(562,true));
         btnRegistro.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed");
@@ -97,8 +91,8 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
-                int ScreenHeight = Gdx.graphics.getHeight();
-                int ScreenWidth = Gdx.graphics.getWidth();
+                //int ScreenHeight = Gdx.graphics.getHeight();
+                //int ScreenWidth = Gdx.graphics.getWidth();
 
                 Texture dialogBackground = new Texture("Login/regpasso1/dialogo.png");
                 Image imgDialogBackground = new Image(dialogBackground);
@@ -108,24 +102,9 @@ public class LoginScreen implements Screen {
                 style.background =imgDialogBackground.getDrawable();
                 final com.mygdx.game.ModalDialog dialogo = new com.mygdx.game.ModalDialog(style, stage);
 
-                dialogo.setSize(game.calcSize(966, true),game.calcSize(1438, false));
+                dialogo.setSize(MainScreen.calcSize(966, true),MainScreen.calcSize(1438, false));
                 dialogo.show(stage);
                 final Table container = new Table();
-                //TextField.OnscreenKeyboard keyboard = new TextField.OnscreenKeyboard() {
-                //@Override
-                //    public void show(boolean visible) {
-                //    Gdx.app.log("keyboard", "opening with");
-                //    Gdx.app.log("keyboard", game.valueOf(visible));
-                //        Gdx.input.setOnscreenKeyboardVisible(visible);
-                        // Hmmmm...
-                //        dialogo.invalidate();
-                //        if (visible) {
-                //            dialogo.padBottom(310);
-                //        } else {
-                //            dialogo.padBottom(0);
-                //        }
-                //    }
-                //};
 
                 TextureAtlas atlasRegPasso1 = new TextureAtlas("Login/regpasso1/regpasso1.pack");
                 TextureAtlas atlasseguinte = new TextureAtlas("Login/regpasso1/btnseguinte.pack");
@@ -136,9 +115,9 @@ public class LoginScreen implements Screen {
                 txtButtonStyle.up = skinRegPasso1.getDrawable("seguinteon");
                 txtButtonStyle.down = skinRegPasso1.getDrawable("seguinteoff");
                 TextButton btnSeguinte = new TextButton("",txtButtonStyle);
-                btnSeguinte.setPosition((dialogo.getWidth()/2) - game.calcSize(155,true),game.calcSize(55,false));
-                btnSeguinte.setWidth(game.calcSize(310,true));
-                btnSeguinte.setHeight(game.calcSize(112,false));
+                btnSeguinte.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(155,true),MainScreen.calcSize(55,false));
+                btnSeguinte.setWidth(MainScreen.calcSize(310,true));
+                btnSeguinte.setHeight(MainScreen.calcSize(112,false));
                 btnSeguinte.addListener(new InputListener() {
                     public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                         Gdx.app.log("my app", "Pressed");
@@ -147,6 +126,7 @@ public class LoginScreen implements Screen {
                     public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                         Gdx.app.log("my app", "Released");
                         container.setVisible(false);
+
                     }
                 });
 
@@ -157,64 +137,64 @@ public class LoginScreen implements Screen {
                 txtStyle.background.setLeftWidth(txtStyle.background.getLeftWidth() + 10);
 
                 TextField txtCorreo = new TextField("",txtStyle);
-                txtCorreo.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(227,false));
-                txtCorreo.setWidth(game.calcSize(665,true));
-                txtCorreo.setHeight(game.calcSize(92,false));
+                txtCorreo.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(227,false));
+                txtCorreo.setWidth(MainScreen.calcSize(665,true));
+                txtCorreo.setHeight(MainScreen.calcSize(92,false));
 
                 Image imgCorreo = new Image(skinRegPasso1.getDrawable("correo"));
-                imgCorreo.setPosition((dialogo.getWidth()/2) - game.calcSize(86,true),game.calcSize(334,false));
-                imgCorreo.setWidth(game.calcSize(193,true));
-                imgCorreo.setHeight(game.calcSize(34, false));
+                imgCorreo.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(86,true),MainScreen.calcSize(334,false));
+                imgCorreo.setWidth(MainScreen.calcSize(193,true));
+                imgCorreo.setHeight(MainScreen.calcSize(34, false));
 
                 TextField txtRepiteContrasena = new TextField("",txtStyle);
-                txtRepiteContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(428,false));
-                txtRepiteContrasena.setWidth(game.calcSize(665,true));
-                txtRepiteContrasena.setHeight(game.calcSize(92,false));
+                txtRepiteContrasena.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(428,false));
+                txtRepiteContrasena.setWidth(MainScreen.calcSize(665,true));
+                txtRepiteContrasena.setHeight(MainScreen.calcSize(92,false));
 
                 Image imgRepiteContrasena = new Image(skinRegPasso1.getDrawable("repitecontrasena"));
-                imgRepiteContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(285,true),game.calcSize(534,false));
-                imgRepiteContrasena.setWidth(game.calcSize(571,true));
-                imgRepiteContrasena.setHeight(game.calcSize(44,false));
+                imgRepiteContrasena.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(285,true),MainScreen.calcSize(534,false));
+                imgRepiteContrasena.setWidth(MainScreen.calcSize(571,true));
+                imgRepiteContrasena.setHeight(MainScreen.calcSize(44,false));
 
                 TextField txtContrasena = new TextField("",txtStyle);
-                txtContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(639,false));
-                txtContrasena.setWidth(game.calcSize(665,true));
-                txtContrasena.setHeight(game.calcSize(92,false));
+                txtContrasena.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(639,false));
+                txtContrasena.setWidth(MainScreen.calcSize(665,true));
+                txtContrasena.setHeight(MainScreen.calcSize(92,false));
 
                 Image imgContrasena = new Image(skinRegPasso1.getDrawable("contrasena"));
-                imgContrasena.setPosition((dialogo.getWidth()/2) - game.calcSize(161,true),game.calcSize(746,false));
-                imgContrasena.setWidth(game.calcSize(322,true));
-                imgContrasena.setHeight(game.calcSize(44,false));
+                imgContrasena.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(161,true),MainScreen.calcSize(746,false));
+                imgContrasena.setWidth(MainScreen.calcSize(322,true));
+                imgContrasena.setHeight(MainScreen.calcSize(44,false));
 
                 TextField txtUsuario = new TextField("",txtStyle);
-                txtUsuario.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(850,false));
-                txtUsuario.setWidth(game.calcSize(665,true));
-                txtUsuario.setHeight(game.calcSize(92,false));
+                txtUsuario.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(850,false));
+                txtUsuario.setWidth(MainScreen.calcSize(665,true));
+                txtUsuario.setHeight(MainScreen.calcSize(92,false));
 
                 Image imgUsuario = new Image(skinRegPasso1.getDrawable("usuario"));
-                imgUsuario.setPosition((dialogo.getWidth()/2) - game.calcSize(248,true),game.calcSize(957,false));
-                imgUsuario.setWidth(game.calcSize(496,true));
-                imgUsuario.setHeight(game.calcSize(35,false));
+                imgUsuario.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(248,true),MainScreen.calcSize(957,false));
+                imgUsuario.setWidth(MainScreen.calcSize(496,true));
+                imgUsuario.setHeight(MainScreen.calcSize(35,false));
 
                 TextField txtApellido = new TextField("",txtStyle);
-                txtApellido.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(1052,false));
-                txtApellido.setWidth(game.calcSize(665,true));
-                txtApellido.setHeight(game.calcSize(92,false));
+                txtApellido.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(1052,false));
+                txtApellido.setWidth(MainScreen.calcSize(665,true));
+                txtApellido.setHeight(MainScreen.calcSize(92,false));
 
                 Image imgApellido = new Image(skinRegPasso1.getDrawable("apellido"));
-                imgApellido.setPosition((dialogo.getWidth()/2) - game.calcSize(111,true),game.calcSize(1159,false));
-                imgApellido.setWidth(game.calcSize(222,true));
-                imgApellido.setHeight(game.calcSize(32,false));
+                imgApellido.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(111,true),MainScreen.calcSize(1159,false));
+                imgApellido.setWidth(MainScreen.calcSize(222,true));
+                imgApellido.setHeight(MainScreen.calcSize(32,false));
 
                 TextField txtNombre = new TextField("",txtStyle);
-                txtNombre.setPosition((dialogo.getWidth()/2) - game.calcSize(332,true),game.calcSize(1251,false));
-                txtNombre.setWidth(game.calcSize(665,true));
-                txtNombre.setHeight(game.calcSize(92,false));
+                txtNombre.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(1251,false));
+                txtNombre.setWidth(MainScreen.calcSize(665,true));
+                txtNombre.setHeight(MainScreen.calcSize(92,false));
 
                 Image imgNombre = new Image(skinRegPasso1.getDrawable("nombre"));
-                imgNombre.setPosition((dialogo.getWidth()/2) - game.calcSize(87,true),game.calcSize(1358,false));
-                imgNombre.setWidth(game.calcSize(194,true));
-                imgNombre.setHeight(game.calcSize(35,false));
+                imgNombre.setPosition((dialogo.getWidth()/2) - MainScreen.calcSize(87,true),MainScreen.calcSize(1358,false));
+                imgNombre.setWidth(MainScreen.calcSize(194,true));
+                imgNombre.setHeight(MainScreen.calcSize(35,false));
 
                 container.addActor(btnSeguinte);
                 container.addActor(txtCorreo);
@@ -241,22 +221,22 @@ public class LoginScreen implements Screen {
         backSyle.up = SkinLogin.getDrawable("loginup");
         backSyle.down = SkinLogin.getDrawable("logindown");
         btnBack = new TextButton("",backSyle);
-        btnBack.setPosition((Gdx.graphics.getWidth() / 2) - game.calcSize(113,true), game.calcSize(100,false));
-        btnBack.setHeight(game.calcSize(204,false));
-        btnBack.setWidth(game.calcSize(226,true));
+        btnBack.setPosition((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize(113,true), MainScreen.calcSize(100,false));
+        btnBack.setHeight(MainScreen.calcSize(204,false));
+        btnBack.setWidth(MainScreen.calcSize(226,true));
 
         logo = new Texture("Login/tanglogo.png");
         imgLogo = new Image(logo);
-        imgLogo.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((432 / 2),true),game.calcSize(1820 - 241,false),game.calcSize(432,true),game.calcSize(241,false));
+        imgLogo.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((432 / 2),true),MainScreen.calcSize(1820 - 241,false),MainScreen.calcSize(432,true),MainScreen.calcSize(241,false));
 
         imgOlvide = new Image();
         imgOlvide.setDrawable(SkinLogin.getDrawable("olvidecontrasena"));
-        imgOlvide.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((426 / 2),true),game.calcSize(520,false),game.calcSize(426,true),game.calcSize(44,false));
+        imgOlvide.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((426 / 2),true),MainScreen.calcSize(520,false),MainScreen.calcSize(426,true),MainScreen.calcSize(44,false));
 
         imgUsuario = new Image();
         imgUsuario.setDrawable(SkinLogin.getDrawable("usuariotang"));
         Gdx.app.log("gotDrawable", "usuariotang");
-        imgUsuario.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((671 / 2),true),game.calcSize(1459-46,false),game.calcSize(671,true),game.calcSize(44,false));
+        imgUsuario.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((671 / 2),true),MainScreen.calcSize(1459-46,false),MainScreen.calcSize(671,true),MainScreen.calcSize(44,false));
 
         TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(font, Color.BLACK,null,null,SkinLogin.getDrawable("cajatexto"));
         FileHandle file = Gdx.files.internal("fonts/font.fnt");
@@ -268,14 +248,14 @@ public class LoginScreen implements Screen {
         txtStyle.cursor = imgCursor.getDrawable();
         //txtStyle.cursor.setTopHeight(game.calcSize(125,false));
         txtUsername = new TextField("",txtStyle);
-        txtUsername.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((811 / 2),true),game.calcSize(1459-48-133,false),game.calcSize(811,true),game.calcSize(133,false));
+        txtUsername.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((811 / 2),true),MainScreen.calcSize(1459-48-133,false),MainScreen.calcSize(811,true),MainScreen.calcSize(133,false));
 
         imgPassword = new Image();
         imgPassword.setDrawable(SkinLogin.getDrawable("contrasena"));
-        imgPassword.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((385 / 2),true),game.calcSize(1459-181-58,false),game.calcSize(385,true),game.calcSize(56,false));
+        imgPassword.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((385 / 2),true),MainScreen.calcSize(1459-181-58,false),MainScreen.calcSize(385,true),MainScreen.calcSize(56,false));
 
         txtPassword = new TextField("",txtStyle);
-        txtPassword.setBounds((Gdx.graphics.getWidth() / 2) - game.calcSize((811 / 2),true),game.calcSize(1459-181-60-133,false),game.calcSize(811,true),game.calcSize(133,false));
+        txtPassword.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((811 / 2),true),MainScreen.calcSize(1459-181-60-133,false),MainScreen.calcSize(811,true),MainScreen.calcSize(133,false));
         txtPassword.setPasswordMode(true);
         txtPassword.setPasswordCharacter('*');
 
@@ -285,9 +265,9 @@ public class LoginScreen implements Screen {
         connectSyle.up = SkinLogin.getDrawable("conectaup");
         connectSyle.down = SkinLogin.getDrawable("conectadown");
         btnConnect = new TextButton("",connectSyle);
-        btnConnect.setPosition((Gdx.graphics.getWidth() / 2) - game.calcSize(281,true), game.calcSize(700,false) + game.calcSize(157,false) );
-        btnConnect.setHeight(game.calcSize(157,false));
-        btnConnect.setWidth(game.calcSize(563,true));
+        btnConnect.setPosition((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize(281,true), MainScreen.calcSize(700,false) + MainScreen.calcSize(157,false) );
+        btnConnect.setHeight(MainScreen.calcSize(157,false));
+        btnConnect.setWidth(MainScreen.calcSize(563,true));
         btnConnect.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed");
@@ -343,7 +323,7 @@ public class LoginScreen implements Screen {
                     game.player.LastName = user_data.getString("last_name");
                     game.player.Mail = user_data.getString("email");
 
-                    List<GameData> DataList = new  ArrayList<GameData>();
+                    List<GameData> DataList = new  ArrayList<>();
                     Iterator<?> keys = game_data.keys();
                     while (keys.hasNext()) {
                         String key = (String) keys.next();
