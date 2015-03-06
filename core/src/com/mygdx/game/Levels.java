@@ -243,4 +243,81 @@ public class Levels {
         return nextScore;
     }
 
+    public static int GetCheskoLimit(int lvl){
+
+        int returnValue;
+        switch (lvl){
+            case 2:
+                returnValue = 15;
+                break;
+            case 3:
+                returnValue = 10;
+                break;
+            case 4:
+                returnValue = 7;
+                break;
+            case 5:
+                returnValue = 7;
+                break;
+            case 6:
+                returnValue = 15;
+                break;
+            default:
+                returnValue = 0;
+                break;
+        }
+        return returnValue;
+
+    }
+
+    public static int GetDoubleLimit(int lvl){
+
+        int returnValue;
+        switch (lvl){
+            case 3:
+                returnValue = 15;
+                break;
+            case 4:
+                returnValue = 20;
+                break;
+            case 5:
+                returnValue = 10;
+                break;
+            case 6:
+                returnValue = 20;
+                break;
+            default:
+                returnValue = 0;
+                break;
+        }
+        return returnValue;
+
+    }
+
+    public static int GetLevelMaxScore(int lvl) {
+
+        int returnValue;
+        switch (lvl){
+            case 1:
+                returnValue=250;
+                break;
+            case 2:
+                returnValue=500;
+                break;
+            case 3:
+                returnValue=750;
+                break;
+            case 4:
+                returnValue=1250;
+                break;
+            case 5:
+                returnValue=1500;
+                break;
+            default:
+                returnValue=2000;
+                break;
+        }
+        return returnValue;
+
+    }
 }

@@ -6,10 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+//import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+//import com.badlogic.gdx.graphics.g2d.Animation;
+//import com.badlogic.gdx.graphics.g2d.TextureRegion;
+//import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -19,10 +19,9 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.audio.Sound;
 
-import java.awt.Color;
-
 /**
  * Created by Ivan on 02/03/15.
+ * Last Modified by Luis Mirandela on 06/03/2015
  */
 public class GamePlayScreen implements Screen {
 
@@ -34,27 +33,25 @@ public class GamePlayScreen implements Screen {
     Image imgBack;
     final TextField txtScore;
 
-    private BitmapFont font;
-    private TextureAtlas AtlasHeader;
-    private Skin SkinHeader;
-    private TextureAtlas AtlasOrange;
-    private TextureRegion RegionOrange;
-    private Animation AnimationOrange;
-    private float ScreenWidth, ScreenHeight;
+    BitmapFont font;
+    TextureAtlas AtlasHeader;
+    Skin SkinHeader;
+    float ScreenWidth, ScreenHeight;
     private int nextFruit;
 
     Image HeaderImage;
     String HeaderName;
     int Lives = 5;
-    int Special = 0;
     private int Score;
     private Sound plop;
     BubbleArray bubbles;
+    int MaxScore;
+    boolean gameFinished;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
         Level = lev;
-
+        MaxScore = Levels.GetLevelMaxScore(Level);
         //DUMMY BUBBLE TEXTURES INIT
         AtlasHeader = BubblesAtlas.BurstAtlas;
         //
@@ -80,27 +77,27 @@ public class GamePlayScreen implements Screen {
         Image imgScore = new Image(textureScore);
         TextField.TextFieldStyle style = new TextField.TextFieldStyle(MainScreen.fontScore,com.badlogic.gdx.graphics.Color.BLUE,null,null,imgScore.getDrawable());
         txtScore = new TextField("0",style);
-        txtScore.setWidth(game.calcSize((int)imgScore.getWidth(),true));
-        txtScore.setHeight(game.calcSize((int)imgScore.getHeight(),false));
-        style.background.setLeftWidth((game.calcSize(237,true)/2) - (game.font.getBounds("0").width/2));
+        txtScore.setWidth(MainScreen.calcSize((int)imgScore.getWidth(),true));
+        txtScore.setHeight(MainScreen.calcSize((int)imgScore.getHeight(),false));
+        style.background.setLeftWidth((MainScreen.calcSize(237,true)/2) - (MainScreen.font.getBounds("0").width/2));
         style.background.setTopHeight(style.background.getTopHeight() + 26);
-        txtScore.setPosition((ScreenWidth/2) - (game.calcSize(237,true) / 2),((int)ScreenHeight - MainScreen.calcSize(138,false)) + MainScreen.calcSize((138-98)/2,false));
+        txtScore.setPosition((ScreenWidth/2) - (MainScreen.calcSize(237,true) / 2),((int)ScreenHeight - MainScreen.calcSize(138,false)) + MainScreen.calcSize((138-98)/2,false));
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                int pointedX = screenX;
-                int pointedY = Gdx.graphics.getHeight() - screenY;
-                java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
-                while (i.hasNext()) {
-                    Bubble b = i.next();
+                screenY = Gdx.graphics.getHeight() - screenY;
+                //java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
+                //while (i.hasNext()) {
+                 //   Bubble b = i.next();
+                for (Bubble b : bubbles.bubbles) {
                     if (!b.Exploted) {
                         float bIX = b.Position.x;
                         float bFX = b.Position.x + b.sizeX;
-                        if ((pointedX >= bIX) && (pointedX <= bFX)) {
+                        if ((screenX >= bIX) && (screenX <= bFX)) {
                             float bIY = b.Position.y;
                             float bFY = b.Position.y + b.sizeY;
-                            if ((pointedY >= bIY) && (pointedY <= bFY)) {
-                                if (b.TipoFruta != Bubble.Fruta.DOUBLE){
+                            if ((screenY >= bIY) && (screenY <= bFY)) {
+                                if (b.trapType != 3){
                                     Score += b.Explode();
                                     txtScore.setText(String.valueOf(Score));
                                     txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width/2));
@@ -120,19 +117,21 @@ public class GamePlayScreen implements Screen {
                                         Timer.schedule(new Task(){
                                             @Override
                                             public void run() {
-                                                //TODO IF LEVEL 6 RANDOM ORIENTATION
-                                                bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),Level,false,false);
+                                                bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
                                             }}, 1);
                                     } else {
                                         final boolean myLeft = Math.random() > 0.5;
                                         Timer.schedule(new Task(){
                                             @Override
                                             public void run() {
-                                                //TODO IF LEVEL 6 RANDOM ORIENTATION
-                                                bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),Level,myLeft,!myLeft);
+                                                bubbles.createSpecial(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),myLeft,!myLeft);
                                             }}, 1);
                                     }
                                     nextFruit = Levels.GetNextScoreSpecial(Level,nextFruit);
+                                }
+                                if (Score >= MaxScore){
+                                    gameFinished = true;
+                                    Timer.instance().clear();
                                 }
                                 break;
                             }
@@ -145,12 +144,12 @@ public class GamePlayScreen implements Screen {
         HeaderName = "levels-color-000" + Level;
         HeaderImage = new Image();
         HeaderImage.setDrawable(SkinHeader.getDrawable(HeaderName));
-        HeaderImage.setBounds(0,ScreenHeight - game.calcSize(138,false), game.calcSize(1080,true),game.calcSize(138,false));
+        HeaderImage.setBounds(0,ScreenHeight - MainScreen.calcSize(138,false), MainScreen.calcSize(1080,true),MainScreen.calcSize(138,false));
 
         stage.addActor(imgBack);
 
 
-        bubbles = new BubbleArray();
+        bubbles = new BubbleArray(Level);
         nextFruit = Levels.GetNextScoreSpecial(Level,0);
 
     }
@@ -165,21 +164,20 @@ public class GamePlayScreen implements Screen {
                 Timer.schedule(new Task(){
                     @Override
                     public void run() {
-                        bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level,false,false);
+                        bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
                     }}, 0,Levels.GetFruitDelay(Level) * 2);
             } else {
                 Timer.schedule(new Task(){
                     @Override
                     public void run() {
-                        bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level,true,false);
+                        bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),true,false);
                     }}, 0,Levels.GetFruitDelay(Level) * 2);
                 Timer.schedule(new Task(){
                     @Override
                     public void run() {
-                        bubbles.createNew(game.calcSize(1080,false),game.calcSize(1980,false),Level,false,true);
+                        bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,true);
                     }}, 0,Levels.GetFruitDelay(Level) * 2);
             }
-
         }
 
         stage.draw();
@@ -187,29 +185,34 @@ public class GamePlayScreen implements Screen {
         game.batch.begin();
 
         float d = Gdx.graphics.getDeltaTime();
-        if (bubbles.bubbles.size() > 0) {
-            java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
-            while (i.hasNext()) {
-            Bubble b = i.next();
-            b.update(d);
-                if (b.Position.y > (game.calcSize(1920,false) + (game.calcSize(b.RegionBubble.getRegionHeight(), false)))) {
-                    Gdx.app.log("bubble","gonna be removed!");
-                    i.remove();
-                    if ((!b.Exploted) && (b.TipoFruta != Bubble.Fruta.SHESKO)){
-                        Gdx.input.vibrate(500);
+            if (bubbles.bubbles.size() > 0) {
+                java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
+                while (i.hasNext()) {
+                    Bubble b = i.next();
+                    if (!gameFinished) {
+                        b.update(d);
                     }
-                } else {
-                    if (!b.ExplotedAndFinished){
-                        b.sizeX = game.calcSize(b.RegionBubble.getRegionWidth(),true);
-                        b.sizeY = game.calcSize(b.RegionBubble.getRegionHeight(),false);
-                        game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                    if (b.Position.y > (MainScreen.calcSize(1920, false) + (MainScreen.calcSize(b.RegionBubble.getRegionHeight(), false)))) {
+                        i.remove();
+                        if ((!b.Exploted) && (b.trapType != 2)) {
+                            Gdx.input.vibrate(500);
+                            Lives--;
+                        }
+                    } else {
+                        if (!b.ExplotedAndFinished) {
+                            if ((Level == 5) && (b.trapType != 1)) {
+                                b.sizeX = MainScreen.calcSize(b.RegionBubble.getRegionWidth() / 2, true);
+                                b.sizeY = MainScreen.calcSize(b.RegionBubble.getRegionHeight() / 2, false);
+                            } else {
+                                b.sizeX = MainScreen.calcSize(b.RegionBubble.getRegionWidth(), true);
+                                b.sizeY = MainScreen.calcSize(b.RegionBubble.getRegionHeight(), false);
+                            }
+                            game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                        }
                     }
                 }
             }
-        }
 
-        //game.batch.draw(HeaderImage,0,ScreenHeight - game.calcSize(190,false), game.calcSize(1080,true),game.calcSize(190,false));
-        //game.batch.draw(txtScore,(ScreenWidth/2) - (game.calcSize(237,true) / 2),game.calcSize(1920-175,false),game.calcSize(237,true),game.calcSize(160,false));
         HeaderImage.draw(game.batch,1);
         txtScore.draw(game.batch,1);
 
