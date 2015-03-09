@@ -125,6 +125,9 @@ public class GamePlayScreen implements Screen {
         style.background.setTopHeight(style.background.getTopHeight() + 26);
         txtScore.setPosition((ScreenWidth/2) - (MainScreen.calcSize(237,true) / 2),((int)ScreenHeight - MainScreen.calcSize(138,false)) + MainScreen.calcSize((138-98)/2,false));
 
+
+
+
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 screenY = Gdx.graphics.getHeight() - screenY;
@@ -200,7 +203,15 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        stage.draw();
+
+        game.batch.begin();
+
+
+        float d = Gdx.graphics.getDeltaTime();
+
         if (IsPlaying){
+
             if (bubbles.bubbles.size() == 0){
                 if (Level != 6){
                     Timer.schedule(new Task(){
@@ -221,17 +232,8 @@ public class GamePlayScreen implements Screen {
                         }}, 0,Levels.GetFruitDelay(Level) * 2);
                 }
             }
-        }
 
 
-        stage.draw();
-
-        game.batch.begin();
-
-
-        float d = Gdx.graphics.getDeltaTime();
-
-        if (IsPlaying){
             if (bubbles.bubbles.size() > 0) {
                 java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
                 while (i.hasNext()) {
@@ -263,6 +265,8 @@ public class GamePlayScreen implements Screen {
             HeaderImage.draw(game.batch,1);
             txtScore.draw(game.batch,1);
         }
+
+
         game.batch.end();
 
     }
