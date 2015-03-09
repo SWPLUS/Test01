@@ -54,7 +54,8 @@ public class GamePlayScreen implements Screen {
     int MaxScore;
     boolean gameFinished;
 
-    private IntroDialog dialogo;
+    private IntroDialog intro;
+    private WinDialog win;
     private boolean IsPlaying;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
@@ -73,11 +74,12 @@ public class GamePlayScreen implements Screen {
 
         showIntro(Level);
 
+
         Timer.schedule(new Task(){
             @Override
             public void run() {
                 IsPlaying = true;
-                dialogo.remove();
+                intro.remove();
                 startGame();
             }}, 5,5,0);
 
@@ -90,9 +92,18 @@ public class GamePlayScreen implements Screen {
         Window.WindowStyle style=new Window.WindowStyle();
         style.titleFont=new BitmapFont();
         style.titleFontColor= Color.WHITE;
-        dialogo = new IntroDialog(style, level);
-        dialogo.show(stage);
+        intro = new IntroDialog(style, level);
+        intro.show(stage);
     }
+
+    private void showWinDialog(int score){
+        Window.WindowStyle style=new Window.WindowStyle();
+        style.titleFont=new BitmapFont();
+        style.titleFontColor= Color.WHITE;
+        win = new WinDialog(style, score);
+        win.show(stage);
+    }
+
 
     public void startGame(){
 
@@ -176,6 +187,8 @@ public class GamePlayScreen implements Screen {
                                 }
                                 if (Score >= MaxScore){
                                     gameFinished = true;
+                                    IsPlaying = false;
+                                    showWinDialog(1);
                                     Timer.instance().clear();
                                 }
                                 break;

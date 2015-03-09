@@ -1,0 +1,88 @@
+win.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+again-off
+  rotate: false
+  xy: 910, 2
+  size: 225, 204
+  orig: 225, 204
+  offset: 0, 0
+  index: -1
+again-on
+  rotate: false
+  xy: 1137, 2
+  size: 226, 203
+  orig: 226, 203
+  offset: 0, 0
+  index: -1
+lights
+  rotate: false
+  xy: 704, 534
+  size: 1080, 1331
+  orig: 1080, 1331
+  offset: 0, 0
+  index: -1
+next-off
+  rotate: false
+  xy: 456, 2
+  size: 225, 204
+  orig: 225, 204
+  offset: 0, 0
+  index: -1
+next-on
+  rotate: false
+  xy: 229, 2
+  size: 225, 205
+  orig: 225, 205
+  offset: 0, 0
+  index: -1
+niveles-off
+  rotate: false
+  xy: 2, 2
+  size: 225, 204
+  orig: 225, 204
+  offset: 0, 0
+  index: -1
+niveles-on
+  rotate: false
+  xy: 683, 2
+  size: 225, 205
+  orig: 225, 205
+  offset: 0, 0
+  index: -1
+stars-0
+  rotate: false
+  xy: 1338, 268
+  size: 666, 264
+  orig: 666, 264
+  offset: 0, 0
+  index: -1
+stars-1
+  rotate: false
+  xy: 670, 268
+  size: 666, 264
+  orig: 666, 264
+  offset: 0, 0
+  index: -1
+stars-2
+  rotate: false
+  xy: 2, 268
+  size: 666, 264
+  orig: 666, 264
+  offset: 0, 0
+  index: -1
+stars-3
+  rotate: false
+  xy: 1365, 2
+  size: 666, 264
+  orig: 666, 264
+  offset: 0, 0
+  index: -1
+superado
+  rotate: false
+  xy: 2, 534
+  size: 700, 79
+  orig: 700, 79
+  offset: 0, 0
+  index: -1
