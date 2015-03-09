@@ -323,7 +323,8 @@ public class LoginScreen implements Screen {
                     game.player.LastName = user_data.getString("last_name");
                     game.player.Mail = user_data.getString("email");
 
-                    List<GameData> DataList = new  ArrayList<>();
+
+                    List<GameData> DataList = new  ArrayList();
                     Iterator<?> keys = game_data.keys();
                     while (keys.hasNext()) {
                         String key = (String) keys.next();
@@ -335,8 +336,8 @@ public class LoginScreen implements Screen {
 
                         Gdx.app.log("hola mundo", "" + MyData.Level);
                     }
-
                     game.player.Data = DataList;
+
 
                     Gdx.app.log("hola mundo", "" + game.player.Data.toString());
 

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -10,9 +11,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 //import com.badlogic.gdx.graphics.g2d.Animation;
 //import com.badlogic.gdx.graphics.g2d.TextureRegion;
 //import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.InputAdapter;
@@ -31,7 +37,7 @@ public class GamePlayScreen implements Screen {
 
     Texture img;
     Image imgBack;
-    final TextField txtScore;
+    TextField txtScore;
 
     BitmapFont font;
     TextureAtlas AtlasHeader;
@@ -48,10 +54,53 @@ public class GamePlayScreen implements Screen {
     int MaxScore;
     boolean gameFinished;
 
+    private IntroDialog dialogo;
+    private boolean IsPlaying;
+
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
         Level = lev;
         MaxScore = Levels.GetLevelMaxScore(Level);
+        IsPlaying = false;
+
+        ScreenWidth = Gdx.graphics.getWidth();
+        ScreenHeight = Gdx.graphics.getHeight();
+
+        stage = new Stage();
+        stage.clear();
+        Gdx.input.setInputProcessor(stage);
+
+
+        showIntro(Level);
+
+        Timer.schedule(new Task(){
+            @Override
+            public void run() {
+                IsPlaying = true;
+                dialogo.remove();
+                startGame();
+            }}, 5,5,0);
+
+
+
+    }
+
+
+    private void showIntro(int level){
+        Window.WindowStyle style=new Window.WindowStyle();
+        style.titleFont=new BitmapFont();
+        style.titleFontColor= Color.WHITE;
+        dialogo = new IntroDialog(style, level);
+        dialogo.show(stage);
+    }
+
+    public void startGame(){
+
+        img = new Texture("Settings/background.png");
+        imgBack = new Image(img);
+        imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
+
+
         //DUMMY BUBBLE TEXTURES INIT
         AtlasHeader = BubblesAtlas.BurstAtlas;
         //
@@ -60,17 +109,10 @@ public class GamePlayScreen implements Screen {
         SkinHeader.addRegions(AtlasHeader);
         font = game.getFont(16);
 
-        ScreenWidth = Gdx.graphics.getWidth();
-        ScreenHeight = Gdx.graphics.getHeight();
+
 
         plop = Gdx.audio.newSound(Gdx.files.internal("plop.mp3"));
 
-        img = new Texture("Settings/background.png");
-        imgBack = new Image(img);
-        imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
-
-        stage = new Stage();
-        //stage.clear();
 
         Texture textureScore = new Texture("GamePlay/score-bar.png");
         textureScore.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
@@ -88,7 +130,7 @@ public class GamePlayScreen implements Screen {
                 screenY = Gdx.graphics.getHeight() - screenY;
                 //java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
                 //while (i.hasNext()) {
-                 //   Bubble b = i.next();
+                //   Bubble b = i.next();
                 for (Bubble b : bubbles.bubbles) {
                     if (!b.Exploted) {
                         float bIX = b.Position.x;
@@ -151,7 +193,6 @@ public class GamePlayScreen implements Screen {
 
         bubbles = new BubbleArray(Level);
         nextFruit = Levels.GetNextScoreSpecial(Level,0);
-
     }
 
     @Override
@@ -159,32 +200,38 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if (bubbles.bubbles.size() == 0){
-            if (Level != 6){
-                Timer.schedule(new Task(){
-                    @Override
-                    public void run() {
-                        bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
-                    }}, 0,Levels.GetFruitDelay(Level) * 2);
-            } else {
-                Timer.schedule(new Task(){
-                    @Override
-                    public void run() {
-                        bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),true,false);
-                    }}, 0,Levels.GetFruitDelay(Level) * 2);
-                Timer.schedule(new Task(){
-                    @Override
-                    public void run() {
-                        bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,true);
-                    }}, 0,Levels.GetFruitDelay(Level) * 2);
+        if (IsPlaying){
+            if (bubbles.bubbles.size() == 0){
+                if (Level != 6){
+                    Timer.schedule(new Task(){
+                        @Override
+                        public void run() {
+                            bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
+                        }}, 0,Levels.GetFruitDelay(Level) * 2);
+                } else {
+                    Timer.schedule(new Task(){
+                        @Override
+                        public void run() {
+                            bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),true,false);
+                        }}, 0,Levels.GetFruitDelay(Level) * 2);
+                    Timer.schedule(new Task(){
+                        @Override
+                        public void run() {
+                            bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,true);
+                        }}, 0,Levels.GetFruitDelay(Level) * 2);
+                }
             }
         }
+
 
         stage.draw();
 
         game.batch.begin();
 
+
         float d = Gdx.graphics.getDeltaTime();
+
+        if (IsPlaying){
             if (bubbles.bubbles.size() > 0) {
                 java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
                 while (i.hasNext()) {
@@ -213,12 +260,13 @@ public class GamePlayScreen implements Screen {
                 }
             }
 
-        HeaderImage.draw(game.batch,1);
-        txtScore.draw(game.batch,1);
-
+            HeaderImage.draw(game.batch,1);
+            txtScore.draw(game.batch,1);
+        }
         game.batch.end();
 
     }
+
     @Override
     public void resize(int width, int height) {
     }
