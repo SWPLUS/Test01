@@ -18,11 +18,11 @@ public class MainScreen extends Game {
 
     public SpriteBatch batch;
     //public BitmapFont font;
-    public Music bgMusic;
+    public static Music bgMusic;
 
-    public Preferences prefs;
-    public Boolean BoolMusic;
-    public Boolean BoolSound;
+    public static Preferences prefs;
+    public static Boolean BoolMusic;
+    public static Boolean BoolSound;
     public Player player;
     public static BitmapFont font;
     public static BitmapFont fontScore;
