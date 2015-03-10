@@ -1,0 +1,102 @@
+icons.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+grape-off
+  rotate: true
+  xy: 65, 420
+  size: 52, 59
+  orig: 52, 59
+  offset: 0, 0
+  index: -1
+grape-on
+  rotate: false
+  xy: 65, 350
+  size: 61, 68
+  orig: 61, 68
+  offset: 0, 0
+  index: -1
+lemmon-off
+  rotate: false
+  xy: 70, 84
+  size: 56, 59
+  orig: 56, 59
+  offset: 0, 0
+  index: -1
+lemmon-on
+  rotate: false
+  xy: 59, 232
+  size: 65, 68
+  orig: 65, 68
+  offset: 0, 0
+  index: -1
+mango-off
+  rotate: true
+  xy: 61, 302
+  size: 46, 65
+  orig: 46, 65
+  offset: 0, 0
+  index: -1
+mango-on
+  rotate: false
+  xy: 2, 247
+  size: 55, 74
+  orig: 55, 74
+  offset: 0, 0
+  index: -1
+naranja-off
+  rotate: false
+  xy: 59, 166
+  size: 67, 64
+  orig: 67, 64
+  offset: 0, 0
+  index: -1
+naranja-on
+  rotate: false
+  xy: 2, 2
+  size: 83, 80
+  orig: 83, 80
+  offset: 0, 0
+  index: -1
+pineaple-off
+  rotate: false
+  xy: 59, 474
+  size: 46, 70
+  orig: 46, 70
+  offset: 0, 0
+  index: -1
+pineaple-on
+  rotate: false
+  xy: 2, 166
+  size: 55, 79
+  orig: 55, 79
+  offset: 0, 0
+  index: -1
+strawberry-off
+  rotate: false
+  xy: 2, 323
+  size: 57, 71
+  orig: 57, 71
+  offset: 0, 0
+  index: -1
+strawberry-on
+  rotate: false
+  xy: 2, 84
+  size: 66, 80
+  orig: 66, 80
+  offset: 0, 0
+  index: -1
+vida-off
+  rotate: true
+  xy: 2, 467
+  size: 63, 55
+  orig: 63, 55
+  offset: 0, 0
+  index: -1
+vida-on
+  rotate: true
+  xy: 2, 396
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1

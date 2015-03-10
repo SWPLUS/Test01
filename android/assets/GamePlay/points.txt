@@ -1,0 +1,32 @@
+points.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+mas10
+  rotate: false
+  xy: 2, 87
+  size: 100, 82
+  orig: 100, 83
+  offset: 0, 0
+  index: -1
+mas15
+  rotate: false
+  xy: 2, 255
+  size: 97, 82
+  orig: 100, 83
+  offset: 2, 0
+  index: -1
+mas5
+  rotate: false
+  xy: 2, 171
+  size: 100, 82
+  orig: 100, 83
+  offset: 0, 0
+  index: -1
+menos10
+  rotate: false
+  xy: 2, 2
+  size: 100, 83
+  orig: 100, 83
+  offset: 0, 0
+  index: -1

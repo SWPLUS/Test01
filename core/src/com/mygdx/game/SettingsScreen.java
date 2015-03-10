@@ -56,8 +56,8 @@ public class SettingsScreen implements Screen {
 
 
         TextButton.TextButtonStyle style = new TextButton.TextButtonStyle();
-        style.up = SkinSettings.getDrawable("stngs_0001_atras-on-copy");
-        style.down = SkinSettings.getDrawable("stngs_0000_atras-off-copy");
+        style.up = SkinSettings.getDrawable("atras-on");
+        style.down = SkinSettings.getDrawable("atras-off");
         style.font = font;
         ButtonBack = new TextButton("", style);
         ButtonBack.setPosition(10, 10);
@@ -78,11 +78,11 @@ public class SettingsScreen implements Screen {
         TextButton.TextButtonStyle StyleButtonMusic = new TextButton.TextButtonStyle();
 
         if (game.BoolMusic) {
-            StyleButtonMusic.up = SkinSettings.getDrawable("stngs_0003_musica");
+            StyleButtonMusic.up = SkinSettings.getDrawable("musica");
             //StyleButtonMusic.down = SkinSettings.getDrawable("stngs_0002_musica-off");
         }
         else {
-            StyleButtonMusic.up = SkinSettings.getDrawable("stngs_0002_musica-off");
+            StyleButtonMusic.up = SkinSettings.getDrawable("musica-off");
             //StyleButtonMusic.down = SkinSettings.getDrawable("stngs_0003_musica");
         }
 
@@ -103,7 +103,7 @@ public class SettingsScreen implements Screen {
                     game.prefs.putBoolean("Music", false);
                     game.BoolMusic = false;
                     game.bgMusic.stop();
-                    ButtonMusic.getStyle().up = SkinSettings.getDrawable("stngs_0002_musica-off");
+                    ButtonMusic.getStyle().up = SkinSettings.getDrawable("musica-off");
                     //ButtonMusic.getStyle().down = SkinSettings.getDrawable("stngs_0002_musica-off");
                 }
                 else {
@@ -111,7 +111,7 @@ public class SettingsScreen implements Screen {
                     game.BoolMusic = true;
                     game.bgMusic.setLooping(true);
                     game.bgMusic.play();
-                    ButtonMusic.getStyle().up = SkinSettings.getDrawable("stngs_0003_musica");
+                    ButtonMusic.getStyle().up = SkinSettings.getDrawable("musica");
                     //ButtonMusic.getStyle().down = SkinSettings.getDrawable("stngs_0003_musica");
                 }
                 game.prefs.flush();
@@ -123,11 +123,11 @@ public class SettingsScreen implements Screen {
         TextButton.TextButtonStyle StyleButtonSound = new TextButton.TextButtonStyle();
 
         if (game.BoolSound) {
-            StyleButtonSound.up = SkinSettings.getDrawable("stngs_0005_sonido");
+            StyleButtonSound.up = SkinSettings.getDrawable("sonido");
             //StyleButtonSound.down = SkinSettings.getDrawable("stngs_0004_sonido-off");
         }
         else {
-            StyleButtonSound.up = SkinSettings.getDrawable("stngs_0004_sonido-off");
+            StyleButtonSound.up = SkinSettings.getDrawable("sonido-off");
             //StyleButtonSound.down = SkinSettings.getDrawable("stngs_0005_sonido");
         }
 
@@ -147,12 +147,12 @@ public class SettingsScreen implements Screen {
                 if (game.BoolSound) {
                     game.prefs.putBoolean("Sound", false);
                     game.BoolSound = false;
-                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0004_sonido-off");
+                    ButtonSound.getStyle().up = SkinSettings.getDrawable("sonido-off");
                 }
                 else {
                     game.prefs.putBoolean("Sound", true);
                     game.BoolSound = true;
-                    ButtonSound.getStyle().up = SkinSettings.getDrawable("stngs_0005_sonido");
+                    ButtonSound.getStyle().up = SkinSettings.getDrawable("sonido");
                 }
                 game.prefs.flush();
             }
@@ -161,8 +161,8 @@ public class SettingsScreen implements Screen {
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
         TextButton.TextButtonStyle StyleButtonAcerca = new TextButton.TextButtonStyle();
-        StyleButtonAcerca.up = SkinSettings.getDrawable("stngs_0009_acerca-de-on-copy");
-        StyleButtonAcerca.down = SkinSettings.getDrawable("stngs_0008_acerca-de-off-copy");
+        StyleButtonAcerca.up = SkinSettings.getDrawable("acerca-de-on");
+        StyleButtonAcerca.down = SkinSettings.getDrawable("acerca-de-off");
         StyleButtonAcerca.font = font;
         ButtonAcerca = new TextButton("", StyleButtonAcerca);
         ButtonAcerca.setPosition(game.calcSize(((1080/2)-(529/2)),true), game.calcSize(((1920-200)-652)-165,false));
@@ -182,8 +182,8 @@ public class SettingsScreen implements Screen {
         // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
 
         TextButton.TextButtonStyle StyleButtonTang = new TextButton.TextButtonStyle();
-        StyleButtonTang.up = SkinSettings.getDrawable("stngs_0011_url-on");
-        StyleButtonTang.down = SkinSettings.getDrawable("stngs_0010_url-off");
+        StyleButtonTang.up = SkinSettings.getDrawable("url-on");
+        StyleButtonTang.down = SkinSettings.getDrawable("url-off");
         StyleButtonTang.font = font;
         ButtonTang = new TextButton("", StyleButtonTang);
         ButtonTang.setPosition(game.calcSize(((1080/2)-(561/2)),true), game.calcSize(((1920-200)-828)-300,false));

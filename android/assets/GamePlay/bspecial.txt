@@ -1,60 +1,60 @@
-grape.png
+bspecial.png
 format: RGBA8888
 filter: Linear,Linear
 repeat: none
 org_1
   rotate: false
   xy: 2, 2
-  size: 343, 325
-  orig: 343, 325
+  size: 384, 371
+  orig: 384, 371
   offset: 0, 0
   index: 1
 org_2
   rotate: false
-  xy: 2, 329
-  size: 343, 315
-  orig: 343, 315
+  xy: 2, 375
+  size: 384, 355
+  orig: 384, 355
   offset: 0, 0
   index: 2
 org_3
   rotate: false
-  xy: 692, 2
-  size: 343, 303
-  orig: 343, 303
+  xy: 2, 1089
+  size: 384, 335
+  orig: 384, 335
   offset: 0, 0
   index: 3
 org_4
   rotate: false
-  xy: 347, 319
-  size: 343, 291
-  orig: 343, 291
+  xy: 2, 1426
+  size: 384, 308
+  orig: 384, 308
   offset: 0, 0
   index: 4
 org_5
   rotate: false
-  xy: 692, 612
-  size: 343, 273
-  orig: 343, 273
+  xy: 2, 1736
+  size: 384, 296
+  orig: 384, 296
   offset: 0, 0
   index: 5
 org_6
   rotate: false
-  xy: 347, 612
-  size: 343, 291
-  orig: 343, 291
+  xy: 2, 1426
+  size: 384, 308
+  orig: 384, 308
   offset: 0, 0
   index: 6
 org_7
   rotate: false
-  xy: 692, 307
-  size: 343, 303
-  orig: 343, 303
+  xy: 2, 1426
+  size: 384, 308
+  orig: 384, 308
   offset: 0, 0
   index: 7
 org_8
   rotate: false
-  xy: 347, 2
-  size: 343, 315
-  orig: 343, 315
+  xy: 2, 732
+  size: 384, 355
+  orig: 384, 355
   offset: 0, 0
   index: 8
