@@ -18,10 +18,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import org.json.JSONObject;
 
 import com.mygdx.game.MainScreen.OnConfirmationListener;
 
-
+import java.util.ArrayList;
+import java.util.Iterator;
 
 
 public class MainMenuScreen implements Screen {
@@ -110,7 +112,30 @@ public class MainMenuScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-                game.setScreen(new LoginScreen(game));
+                if (game.prefs.getString("UserId","").length() > 0) {
+                    game.player.Logged = true;
+                    game.player.UserId = game.prefs.getString("UserId","");
+                    game.player.Name = game.prefs.getString("Name","");
+                    game.player.LastName = game.prefs.getString("LastName","");
+                    game.player.Mail = game.prefs.getString("Mail","");
+                    Gdx.app.log("swclosed",game.prefs.getString("GameData",""));
+                    JSONObject game_data = new JSONObject(game.prefs.getString("GameData",""));
+                    ArrayList<GameData> DataList = new  ArrayList<GameData>();
+                    Iterator<?> keys = game_data.keys();
+                    while (keys.hasNext()) {
+                        String key = (String) keys.next();
+                        GameData MyData =  new GameData();
+                        MyData.Score = game_data.getJSONObject(key).getInt("score");
+                        MyData.Level = game_data.getJSONObject(key).getInt("level");
+                        MyData.Stars = game_data.getJSONObject(key).getInt("stars");
+                        DataList.add(MyData);
+                    }
+                    game.player.Data = DataList;
+
+                    game.setScreen(new StoryScreen(game));
+                } else {
+                    game.setScreen(new LoginScreen(game));
+                }
             }
         });
 

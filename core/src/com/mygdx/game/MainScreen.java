@@ -12,6 +12,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import org.json.JSONObject;
 
 
 public class MainScreen extends Game {
@@ -74,6 +75,21 @@ public class MainScreen extends Game {
     }
 
     public void dispose() {
+
+        int counter = 0;
+        String jsonGameData = "{";
+        for(GameData gd : player.Data){
+            if (counter>0){
+                jsonGameData += ",";
+            }
+            jsonGameData += "\"" + String.valueOf(counter+1) + "\":{";
+            jsonGameData += "\"score\":\"" + String.valueOf(gd.Score) + "\",\"stars\":\"" + String.valueOf(gd.Stars) + "\",\"level\":\"" + String.valueOf(gd.Level) + "\"}";
+            counter++;
+        }
+        jsonGameData += "}";
+
+        prefs.putString("GameData",jsonGameData);
+
         batch.dispose();
         font.dispose();
     }
