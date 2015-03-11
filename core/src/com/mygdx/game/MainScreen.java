@@ -27,6 +27,24 @@ public class MainScreen extends Game {
     public static BitmapFont font;
     public static BitmapFont fontScore;
 
+
+    public interface ExternalInterface {
+        public void showConfirmation(String message, OnConfirmationListener listener);
+        public void showAlert(String message, OnConfirmationListener listener);
+    }
+
+    public interface OnConfirmationListener {
+        public void onConfirmation(boolean confirmed);
+    }
+
+    public MainScreen(ExternalInterface externalInterface) {
+        this.externalInterface = externalInterface;
+    }
+
+
+    private ExternalInterface externalInterface;
+
+
     public void create() {
 
         prefs = Gdx.app.getPreferences("My Preferences");
@@ -88,5 +106,17 @@ public class MainScreen extends Game {
         return (obj == null) ? "null" : obj.toString();
     }
 
+
+    public void showConfirmation(String message, OnConfirmationListener listener) {
+        if (externalInterface != null) {
+            externalInterface.showConfirmation(message, listener);
+        }
+    }
+
+    public void showAlert(String message, OnConfirmationListener listener) {
+        if (externalInterface != null) {
+            externalInterface.showAlert(message, listener);
+        }
+    }
 
 }

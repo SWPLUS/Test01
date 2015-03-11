@@ -19,6 +19,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
+import com.mygdx.game.MainScreen.OnConfirmationListener;
+
+
 
 
 public class MainMenuScreen implements Screen {
@@ -37,6 +40,9 @@ public class MainMenuScreen implements Screen {
     private TextButton buttonPlay; //** the button - the only actor in program **//
     private Skin buttonPlaySkin;
     private TextureAtlas buttonPlayAtlas;
+
+    String confirmationResult = null;
+
 
     public MainMenuScreen(final MainScreen gam) {
        // batch = new SpriteBatch();
@@ -112,6 +118,8 @@ public class MainMenuScreen implements Screen {
         stage.addActor(buttonConfig);
         stage.addActor(buttonPlay);
 
+        //showAlert("Hola Mundo");
+
     }
 
     @Override
@@ -182,5 +190,18 @@ public class MainMenuScreen implements Screen {
         return (objSize * pantalla)/imgSize;
 
     }
+
+
+    public void showAlert(String message) {
+        if (game != null) {
+            game.showAlert(message, new OnConfirmationListener() {
+                @Override
+                public void onConfirmation(boolean confirmed) {
+                }
+            });
+        }
+    }
+
+
 
 }

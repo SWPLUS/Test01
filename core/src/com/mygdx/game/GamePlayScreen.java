@@ -107,7 +107,8 @@ public class GamePlayScreen implements Screen {
 
     public void startGame(){
 
-        img = new Texture("Settings/background.png");
+        img = new Texture("GamePlay/background.png");
+        img.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         imgBack = new Image(img);
         imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
 
