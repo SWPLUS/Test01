@@ -31,10 +31,15 @@ public class MainScreen extends Game {
     public interface ExternalInterface {
         public void showConfirmation(String message, OnConfirmationListener listener);
         public void showAlert(String message, OnConfirmationListener listener);
+        public void showDatePickerDialog(OnSetDateListener listener);
     }
 
     public interface OnConfirmationListener {
         public void onConfirmation(boolean confirmed);
+    }
+
+    public interface OnSetDateListener {
+        public void OnSetDateListener(int year, int month, int day);
     }
 
     public MainScreen(ExternalInterface externalInterface) {
@@ -116,6 +121,12 @@ public class MainScreen extends Game {
     public void showAlert(String message, OnConfirmationListener listener) {
         if (externalInterface != null) {
             externalInterface.showAlert(message, listener);
+        }
+    }
+
+    public void showDatePickerDialog( OnSetDateListener listener) {
+        if (externalInterface != null) {
+            externalInterface.showDatePickerDialog(listener);
         }
     }
 

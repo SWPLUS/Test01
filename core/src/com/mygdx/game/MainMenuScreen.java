@@ -119,6 +119,7 @@ public class MainMenuScreen implements Screen {
         stage.addActor(buttonPlay);
 
         //showAlert("Hola Mundo");
+        showDatePickerDialog();
 
     }
 
@@ -202,6 +203,16 @@ public class MainMenuScreen implements Screen {
         }
     }
 
+    public void showDatePickerDialog() {
+        if (game != null) {
+            game.showDatePickerDialog(new MainScreen.OnSetDateListener() {
+                @Override
+                public void OnSetDateListener(int year, int month, int day) {
 
+                    Gdx.app.log("my app", "" + day);
+                }
+            });
+        }
+    }
 
 }

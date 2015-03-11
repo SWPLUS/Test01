@@ -10,11 +10,18 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.mygdx.game.MainScreen;
 import com.mygdx.game.MainScreen.ExternalInterface;
 import com.mygdx.game.MainScreen.OnConfirmationListener;
+import com.mygdx.game.MainScreen.OnSetDateListener;
+
+import android.app.DialogFragment;
+import android.widget.DatePicker;
+import android.app.DatePickerDialog.OnDateSetListener;
+
 
 
 public class AndroidLauncher extends AndroidApplication implements ExternalInterface {
 
     public static final int MSG_CONFIRM = 1;
+    public OnSetDateListener datelistener;
 
     MainScreen game;
 
@@ -72,6 +79,20 @@ public class AndroidLauncher extends AndroidApplication implements ExternalInter
         });
     }
 
+
+    public void showDatePickerDialog(final OnSetDateListener listener) {
+        datelistener = listener;
+        DatePickerFragment date = new DatePickerFragment();
+        date.setCallBack(ondate);
+        date.show(getFragmentManager(), "datePicker");
+    }
+
+    OnDateSetListener ondate = new OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            datelistener.OnSetDateListener(year,monthOfYear,dayOfMonth);
+        }
+    };
 
 
 
