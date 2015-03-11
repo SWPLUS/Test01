@@ -280,7 +280,6 @@ public class LoginScreen implements Screen {
                 //Login(txtUsername.getText(), txtPassword.getText());
                 Gdx.input.setOnscreenKeyboardVisible(false);
 
-
             }
         });
 
@@ -323,8 +322,14 @@ public class LoginScreen implements Screen {
                     game.player.LastName = user_data.getString("last_name");
                     game.player.Mail = user_data.getString("email");
 
+                    MainScreen.prefs.putString("UserId", game.player.UserId);
+                    MainScreen.prefs.putString("Name", game.player.Name);
+                    MainScreen.prefs.putString("LastName", game.player.LastName);
+                    MainScreen.prefs.putString("Mail", game.player.Mail);
+                    MainScreen.prefs.putString("GameData",jObject.getString("game_data"));
+                    MainScreen.prefs.flush();
 
-                    List<GameData> DataList = new  ArrayList();
+                    ArrayList<GameData> DataList = new  ArrayList<GameData>();
                     Iterator<?> keys = game_data.keys();
                     while (keys.hasNext()) {
                         String key = (String) keys.next();
