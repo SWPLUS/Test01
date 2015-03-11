@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 /**
  * Created by Ivan on 19/02/15.
+ * Last Modified by Luis Mirandela on 11/03/2015
  */
 
 import com.badlogic.gdx.Gdx;
@@ -34,14 +35,14 @@ public class MainMenuScreen implements Screen {
     Image imgBack;
     //Music bgMusic;
     OrthographicCamera camera;
-    private Stage stage; //** stage holds the Button **//
-    private BitmapFont font; //** same as that used in Tut 7 **//
-    private TextureAtlas buttonsAtlas; //** image of buttons **//
-    private Skin buttonSkin; //** images are used as skins of the button **//
-    private TextButton buttonConfig; //** the button - the only actor in program **//
-    private TextButton buttonPlay; //** the button - the only actor in program **//
-    private Skin buttonPlaySkin;
-    private TextureAtlas buttonPlayAtlas;
+    Stage stage; //** stage holds the Button **//
+    BitmapFont font; //** same as that used in Tut 7 **//
+    TextureAtlas buttonsAtlas; //** image of buttons **//
+    Skin buttonSkin; //** images are used as skins of the button **//
+    TextButton buttonConfig; //** the button - the only actor in program **//
+    TextButton buttonPlay; //** the button - the only actor in program **//
+    Skin buttonPlaySkin;
+    TextureAtlas buttonPlayAtlas;
 
     String confirmationResult = null;
 
@@ -112,14 +113,14 @@ public class MainMenuScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-                if (game.prefs.getString("UserId","").length() > 0) {
+                if (MainScreen.prefs.getString("UserId","").length() > 0) {
                     game.player.Logged = true;
-                    game.player.UserId = game.prefs.getString("UserId","");
-                    game.player.Name = game.prefs.getString("Name","");
-                    game.player.LastName = game.prefs.getString("LastName","");
-                    game.player.Mail = game.prefs.getString("Mail","");
-                    Gdx.app.log("swclosed",game.prefs.getString("GameData",""));
-                    JSONObject game_data = new JSONObject(game.prefs.getString("GameData",""));
+                    game.player.UserId = MainScreen.prefs.getString("UserId","");
+                    game.player.Name = MainScreen.prefs.getString("Name","");
+                    game.player.LastName = MainScreen.prefs.getString("LastName","");
+                    game.player.Mail = MainScreen.prefs.getString("Mail","");
+
+                    JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
                     ArrayList<GameData> DataList = new  ArrayList<GameData>();
                     Iterator<?> keys = game_data.keys();
                     while (keys.hasNext()) {
@@ -180,8 +181,8 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        if (game.BoolMusic){
-            game.bgMusic.play();
+        if (MainScreen.BoolMusic){
+            MainScreen.bgMusic.play();
         }
     }
 
