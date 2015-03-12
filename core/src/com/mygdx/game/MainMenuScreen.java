@@ -145,7 +145,7 @@ public class MainMenuScreen implements Screen {
         stage.addActor(buttonPlay);
 
         //showAlert("Hola Mundo");
-        showDatePickerDialog();
+        //showDatePickerDialog();
 
     }
 
