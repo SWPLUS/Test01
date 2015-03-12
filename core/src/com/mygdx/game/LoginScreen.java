@@ -380,8 +380,6 @@ public class LoginScreen implements Screen {
         stage.draw();
         game.batch.end();
 
-
-
     }
 
     @Override

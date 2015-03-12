@@ -11,13 +11,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 //import com.badlogic.gdx.graphics.g2d.Animation;
 //import com.badlogic.gdx.graphics.g2d.TextureRegion;
 //import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
+//import com.badlogic.gdx.scenes.scene2d.InputEvent;
+//import com.badlogic.gdx.scenes.scene2d.InputListener;
+//import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+//import com.badlogic.gdx.scenes.scene2d.ui.Table;
+//import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
@@ -27,7 +28,7 @@ import com.badlogic.gdx.audio.Sound;
 
 /**
  * Created by Ivan on 02/03/15.
- * Last Modified by Luis Mirandela on 06/03/2015
+ * Last Modified by Luis Mirandela on 12/03/2015
  */
 public class GamePlayScreen implements Screen {
 
@@ -54,9 +55,9 @@ public class GamePlayScreen implements Screen {
     int MaxScore;
     boolean gameFinished;
 
-    private IntroDialog intro;
-    private WinDialog win;
-    private boolean IsPlaying;
+    IntroDialog intro;
+    WinDialog win;
+    boolean IsPlaying;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
@@ -112,7 +113,6 @@ public class GamePlayScreen implements Screen {
         imgBack = new Image(img);
         imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
 
-
         //DUMMY BUBBLE TEXTURES INIT
         AtlasHeader = BubblesAtlas.BurstAtlas;
         //
@@ -121,10 +121,7 @@ public class GamePlayScreen implements Screen {
         SkinHeader.addRegions(AtlasHeader);
         font = game.getFont(16);
 
-
-
         plop = Gdx.audio.newSound(Gdx.files.internal("plop.mp3"));
-
 
         Texture textureScore = new Texture("GamePlay/score-bar.png");
         textureScore.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
@@ -137,15 +134,9 @@ public class GamePlayScreen implements Screen {
         style.background.setTopHeight(style.background.getTopHeight() + 26);
         txtScore.setPosition((ScreenWidth/2) - (MainScreen.calcSize(237,true) / 2),((int)ScreenHeight - MainScreen.calcSize(138,false)) + MainScreen.calcSize((138-98)/2,false));
 
-
-
-
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 screenY = Gdx.graphics.getHeight() - screenY;
-                //java.util.Iterator<Bubble> i = bubbles.bubbles.iterator();
-                //while (i.hasNext()) {
-                //   Bubble b = i.next();
                 for (Bubble b : bubbles.bubbles) {
                     if (!b.Exploted) {
                         float bIX = b.Position.x;
@@ -271,6 +262,9 @@ public class GamePlayScreen implements Screen {
                                 b.sizeY = MainScreen.calcSize(b.RegionBubble.getRegionHeight(), false);
                             }
                             game.batch.draw(b.RegionBubble, b.Position.x, b.Position.y, b.sizeX, b.sizeY);
+                            if (!(b.imgPoints == null)){
+                                game.batch.draw(b.imgPoints,b.Position.x+(b.sizeX/2),b.Position.y + b.sizeY, MainScreen.calcSize(b.imgPoints.getRegionWidth(),true),MainScreen.calcSize(b.imgPoints.getRegionHeight(),false));
+                            }
                         }
                     }
                 }

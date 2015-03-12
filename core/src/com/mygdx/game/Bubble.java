@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Bubble {
 
@@ -32,6 +33,7 @@ public class Bubble {
     private boolean isRight;
     public boolean isSpecial;
     public int trapType;
+    public TextureRegion imgPoints;
 
     public enum Fruta {
         NARANJA,LIMON,FRESA,PINA,MANGO,UVA,//DOUBLE,SHESKO
@@ -156,6 +158,7 @@ public class Bubble {
         switch (trapType){
             case 0:
                 returnValue = 5;
+                imgPoints = BubblesAtlas.PointsAtlas.findRegion("mas5");
                 break;
             case 1:
                 returnValue = 15;
