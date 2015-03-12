@@ -270,6 +270,7 @@ public class GamePlayScreen implements Screen {
                 }
             }
 
+
             HeaderImage.draw(game.batch,1);
             txtScore.draw(game.batch,1);
         }
