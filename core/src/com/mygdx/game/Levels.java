@@ -61,7 +61,7 @@ public class Levels {
         return delay;
     }
 
-    public static int[] GetLevelPPF(int level, int screenHeight){
+    public static float[] GetLevelPPF(int level, int screenHeight){
         int[] speed = new int[2];
         float[] seconds = new float[2];
         switch (level) {
@@ -95,10 +95,10 @@ public class Levels {
                 break;
         }
 
-        speed[0] = screenHeight / (int)(seconds[0] * Gdx.graphics.getFramesPerSecond());
-        speed[1] = screenHeight / (int)(seconds[1] * Gdx.graphics.getFramesPerSecond());
+        //speed[0] = screenHeight / (int)(seconds[0] * Gdx.graphics.getFramesPerSecond());
+        //speed[1] = screenHeight / (int)(seconds[1] * Gdx.graphics.getFramesPerSecond());
 
-        return speed;
+        return seconds;
     }
 
     public static int GetNextScoreSpecial(int level, int lastScore){

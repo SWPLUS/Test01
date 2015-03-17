@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Bubble {
 
@@ -24,11 +24,11 @@ public class Bubble {
     public int Level;
     public boolean Exploted;
     private TextureAtlas AtlasBubble;
-    private Animation AnimationBubble;
+    public Animation AnimationBubble;
     public boolean ExplotedAndFinished;
     public boolean tappedUno;
-    int[] speed = new int[2];
-    public int mySpeed;
+    float[] speed = new float[2];
+    public float mySpeed;
     private boolean isLeft;
     private boolean isRight;
     public boolean isSpecial;
@@ -39,10 +39,12 @@ public class Bubble {
         NARANJA,LIMON,FRESA,PINA,MANGO,UVA,//DOUBLE,SHESKO
     }
 
+    public Bubble(){}
+
     public Bubble(int screenWidth,int screenHeight, int lvl, boolean left, boolean right, int myTrapType){
         isSpecial = (trapType == 1);
         Level = lvl;
-        Random randomX = new Random();
+        //Random randomX = new Random();
         trapType = myTrapType;
         if (trapType == 0) {
             TipoFruta = randomEnum(Fruta.class);
@@ -83,7 +85,8 @@ public class Bubble {
         stateTime = 0f;
         int min;
         int max;
-        if ((!left) && (!right)){
+        /* if ((!left) && (!right)){
+
             int midvalue;
             if ((lvl != 5) || (trapType == 1)) {
                 midvalue = MainScreen.calcSize(trAni[0].getRegionWidth(),true) / 2;
@@ -107,12 +110,13 @@ public class Bubble {
                 Position = new Vector2(screenWidth+(MainScreen.calcSize(trAni[0].getRegionWidth() / 2,true)),midvalue);
                 isRight = true;
             }
-        }
+        } */
 
         speed = Levels.GetLevelPPF(Level,screenHeight);
-        min = speed[1];
-        max = speed[0];
-        mySpeed = randomX.nextInt((max - min)) + min;
+        float minSpeed = speed[0];
+        float maxSpeed = speed[1];
+        Random randomX = new Random();
+        mySpeed = randomX.nextInt((int)(maxSpeed - minSpeed)) + minSpeed;
 
     }
 

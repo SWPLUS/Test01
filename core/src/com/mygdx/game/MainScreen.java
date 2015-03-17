@@ -120,7 +120,9 @@ public class MainScreen extends Game {
     public BitmapFont getScoreFont(int dp){
         com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/ufonts.com_house-a-rama-kingpin.ttf");
         FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
-        return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
+        BitmapFont font = ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
+        font.setScale(0.9f,0.9f);
+        return font;
     }
 
     public static String valueOf(Object obj) {
