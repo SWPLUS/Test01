@@ -120,9 +120,10 @@ public class MainMenuScreen implements Screen {
                     game.player.LastName = MainScreen.prefs.getString("LastName","");
                     game.player.Mail = MainScreen.prefs.getString("Mail","");
 
-                    JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
 
-                    if (game_data != null) {
+
+                    if (MainScreen.prefs.getString("GameData","") != null) {
+                        JSONObject game_data = new JSONObject();
                         ArrayList<GameData> DataList = new  ArrayList<GameData>();
                         Iterator<?> keys = game_data.keys();
                         while (keys.hasNext()) {
