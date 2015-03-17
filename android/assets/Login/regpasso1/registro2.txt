@@ -1,0 +1,130 @@
+registro2.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+calle
+  rotate: false
+  xy: 810, 47
+  size: 141, 32
+  orig: 141, 32
+  offset: 0, 0
+  index: -1
+colonia
+  rotate: false
+  xy: 617, 168
+  size: 209, 33
+  orig: 209, 33
+  offset: 0, 0
+  index: -1
+cp
+  rotate: true
+  xy: 1061, 47
+  size: 77, 32
+  orig: 77, 32
+  offset: 0, 0
+  index: -1
+cumpleanos
+  rotate: false
+  xy: 564, 2
+  size: 320, 42
+  orig: 320, 42
+  offset: 0, 0
+  index: -1
+delegacion-municipio
+  rotate: false
+  xy: 2, 2
+  size: 560, 44
+  orig: 560, 44
+  offset: 0, 0
+  index: -1
+estado
+  rotate: false
+  xy: 617, 203
+  size: 189, 33
+  orig: 189, 33
+  offset: 0, 0
+  index: -1
+femenino-x
+  rotate: true
+  xy: 936, 143
+  size: 105, 94
+  orig: 105, 94
+  offset: 0, 0
+  index: -1
+femenino
+  rotate: false
+  xy: 828, 117
+  size: 106, 94
+  orig: 106, 94
+  offset: 0, 0
+  index: -1
+guardar-off
+  rotate: false
+  xy: 2, 48
+  size: 310, 112
+  orig: 310, 112
+  offset: 0, 0
+  index: -1
+guardar-on
+  rotate: false
+  xy: 314, 48
+  size: 310, 112
+  orig: 310, 112
+  offset: 0, 0
+  index: -1
+masculino-x
+  rotate: true
+  xy: 1032, 143
+  size: 105, 94
+  orig: 105, 94
+  offset: 0, 0
+  index: -1
+masculino
+  rotate: false
+  xy: 953, 47
+  size: 106, 94
+  orig: 106, 94
+  offset: 0, 0
+  index: -1
+numero
+  rotate: false
+  xy: 626, 122
+  size: 198, 44
+  orig: 198, 44
+  offset: 0, 0
+  index: -1
+sexo
+  rotate: false
+  xy: 810, 81
+  size: 124, 34
+  orig: 124, 34
+  offset: 0, 0
+  index: -1
+telefono
+  rotate: false
+  xy: 886, 2
+  size: 241, 43
+  orig: 241, 43
+  offset: 0, 0
+  index: -1
+textbox1
+  rotate: false
+  xy: 626, 46
+  size: 182, 74
+  orig: 182, 74
+  offset: 0, 0
+  index: -1
+textbox2
+  rotate: false
+  xy: 2, 162
+  size: 325, 75
+  orig: 325, 75
+  offset: 0, 0
+  index: -1
+textbox3
+  rotate: false
+  xy: 329, 162
+  size: 286, 74
+  orig: 286, 74
+  offset: 0, 0
+  index: -1
