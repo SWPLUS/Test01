@@ -41,12 +41,12 @@ public class AndroidLauncher extends AndroidApplication implements ExternalInter
             public void run() {
                 new AlertDialog.Builder(AndroidLauncher.this)
                         .setMessage(message)
-                        .setPositiveButton("Yes", new OnClickListener() {
+                        .setPositiveButton("SI", new OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 listener.onConfirmation(true);
                             }
                         })
-                        .setNegativeButton("No", new OnClickListener() {
+                        .setNegativeButton("NO", new OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 listener.onConfirmation(false);
                             }
@@ -66,7 +66,7 @@ public class AndroidLauncher extends AndroidApplication implements ExternalInter
                 new AlertDialog.Builder(AndroidLauncher.this)
                         .setTitle("Atención")
                         .setMessage(message)
-                        .setPositiveButton("Yes", new OnClickListener() {
+                        .setPositiveButton("OK", new OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 listener.onConfirmation(true);
                             }

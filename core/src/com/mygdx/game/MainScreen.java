@@ -111,13 +111,13 @@ public class MainScreen extends Game {
 
     }
 
-    public BitmapFont getFont(int dp){
+    public static BitmapFont getFont(int dp){
         com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/arial.ttf");
         FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
         return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
     }
 
-    public BitmapFont getScoreFont(int dp){
+    public static BitmapFont getScoreFont(int dp){
         com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/ufonts.com_house-a-rama-kingpin.ttf");
         FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
         BitmapFont font = ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
