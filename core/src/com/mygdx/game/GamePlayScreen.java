@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+//import com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer;
+//import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,6 +20,9 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.audio.Sound;
 import java.util.UUID;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Group;
 
 /**
  * Created by Ivan on 02/03/15.
@@ -44,17 +47,22 @@ public class GamePlayScreen implements Screen {
     Image HeaderImage;
     String HeaderName;
     int Lives = 5;
+    int Specials = 5;
     private int Score;
     private Sound plop;
     BubbleArray bubbles;
     int MaxScore;
     boolean gameFinished;
-
+    Skin skinPoints;
+    Skin skinIcons;
     IntroDialog intro;
     WinDialog win;
     boolean IsPlaying;
     final InputListener bubbleListner;
     boolean noBubbles = true;
+    Group groupLives;
+    Group groupSpecials;
+    String specialName;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
         game = gam;
@@ -69,6 +77,26 @@ public class GamePlayScreen implements Screen {
         stage.clear();
         Gdx.input.setInputProcessor(stage);
 
+        switch (Level){
+            case 1:
+                specialName = "naranja-";
+                break;
+            case 2:
+                specialName = "lemmon-";
+                break;
+            case 3:
+                specialName = "strawberry-";
+                break;
+            case 4:
+                specialName = "pineaple-";
+                break;
+            case 5:
+                specialName = "mango-";
+                break;
+            case 6:
+                specialName = "grape-";
+                break;
+        }
 
         showIntro(Level);
 
@@ -78,21 +106,61 @@ public class GamePlayScreen implements Screen {
                 return true;
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                AnimatedActor a = (AnimatedActor)event.getListenerActor();
+                AnimatedActor a = (AnimatedActor) event.getListenerActor();
                 //a.bubble.Explode();
-                if (a.bubble.trapType != 3){
-                    Score += a.bubble.Explode();
-                    txtScore.setText(String.valueOf(Score));
-                    txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width/2));
-                    plop.play();
-                } else {
-                    if (a.bubble.tappedUno) {
-                        Score += a.bubble.Explode();
+                if (!a.bubble.Exploted) {
+                    if (a.bubble.trapType != 3) {
+                        int scored = a.bubble.Explode();
+                        Score += scored;
+                        final Image imgPoints;
+                        switch (scored) {
+                            case 5:
+                                imgPoints = new Image(skinPoints.getDrawable("mas5"));
+                                break;
+                            case 10:
+                                imgPoints = new Image(skinPoints.getDrawable("mas10"));
+                                break;
+                            case 15:
+                                imgPoints = new Image(skinPoints.getDrawable("mas15"));
+                                Specials--;
+                                for (int z = 5; z != 0; z--) {
+                                    if (z > Specials) {
+                                        Image imgSpecial = (Image) groupSpecials.getChildren().get(5 - z);
+                                        imgSpecial.setDrawable(skinIcons.getDrawable(specialName + "on"));
+                                    }
+                                }
+                                break;
+                            default:
+                                imgPoints = new Image(skinPoints.getDrawable("menos10"));
+                                break;
+                        }
+                        imgPoints.setSize(MainScreen.calcSize((int) imgPoints.getWidth(), true), MainScreen.calcSize((int) imgPoints.getHeight(), false));
+                        Vector2 pos = a.localToStageCoordinates(new Vector2(0, 0));
+                        imgPoints.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight());
+                        MoveToAction moveAction = new MoveToAction();
+                        moveAction.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight() + MainScreen.calcSize(100, false));
+                        moveAction.setDuration(1);
+                        imgPoints.addAction(moveAction);
+                        stage.addActor(imgPoints);
+                        Timer.schedule(new Task() {
+                            @Override
+                            public void run() {
+                                imgPoints.remove();
+                            }
+                        }, 0.9f);
+
                         txtScore.setText(String.valueOf(Score));
-                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth()/2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width/2));
+                        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
                         plop.play();
                     } else {
-                        a.bubble.tappedUno = true;
+                        if (a.bubble.tappedUno) {
+                            Score += a.bubble.Explode();
+                            txtScore.setText(String.valueOf(Score));
+                            txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
+                            plop.play();
+                        } else {
+                            a.bubble.tappedUno = true;
+                        }
                     }
                 }
                 if ((Score >= nextFruit) && (nextFruit>0)){
@@ -137,7 +205,6 @@ public class GamePlayScreen implements Screen {
 
     }
 
-
     private void showIntro(int level){
         Window.WindowStyle style=new Window.WindowStyle();
         style.titleFont=new BitmapFont();
@@ -154,7 +221,6 @@ public class GamePlayScreen implements Screen {
         win.show(stage);
     }
 
-
     public void startGame(){
 
         img = new Texture("GamePlay/background.png");
@@ -162,13 +228,14 @@ public class GamePlayScreen implements Screen {
         imgBack = new Image(img);
         imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
 
-        //DUMMY BUBBLE TEXTURES INIT
-        //AtlasHeader = BubblesAtlas.BurstAtlas;
-        //
-        AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
+        skinPoints = new Skin(BubblesAtlas.PointsAtlas);
         SkinHeader = new Skin();
+        skinIcons = new Skin(BubblesAtlas.IconsAtlas);
+
+                //
+                AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
         SkinHeader.addRegions(AtlasHeader);
-        font = game.getFont(16);
+        font = MainScreen.getFont(16);
 
         plop = Gdx.audio.newSound(Gdx.files.internal("plop.mp3"));
 
@@ -189,11 +256,65 @@ public class GamePlayScreen implements Screen {
         HeaderImage.setBounds(0,ScreenHeight - MainScreen.calcSize(138,false), MainScreen.calcSize(1080,true),MainScreen.calcSize(138,false));
 
         stage.addActor(imgBack);
-        //stage.addActor(HeaderImage);
 
         bubbles = new BubbleArray(Level);
         nextFruit = Levels.GetNextScoreSpecial(Level,0);
 
+        int liveWidth;
+        int liveHeight;
+        groupLives = new com.badlogic.gdx.scenes.scene2d.Group();
+        Image ImageLive1 = new Image(skinIcons.getDrawable("vida-on"));
+        liveWidth = MainScreen.calcSize((int)ImageLive1.getWidth(),true);
+        liveHeight = MainScreen.calcSize((int)ImageLive1.getHeight(),false);
+        ImageLive1.setSize(liveWidth,liveHeight);
+        Image ImageLive2 = new Image(skinIcons.getDrawable("vida-on"));
+        ImageLive2.setPosition(ImageLive1.getWidth() + 1,0);
+        ImageLive2.setSize(liveWidth, liveHeight);
+        Image ImageLive3 = new Image(skinIcons.getDrawable("vida-on"));
+        ImageLive3.setPosition((ImageLive1.getWidth()*2) + 1,0);
+        ImageLive3.setSize(liveWidth,liveHeight);
+        Image ImageLive4 = new Image(skinIcons.getDrawable("vida-on"));
+        ImageLive4.setPosition((ImageLive1.getWidth()*3) + 1,0);
+        ImageLive4.setSize(liveWidth,liveHeight);
+        Image ImageLive5 = new Image(skinIcons.getDrawable("vida-on"));
+        ImageLive5.setPosition((ImageLive1.getWidth()*4) + 1,0);
+        ImageLive5.setSize(liveWidth,liveHeight);
+        groupLives.addActor(ImageLive1);
+        groupLives.addActor(ImageLive2);
+        groupLives.addActor(ImageLive3);
+        groupLives.addActor(ImageLive4);
+        groupLives.addActor(ImageLive5);
+        groupLives.setSize((MainScreen.calcSize((int)ImageLive1.getWidth(),true) * 5) + 5, MainScreen.calcSize((int)ImageLive1.getHeight(),false));
+        groupLives.setPosition(MainScreen.calcSize(40,true),(ScreenHeight - MainScreen.calcSize(138,false)) + ((MainScreen.calcSize(138,false) - ImageLive1.getHeight())/2));
+        groupLives.toFront();
+
+        int specialWidth;
+        int specialHeight;
+        groupSpecials = new com.badlogic.gdx.scenes.scene2d.Group();
+        Image ImageSpecial1 = new Image(skinIcons.getDrawable(specialName + "off"));
+        specialWidth = MainScreen.calcSize((int)ImageSpecial1.getWidth(),true);
+        specialHeight = MainScreen.calcSize((int)ImageSpecial1.getHeight(),false);
+        ImageSpecial1.setSize(specialWidth,specialHeight);
+        Image ImageSpecial2 = new Image(skinIcons.getDrawable(specialName + "off"));
+        ImageSpecial2.setPosition(ImageSpecial1.getWidth() + 1,0);
+        ImageSpecial2.setSize(specialWidth,specialHeight);
+        Image ImageSpecial3 = new Image(skinIcons.getDrawable(specialName + "off"));
+        ImageSpecial3.setPosition((ImageSpecial1.getWidth()*2) + 1,0);
+        ImageSpecial3.setSize(specialWidth,specialHeight);
+        Image ImageSpecial4 = new Image(skinIcons.getDrawable(specialName + "off"));
+        ImageSpecial4.setPosition((ImageSpecial1.getWidth()*3) + 1,0);
+        ImageSpecial4.setSize(specialWidth,specialHeight);
+        Image ImageSpecial5 = new Image(skinIcons.getDrawable(specialName + "off"));
+        ImageSpecial5.setPosition((ImageSpecial1.getWidth()*4) + 1,0);
+        ImageSpecial5.setSize(specialWidth,specialHeight);
+        groupSpecials.addActor(ImageSpecial1);
+        groupSpecials.addActor(ImageSpecial2);
+        groupSpecials.addActor(ImageSpecial3);
+        groupSpecials.addActor(ImageSpecial4);
+        groupSpecials.addActor(ImageSpecial5);
+        groupSpecials.setSize((MainScreen.calcSize((int)ImageSpecial1.getWidth(),true) * 5) + 5, MainScreen.calcSize((int)ImageSpecial1.getHeight(),false));
+        groupSpecials.setPosition(MainScreen.calcSize(700,true),(ScreenHeight - MainScreen.calcSize(138,false)) + ((MainScreen.calcSize(138,false) - ImageSpecial1.getHeight())/2));
+        groupSpecials.toFront();
     }
 
     @Override
@@ -201,9 +322,9 @@ public class GamePlayScreen implements Screen {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        float d = Gdx.graphics.getDeltaTime();
-
+        stage.act(delta);
         stage.draw();
+
         game.batch.begin();
 
         if (IsPlaying){
@@ -217,7 +338,7 @@ public class GamePlayScreen implements Screen {
                             AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
                             bubble.addListener(bubbleListner);
                             stage.addActor(bubble);
-                        }}, 0,Levels.GetFruitDelay(Level) * 2);
+                        }}, 1,Levels.GetFruitDelay(Level) * 2);
                 } else {
                     Timer.schedule(new Task(){
                         @Override
@@ -240,19 +361,28 @@ public class GamePlayScreen implements Screen {
             java.util.Iterator<AnimatedActor> i = bubbles.bubbles.iterator();
             while (i.hasNext()) {
                 AnimatedActor b = i.next();
-                b.act(d);
                 if (b.getActions().size == 0){
                     i.remove();
                     b.remove();
-                    if (!b.bubble.Exploted){
+                    if ((!b.bubble.Exploted) && (b.bubble.trapType != 2)) {
                         Lives--;
-                        Gdx.app.log("lives",String.valueOf(Lives));
+                        for (int z = 0;z<5;z++){
+                            Image imgLive = (Image)groupLives.getChildren().get(z);
+                            if((z+1)>Lives){
+                                imgLive.setDrawable(skinIcons.getDrawable("vida-off"));
+                            } else {
+                                imgLive.setDrawable(skinIcons.getDrawable("vida-on"));
+                            }
+                        }
+                        Gdx.input.vibrate(333);
                     }
                 }
             }
 
             HeaderImage.draw(game.batch, 1);
             txtScore.draw(game.batch,1);
+            groupLives.draw(game.batch,1);
+            groupSpecials.draw(game.batch, 1);
 
         }
 
@@ -278,8 +408,10 @@ public class GamePlayScreen implements Screen {
 
     @Override
     public void resume() {
+        BubblesAtlas.reloadTextures();
     }
 
+    @Override
     public void dispose() {
     }
 

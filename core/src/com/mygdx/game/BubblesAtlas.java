@@ -23,5 +23,26 @@ public class BubblesAtlas {
     public static TextureAtlas SpecialPineappleAtlas = new TextureAtlas("GamePlay/special/pineapple.txt");
     public static TextureAtlas SpecialStrawberryAtlas = new TextureAtlas("GamePlay/special/strawbeery.txt");
     public static TextureAtlas PointsAtlas = new TextureAtlas("GamePlay/points.txt");
+    public static TextureAtlas IconsAtlas = new TextureAtlas("GamePlay/icons.txt");
+
+    public static void reloadTextures(){
+        OrangeAtlas = new TextureAtlas("GamePlay/orange.txt");
+        GrapeAtlas = new TextureAtlas("GamePlay/grape.txt");
+        LemonAtlas = new TextureAtlas("GamePlay/lemon.txt");
+        MangoAtlas = new TextureAtlas("GamePlay/mango.txt");
+        PineappleAtlas = new TextureAtlas("GamePlay/pineapple.txt");
+        StrawberryAtlas = new TextureAtlas("GamePlay/strawberry.txt");
+        DoubleAtlas = new TextureAtlas("GamePlay/double.txt");
+        SheskoAtlas = new TextureAtlas("GamePlay/shesko.txt");
+        BurstAtlas = new TextureAtlas("GamePlay/burst.txt");
+        SpecialOrangeAtlas = new TextureAtlas("GamePlay/special/orange.txt");
+        SpecialGrapeAtlas = new TextureAtlas("GamePlay/special/grape.txt");
+        SpecialLemonAtlas = new TextureAtlas("GamePlay/special/lemon.txt");
+        SpecialMangoAtlas = new TextureAtlas("GamePlay/special/mango.txt");
+        SpecialPineappleAtlas = new TextureAtlas("GamePlay/special/pineapple.txt");
+        SpecialStrawberryAtlas = new TextureAtlas("GamePlay/special/strawbeery.txt");
+        PointsAtlas = new TextureAtlas("GamePlay/points.txt");
+        IconsAtlas = new TextureAtlas("GamePlay/points.txt");
+    }
 
 }

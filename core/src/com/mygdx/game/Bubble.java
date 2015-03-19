@@ -83,44 +83,16 @@ public class Bubble {
         float animationSpeed = 0.10f;
         AnimationBubble = new Animation(animationSpeed, trAni);
         stateTime = 0f;
-        int min;
-        int max;
-        /* if ((!left) && (!right)){
-
-            int midvalue;
-            if ((lvl != 5) || (trapType == 1)) {
-                midvalue = MainScreen.calcSize(trAni[0].getRegionWidth(),true) / 2;
-            } else {
-                midvalue = MainScreen.calcSize(trAni[0].getRegionWidth()/2,true) / 2;
-            }
-            min = 0-midvalue;
-            max = screenWidth - midvalue;
-            midvalue = randomX.nextInt((max - min) + 1) + min;
-            Position = new Vector2(midvalue, 0 - MainScreen.calcSize(trAni[0].getRegionHeight(),false));
-        } else {
-            int midvalue;
-            midvalue = MainScreen.calcSize(trAni[0].getRegionHeight(),true) / 2;
-            min = 0-midvalue;
-            max = screenHeight - MainScreen.calcSize(138,false) - midvalue;
-            midvalue = randomX.nextInt((max - min) + 1) + min;
-            if (left){
-                Position = new Vector2(0-(trAni[0].getRegionWidth()),midvalue);
-                isLeft = true;
-            } else {
-                Position = new Vector2(screenWidth+(MainScreen.calcSize(trAni[0].getRegionWidth() / 2,true)),midvalue);
-                isRight = true;
-            }
-        } */
 
         speed = Levels.GetLevelPPF(Level,screenHeight);
         float minSpeed = speed[0];
         float maxSpeed = speed[1];
         Random randomX = new Random();
-        mySpeed = randomX.nextInt((int)(maxSpeed - minSpeed)) + minSpeed;
+        mySpeed = randomX.nextFloat() * (maxSpeed - minSpeed) + minSpeed;
 
     }
 
-    public void update(float delta){
+    /*public void update(float delta){
         if ((!isLeft) && (!isRight)){
             Position.add(0,mySpeed);
         } else {
@@ -139,7 +111,7 @@ public class Bubble {
                 ExplotedAndFinished = true;
             }
         }
-    }
+    }*/
 
     public static <T extends Enum<?>> T randomEnum(Class<T> clazz){
         Random random = new Random();
@@ -162,7 +134,7 @@ public class Bubble {
         switch (trapType){
             case 0:
                 returnValue = 5;
-                imgPoints = BubblesAtlas.PointsAtlas.findRegion("mas5");
+                //imgPoints = BubblesAtlas.PointsAtlas.findRegion("mas5");
                 break;
             case 1:
                 returnValue = 15;
