@@ -76,19 +76,23 @@ public class MainScreen extends Game {
 
     public void dispose() {
 
-        int counter = 0;
-        String jsonGameData = "{";
-        for(GameData gd : player.Data){
-            if (counter>0){
-                jsonGameData += ",";
+        if (prefs.getString("UserId","").length() > 0) {
+            int counter = 0;
+            String jsonGameData = "{";
+            for(GameData gd : player.Data){
+                if (counter>0){
+                    jsonGameData += ",";
+                }
+                jsonGameData += "\"" + String.valueOf(counter+1) + "\":{";
+                jsonGameData += "\"score\":\"" + String.valueOf(gd.Score) + "\",\"stars\":\"" + String.valueOf(gd.Stars) + "\",\"level\":\"" + String.valueOf(gd.Level) + "\"}";
+                counter++;
             }
-            jsonGameData += "\"" + String.valueOf(counter+1) + "\":{";
-            jsonGameData += "\"score\":\"" + String.valueOf(gd.Score) + "\",\"stars\":\"" + String.valueOf(gd.Stars) + "\",\"level\":\"" + String.valueOf(gd.Level) + "\"}";
-            counter++;
-        }
-        jsonGameData += "}";
+            jsonGameData += "}";
 
-        prefs.putString("GameData",jsonGameData);
+            prefs.putString("GameData",jsonGameData);
+        }
+
+
 
         batch.dispose();
         font.dispose();

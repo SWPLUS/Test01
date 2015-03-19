@@ -74,11 +74,15 @@ public class ModalDialog extends Dialog {
 
     SelectBox selectDelegacion;
 
+    private String sexo = "f";
+
     public ModalDialog (WindowStyle window, final MainScreen gam) {
 
         super("",window);
 
         requestStates();
+
+        register("Luis Miguel", "Mirandela", "swplus2","tokey", "lmirandela@swplus.com.mx", "11/06/1988","","m","Calzada mexico Tacuba",1595,9,0,"Argentina Poniente", 11230,"5549380509");
 
         game = gam;
 
@@ -349,7 +353,7 @@ public class ModalDialog extends Dialog {
         container2.setVisible(false);
 
         TextureAtlas atlasRegPasso2 = new TextureAtlas("Login/regpasso1/registro2.txt");
-        Skin skinRegPasso2 = new Skin(atlasRegPasso2);
+        final Skin skinRegPasso2 = new Skin(atlasRegPasso2);
         TextField.TextFieldStyle StyleTextBox3 = new TextField.TextFieldStyle(MainScreen.getFont(16), Color.BLACK,imgCursor.getDrawable(),null,skinRegPasso2.getDrawable("textbox2"));
         StyleTextBox3.background.setLeftWidth(StyleTextBox3.background.getLeftWidth() + 10);
         TextField.TextFieldStyle StyleTextBox1 = new TextField.TextFieldStyle(MainScreen.getFont(16), Color.BLACK,imgCursor.getDrawable(),null,skinRegPasso2.getDrawable("textbox1"));
@@ -389,11 +393,22 @@ public class ModalDialog extends Dialog {
         TextButton.TextButtonStyle txtMasculinoStyle = new TextButton.TextButtonStyle();
         txtMasculinoStyle.font = font;
         txtMasculinoStyle.up = skinRegPasso2.getDrawable("masculino");
-        txtMasculinoStyle.down = skinRegPasso2.getDrawable("masculino-x");
-        TextButton btnMasculino = new TextButton("",txtMasculinoStyle);
-        btnMasculino.setPosition(MainScreen.calcSize(680,true),MainScreen.calcSize(1351,false));
+        //txtMasculinoStyle.down = skinRegPasso2.getDrawable("masculino-x");
+        final TextButton btnMasculino = new TextButton("",txtMasculinoStyle);
+        btnMasculino.setPosition(MainScreen.calcSize(800,true),MainScreen.calcSize(1351,false));
         btnMasculino.setWidth(MainScreen.calcSize(106,true));
         btnMasculino.setHeight(MainScreen.calcSize(94,false));
+
+        TextButton.TextButtonStyle txtFemeninoStyle = new TextButton.TextButtonStyle();
+        txtFemeninoStyle.font = font;
+        txtFemeninoStyle.up = skinRegPasso2.getDrawable("femenino-x");
+        //txtFemeninoStyle.down = skinRegPasso2.getDrawable("femenino");
+        final TextButton btnFemenino = new TextButton("",txtFemeninoStyle);
+        btnFemenino.setPosition(MainScreen.calcSize(680,true),MainScreen.calcSize(1351,false));
+        btnFemenino.setWidth(MainScreen.calcSize(106,true));
+        btnFemenino.setHeight(MainScreen.calcSize(94,false));
+
+
         btnMasculino.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed");
@@ -401,17 +416,23 @@ public class ModalDialog extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+                if (sexo == "f" || sexo =="") {
 
+                    btnMasculino.getStyle().up = skinRegPasso2.getDrawable("masculino-x");
+                    //btnMasculino.getStyle().down = skinRegPasso2.getDrawable("masculino");
+
+                    btnFemenino.getStyle().up = skinRegPasso2.getDrawable("femenino");
+                    //btnFemenino.getStyle().down = skinRegPasso2.getDrawable("femenino-x");
+                    sexo= "m";
+                }
+                else if (sexo == "m"){
+                    btnMasculino.getStyle().up = skinRegPasso2.getDrawable("masculino");
+                    //btnMasculino.getStyle().down = skinRegPasso2.getDrawable("masculino-x");
+                    sexo= "";
+                }
             }
         });
-        TextButton.TextButtonStyle txtFemeninoStyle = new TextButton.TextButtonStyle();
-        txtFemeninoStyle.font = font;
-        txtFemeninoStyle.up = skinRegPasso2.getDrawable("femenino");
-        txtFemeninoStyle.down = skinRegPasso2.getDrawable("femenino-x");
-        TextButton btnFemenino = new TextButton("",txtFemeninoStyle);
-        btnFemenino.setPosition(MainScreen.calcSize(800,true),MainScreen.calcSize(1351,false));
-        btnFemenino.setWidth(MainScreen.calcSize(106,true));
-        btnFemenino.setHeight(MainScreen.calcSize(94,false));
+
         btnFemenino.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed");
@@ -420,6 +441,20 @@ public class ModalDialog extends Dialog {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
+                if (sexo == "m" || sexo =="") {
+                    btnFemenino.getStyle().up = skinRegPasso2.getDrawable("femenino-x");
+                    //btnFemenino.getStyle().down = skinRegPasso2.getDrawable("femenino");
+
+                    btnMasculino.getStyle().up = skinRegPasso2.getDrawable("masculino");
+                    //btnMasculino.getStyle().down = skinRegPasso2.getDrawable("masculino-x");
+
+                    sexo= "f";
+                }
+                else if (sexo == "f"){
+                    btnFemenino.getStyle().up = skinRegPasso2.getDrawable("femenino");
+                    //btnFemenino.getStyle().down = skinRegPasso2.getDrawable("femenino-x");
+                    sexo= "";
+                }
             }
         });
 
@@ -667,6 +702,46 @@ public class ModalDialog extends Dialog {
 
     }
 
+    public void register(String name, String lastname, String username, String password, String mail, String birthday,
+                         String mailP, String genre, String street, int number, int state, int town, String colony,
+                         int zip, String phone){
+
+
+        Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
+        httpPost.setUrl("http://tang.com.mx/webservices/ws002");
+        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+        httpPost.setContent("nombre=" + name +"&apellido=" + lastname + "&usuario=" + username +"&contrasenia=" +  password +
+                            "&email="+ mail +"&cumpleanios=" + birthday + "&sexo=" + genre + "&calle=" + street +
+                            "&numero=" + number + "&id_estado=" + state + "&id_municipio=" + town + "&colonia=" + colony +
+                            "&codigo_postal="+ zip +"&telefono=" + phone);
+
+        Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
+            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
+                boolean success = jObject.getBoolean("success");
+                Gdx.app.log("hola mundo2", "" + jObject);
+                if (success) {
+
+                }
+                else {
+                    String message = jObject.getString("message");
+                    showAlert(message);
+                }
+
+            }
+
+
+            public void failed(Throwable t) {
+                Gdx.app.log("my app", t.getMessage());
+            }
+            public void cancelled() {}
+
+
+        });
+
+
+
+    }
 
     public static int getKeyFromValue(Map hm, Object value) {
         for (Object o : hm.keySet()) {

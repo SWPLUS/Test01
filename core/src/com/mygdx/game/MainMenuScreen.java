@@ -120,18 +120,23 @@ public class MainMenuScreen implements Screen {
                     game.player.LastName = MainScreen.prefs.getString("LastName","");
                     game.player.Mail = MainScreen.prefs.getString("Mail","");
 
-                    JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
-                    ArrayList<GameData> DataList = new  ArrayList<GameData>();
-                    Iterator<?> keys = game_data.keys();
-                    while (keys.hasNext()) {
-                        String key = (String) keys.next();
-                        GameData MyData =  new GameData();
-                        MyData.Score = game_data.getJSONObject(key).getInt("score");
-                        MyData.Level = game_data.getJSONObject(key).getInt("level");
-                        MyData.Stars = game_data.getJSONObject(key).getInt("stars");
-                        DataList.add(MyData);
+
+
+                    if (MainScreen.prefs.getString("GameData","") != null) {
+                        JSONObject game_data = new JSONObject();
+                        ArrayList<GameData> DataList = new  ArrayList<GameData>();
+                        Iterator<?> keys = game_data.keys();
+                        while (keys.hasNext()) {
+                            String key = (String) keys.next();
+                            GameData MyData =  new GameData();
+                            MyData.Score = game_data.getJSONObject(key).getInt("score");
+                            MyData.Level = game_data.getJSONObject(key).getInt("level");
+                            MyData.Stars = game_data.getJSONObject(key).getInt("stars");
+                            DataList.add(MyData);
+                        }
+                        game.player.Data = DataList;
                     }
-                    game.player.Data = DataList;
+
 
                     game.setScreen(new StoryScreen(game));
                 } else {

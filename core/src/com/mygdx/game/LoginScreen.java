@@ -140,9 +140,9 @@ public class LoginScreen implements Screen {
         Gdx.app.log("gotDrawable", "usuariotang");
         imgUsuario.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((671 / 2),true),MainScreen.calcSize(1459-46,false),MainScreen.calcSize(671,true),MainScreen.calcSize(44,false));
 
-        TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(font, Color.BLACK,null,null,SkinLogin.getDrawable("cajatexto"));
-        FileHandle file = Gdx.files.internal("fonts/font.fnt");
-        txtStyle.font = new BitmapFont(file);
+        TextField.TextFieldStyle txtStyle = new TextField.TextFieldStyle(MainScreen.getFont(16), Color.BLACK,null,null,SkinLogin.getDrawable("cajatexto"));
+        //FileHandle file = Gdx.files.internal("fonts/font.fnt");
+        //txtStyle.font = new BitmapFont(file);
         txtStyle.fontColor = Color.BLACK;
         txtStyle.background.setLeftWidth(txtStyle.background.getLeftWidth() + 10);
         cursor = new Texture("Login/cursor.png");
@@ -220,7 +220,7 @@ public class LoginScreen implements Screen {
                 boolean success = jObject.getBoolean("success");
                 if (success) {
                     user_data = jObject.getJSONObject("user_data");
-                    game_data = jObject.getJSONObject("game_data");
+
 
                     game.player.Logged = true;
                     game.player.UserId = user_data.getString("id_user");
@@ -232,29 +232,36 @@ public class LoginScreen implements Screen {
                     MainScreen.prefs.putString("Name", game.player.Name);
                     MainScreen.prefs.putString("LastName", game.player.LastName);
                     MainScreen.prefs.putString("Mail", game.player.Mail);
-                    MainScreen.prefs.putString("GameData",jObject.getString("game_data"));
+
                     MainScreen.prefs.flush();
 
-                    ArrayList<GameData> DataList = new  ArrayList<GameData>();
-                    Iterator<?> keys = game_data.keys();
-                    while (keys.hasNext()) {
-                        String key = (String) keys.next();
-                        GameData MyData =  new GameData();
-                        MyData.Score = game_data.getJSONObject(key).getInt("score");
-                        MyData.Level = game_data.getJSONObject(key).getInt("level");
-                        MyData.Stars = game_data.getJSONObject(key).getInt("stars");
-                        DataList.add(MyData);
+                    if (jObject.getJSONObject("game_data") != null){
+                        game_data = jObject.getJSONObject("game_data");
 
-                        Gdx.app.log("hola mundo", "" + MyData.Level);
+                        ArrayList<GameData> DataList = new  ArrayList<GameData>();
+                        Iterator<?> keys = game_data.keys();
+                        while (keys.hasNext()) {
+                            String key = (String) keys.next();
+                            GameData MyData =  new GameData();
+                            MyData.Score = game_data.getJSONObject(key).getInt("score");
+                            MyData.Level = game_data.getJSONObject(key).getInt("level");
+                            MyData.Stars = game_data.getJSONObject(key).getInt("stars");
+                            DataList.add(MyData);
+
+                            Gdx.app.log("hola mundo", "" + MyData.Level);
+                        }
+
+                        MainScreen.prefs.putString("GameData",jObject.getString("game_data"));
+                        MainScreen.prefs.flush();
+                        game.player.Data = DataList;
                     }
-                    game.player.Data = DataList;
+
 
 
                     Gdx.app.log("hola mundo", "" + game.player.Data.toString());
 
 
                 } else {
-
                     showAlert("Usuario o contraseña incorrecta");
                 }
             }
