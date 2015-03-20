@@ -2,10 +2,10 @@ package com.mygdx.game;
 
 /**
  * Created by LuisMirandela on 03/03/2015.
+ * Last Edited by Luis Mirandela on 19/03/2015
  */
 
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import  java.util.*;
 
@@ -15,7 +15,6 @@ public class BubbleArray {
     public int cheskoLimit;
     public int doubleLimit;
     public int level;
-    public ArrayList<AnimatedActor> sheskos;
     private int cheskoCount;
     private int doubleCount;
 
@@ -56,7 +55,7 @@ public class BubbleArray {
         if ((level == 5) && (trapType != 2)){
             midvalue = (imgWidth) / 4;
         } else  if (level == 6) {
-            midvalue = imgHeight;
+            midvalue = imgHeight / 2;
         } else {
             midvalue = imgWidth / 2;
         }
@@ -78,7 +77,7 @@ public class BubbleArray {
         MoveToAction moveAction = new MoveToAction();
         if (left) {
             act.setPosition(-1 - imgWidth, midvalue);
-            moveAction.setPosition(screenWidth + 1, midvalue);
+            moveAction.setPosition(screenWidth + imgWidth + 1, midvalue);
         } else if (right){
             act.setPosition(screenWidth + 1, midvalue);
             moveAction.setPosition(-1-imgWidth, midvalue);
