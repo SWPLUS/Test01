@@ -30,6 +30,8 @@ public class SettingsScreen implements Screen {
     private TextButton ButtonBack;
     private TextButton ButtonMusic;
     private TextButton ButtonSound;
+    private TextButton ButtonReset;
+    private TextButton ButtonInstr;
     private TextButton ButtonTang;
     private TextButton ButtonAcerca;
 
@@ -88,7 +90,7 @@ public class SettingsScreen implements Screen {
 
         StyleButtonMusic.font = font;
         ButtonMusic = new TextButton("", StyleButtonMusic);
-        ButtonMusic.setPosition(game.calcSize(((1080/2)-(305/2)),true), game.calcSize((1920-200)-219,false));
+        ButtonMusic.setPosition(game.calcSize(200,true), game.calcSize((1920-200)-219,false));
         ButtonMusic.setHeight(game.calcSize(219,false));
         ButtonMusic.setWidth(game.calcSize(305,true));
         ButtonMusic.addListener(new InputListener() {
@@ -133,7 +135,7 @@ public class SettingsScreen implements Screen {
 
         StyleButtonSound.font = font;
         ButtonSound = new TextButton("", StyleButtonSound);
-        ButtonSound.setPosition(game.calcSize(((1080/2)-(306/2)),true), game.calcSize(((1920-200)-440)-75,false));
+        ButtonSound.setPosition(game.calcSize(600,true), game.calcSize((1920-200)-219,false));
         ButtonSound.setHeight(game.calcSize(221,false));
         ButtonSound.setWidth(game.calcSize(306,true));
         ButtonSound.addListener(new InputListener() {
@@ -165,7 +167,7 @@ public class SettingsScreen implements Screen {
         StyleButtonAcerca.down = SkinSettings.getDrawable("acerca-de-off");
         StyleButtonAcerca.font = font;
         ButtonAcerca = new TextButton("", StyleButtonAcerca);
-        ButtonAcerca.setPosition(game.calcSize(((1080/2)-(529/2)),true), game.calcSize(((1920-200)-652)-165,false));
+        ButtonAcerca.setPosition(game.calcSize(((1080/2)-(529/2)),true), game.calcSize(((1920-200)-440)-75,false) );
         ButtonAcerca.setHeight(game.calcSize(212,false));
         ButtonAcerca.setWidth(game.calcSize(529,true));
         ButtonAcerca.addListener(new InputListener() {
@@ -186,7 +188,7 @@ public class SettingsScreen implements Screen {
         StyleButtonTang.down = SkinSettings.getDrawable("url-off");
         StyleButtonTang.font = font;
         ButtonTang = new TextButton("", StyleButtonTang);
-        ButtonTang.setPosition(game.calcSize(((1080/2)-(561/2)),true), game.calcSize(((1920-200)-828)-300,false));
+        ButtonTang.setPosition(game.calcSize(((1080/2)-(561/2)),true),game.calcSize(((1920-200)-652)-165,false) ); //
         ButtonTang.setHeight(game.calcSize(212,false));
         ButtonTang.setWidth(game.calcSize(561,true));
         ButtonTang.addListener(new InputListener() {
@@ -200,12 +202,75 @@ public class SettingsScreen implements Screen {
             }
         });
 
+
+
+
+
+
+        TextButton.TextButtonStyle StyleButtonReset = new TextButton.TextButtonStyle();
+        StyleButtonReset.up = SkinSettings.getDrawable("arroba-on");
+        StyleButtonReset.down = SkinSettings.getDrawable("arroba-off");
+        StyleButtonReset.font = font;
+        ButtonReset = new TextButton("", StyleButtonReset);
+        ButtonReset.setPosition(game.calcSize(200,true), game.calcSize(((1920-200)-828)-330,false));
+        ButtonReset.setHeight(game.calcSize(255,false));
+        ButtonReset.setWidth(game.calcSize(288,true));
+        ButtonReset.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+
+                if (MainScreen.prefs.getString("UserId","").length() > 0){
+                    MainScreen.prefs.remove("UserId");
+                    MainScreen.prefs.remove("Name");
+                    MainScreen.prefs.remove("LastName");
+                    MainScreen.prefs.remove("Mail");
+                    MainScreen.prefs.remove("GameData");
+                    MainScreen.prefs.flush();
+
+                    showAlert("Sesión Finalizada");
+                }
+
+
+
+            }
+        });
+
+        // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ //
+
+        TextButton.TextButtonStyle StyleButtonInstr = new TextButton.TextButtonStyle();
+        StyleButtonInstr.up = SkinSettings.getDrawable("instrucciones-on");
+        StyleButtonInstr.down = SkinSettings.getDrawable("instrucciones-off");
+        StyleButtonInstr.font = font;
+        ButtonInstr = new TextButton("", StyleButtonInstr);
+        ButtonInstr.setPosition(game.calcSize(600,true), game.calcSize(((1920-200)-828)-330,false));
+        ButtonInstr.setHeight(game.calcSize(255,false));
+        ButtonInstr.setWidth(game.calcSize(288,true));
+        ButtonInstr.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+            }
+        });
+
+
+
+
         stage.addActor(imgBack);
         stage.addActor(ButtonBack);
         stage.addActor(ButtonMusic);
         stage.addActor(ButtonSound);
         stage.addActor(ButtonAcerca);
         stage.addActor(ButtonTang);
+        stage.addActor(ButtonInstr);
+        stage.addActor(ButtonReset);
+
     }
 
     @Override
@@ -246,6 +311,17 @@ public class SettingsScreen implements Screen {
     }
 
     public void dispose() {
+    }
+
+
+    public void showAlert(String message) {
+        if (game != null) {
+            game.showAlert(message, new MainScreen.OnConfirmationListener() {
+                @Override
+                public void onConfirmation(boolean confirmed) {
+                }
+            });
+        }
     }
 
 }
