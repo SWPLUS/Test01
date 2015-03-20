@@ -1,0 +1,39 @@
+recover.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+close-button
+  rotate: false
+  xy: 2, 2
+  size: 149, 142
+  orig: 149, 142
+  offset: 0, 0
+  index: -1
+enviar-off
+  rotate: false
+  xy: 153, 2
+  size: 327, 118
+  orig: 327, 118
+  offset: 0, 0
+  index: -1
+enviar-on
+  rotate: false
+  xy: 482, 2
+  size: 327, 119
+  orig: 327, 119
+  offset: 0, 0
+  index: -1
+mail
+  rotate: false
+  xy: 811, 2
+  size: 149, 49
+  orig: 149, 49
+  offset: 0, 0
+  index: -1
+text-bar
+  rotate: false
+  xy: 962, 2
+  size: 725, 119
+  orig: 725, 119
+  offset: 0, 0
+  index: -1

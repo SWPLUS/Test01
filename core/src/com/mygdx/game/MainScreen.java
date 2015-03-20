@@ -76,9 +76,10 @@ public class MainScreen extends Game {
 
     public void dispose() {
 
-        if (prefs.getString("UserId","").length() > 0) {
+        if (player.Data != null) {
             int counter = 0;
             String jsonGameData = "{";
+
             for(GameData gd : player.Data){
                 if (counter>0){
                     jsonGameData += ",";
@@ -87,6 +88,7 @@ public class MainScreen extends Game {
                 jsonGameData += "\"score\":\"" + String.valueOf(gd.Score) + "\",\"stars\":\"" + String.valueOf(gd.Stars) + "\",\"level\":\"" + String.valueOf(gd.Level) + "\"}";
                 counter++;
             }
+
             jsonGameData += "}";
 
             prefs.putString("GameData",jsonGameData);
