@@ -76,13 +76,20 @@ public class ModalDialog extends Dialog {
 
     private String sexo = "f";
 
+
+    final TextField txtCorreo;
+    final TextField txtRepiteContrasena;
+    final TextField txtContrasena;
+    final TextField txtUsuario;
+    final TextField txtApellido;
+    final TextField txtNombre;
+
     public ModalDialog (WindowStyle window, final MainScreen gam) {
 
         super("",window);
 
         requestStates();
 
-        register("Luis Miguel", "Mirandela", "swplus2","tokey", "lmirandela@swplus.com.mx", "11/06/1988","","m","Calzada mexico Tacuba",1595,9,0,"Argentina Poniente", 11230,"5549380509");
 
         game = gam;
 
@@ -146,7 +153,7 @@ public class ModalDialog extends Dialog {
         txtStyle = new TextField.TextFieldStyle(MainScreen.getFont(16), Color.BLACK,imgCursor.getDrawable(),null,skinRegPasso1.getDrawable("cajatexto"));
         txtStyle.background.setLeftWidth(txtStyle.background.getLeftWidth() + 10);
 
-        final TextField txtCorreo = new TextField("",txtStyle);
+        txtCorreo = new TextField("",txtStyle);
         txtCorreo.setPosition((ScreenWidth/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(427,false));
         txtCorreo.setWidth(MainScreen.calcSize(665,true));
         txtCorreo.setHeight(MainScreen.calcSize(92,false));
@@ -156,7 +163,7 @@ public class ModalDialog extends Dialog {
         imgCorreo.setWidth(MainScreen.calcSize(193,true));
         imgCorreo.setHeight(MainScreen.calcSize(34, false));
 
-        final TextField txtRepiteContrasena = new TextField("",txtStyle);
+        txtRepiteContrasena = new TextField("",txtStyle);
         txtRepiteContrasena.setPosition((ScreenWidth/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(628,false));
         txtRepiteContrasena.setWidth(MainScreen.calcSize(665,true));
         txtRepiteContrasena.setHeight(MainScreen.calcSize(92,false));
@@ -166,7 +173,7 @@ public class ModalDialog extends Dialog {
         imgRepiteContrasena.setWidth(MainScreen.calcSize(571,true));
         imgRepiteContrasena.setHeight(MainScreen.calcSize(44,false));
 
-        final TextField txtContrasena = new TextField("",txtStyle);
+        txtContrasena = new TextField("",txtStyle);
         txtContrasena.setPosition((ScreenWidth/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(839,false));
         txtContrasena.setWidth(MainScreen.calcSize(665,true));
         txtContrasena.setHeight(MainScreen.calcSize(92,false));
@@ -176,7 +183,7 @@ public class ModalDialog extends Dialog {
         imgContrasena.setWidth(MainScreen.calcSize(322,true));
         imgContrasena.setHeight(MainScreen.calcSize(44,false));
 
-        final TextField txtUsuario = new TextField("",txtStyle);
+        txtUsuario = new TextField("",txtStyle);
         txtUsuario.setPosition((ScreenWidth/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(1050,false));
         txtUsuario.setWidth(MainScreen.calcSize(665,true));
         txtUsuario.setHeight(MainScreen.calcSize(92,false));
@@ -186,7 +193,7 @@ public class ModalDialog extends Dialog {
         imgUsuario.setWidth(MainScreen.calcSize(496,true));
         imgUsuario.setHeight(MainScreen.calcSize(35,false));
 
-        final TextField txtApellido = new TextField("",txtStyle);
+        txtApellido = new TextField("",txtStyle);
         txtApellido.setPosition((ScreenWidth/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(1252,false));
         txtApellido.setWidth(MainScreen.calcSize(665,true));
         txtApellido.setHeight(MainScreen.calcSize(92,false));
@@ -196,7 +203,7 @@ public class ModalDialog extends Dialog {
         imgApellido.setWidth(MainScreen.calcSize(222,true));
         imgApellido.setHeight(MainScreen.calcSize(32,false));
 
-        final TextField txtNombre = new TextField("",txtStyle);
+        txtNombre = new TextField("",txtStyle);
         txtNombre.setPosition((ScreenWidth/2) - MainScreen.calcSize(332,true),MainScreen.calcSize(1451,false));
         txtNombre.setWidth(MainScreen.calcSize(665,true));
         txtNombre.setHeight(MainScreen.calcSize(92,false));
@@ -214,7 +221,7 @@ public class ModalDialog extends Dialog {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
                 boolean valid = true;
-                /*
+
 
                 if(txtNombre.getText().trim().length() == 0){
                     showAlert("El nombre no puede ir vacío");
@@ -240,7 +247,7 @@ public class ModalDialog extends Dialog {
                     showAlert("No coincide la contraseña");
                     valid =  false;
                 }
-                else if(txtCorreo.getText().length() == 0){
+                else if(txtCorreo.getText().trim().length() == 0){
                     showAlert("El correo no puede ir vacío");
                     valid =  false;
                 }
@@ -248,7 +255,7 @@ public class ModalDialog extends Dialog {
                     showAlert("Favor de ingresar el correo en el siguiente formato 'abc@example.com'");
                     valid =  false;
                 }
-                */
+
                 if (valid){
                     SetRegistro2();
                     container.setVisible(false);
@@ -349,6 +356,7 @@ public class ModalDialog extends Dialog {
 
 
     private void SetRegistro2(){
+
         container2 = new Table();
         container2.setVisible(false);
 
@@ -460,7 +468,7 @@ public class ModalDialog extends Dialog {
 
 
 
-        TextField txtCalle = new TextField("",StyleTextBox3);
+        final TextField txtCalle = new TextField("",StyleTextBox3);
         txtCalle.setPosition(MainScreen.calcSize(170,true),MainScreen.calcSize(1170,false));
         txtCalle.setWidth(MainScreen.calcSize(425,true));
         txtCalle.setHeight(MainScreen.calcSize(92,false));
@@ -471,7 +479,7 @@ public class ModalDialog extends Dialog {
         imgCalle.setHeight(MainScreen.calcSize(32,false));
 
 
-        TextField txtNumero = new TextField("",StyleTextBox1);
+        final TextField txtNumero = new TextField("",StyleTextBox1);
         txtNumero.setPosition(MainScreen.calcSize(720,true),MainScreen.calcSize(1170,false));
         txtNumero.setWidth(MainScreen.calcSize(182,true));
         txtNumero.setHeight(MainScreen.calcSize(92,false));
@@ -533,7 +541,7 @@ public class ModalDialog extends Dialog {
 
 
 
-        TextField txtColonia = new TextField("",StyleTextBox3);
+        final TextField txtColonia = new TextField("",StyleTextBox3);
         txtColonia.setPosition(MainScreen.calcSize(170,true),MainScreen.calcSize(630,false));
         txtColonia.setWidth(MainScreen.calcSize(425,true));
         txtColonia.setHeight(MainScreen.calcSize(92,false));
@@ -544,7 +552,7 @@ public class ModalDialog extends Dialog {
         imgColonia.setHeight(MainScreen.calcSize(33,false));
 
 
-        TextField txtCp = new TextField("",StyleTextBox1);
+        final TextField txtCp = new TextField("",StyleTextBox1);
         txtCp.setPosition(MainScreen.calcSize(720,true),MainScreen.calcSize(630,false));
         txtCp.setWidth(MainScreen.calcSize(182,true));
         txtCp.setHeight(MainScreen.calcSize(92,false));
@@ -555,7 +563,7 @@ public class ModalDialog extends Dialog {
         imgCp.setHeight(MainScreen.calcSize(32,false));
 
 
-        TextField txtTelefono = new TextField("",txtStyle);
+        final TextField txtTelefono = new TextField("",txtStyle);
         txtTelefono.setPosition((ScreenWidth/2) - MainScreen.calcSize(370,true),MainScreen.calcSize(450,false));
         txtTelefono.setWidth(MainScreen.calcSize(740,true));
         txtTelefono.setHeight(MainScreen.calcSize(92,false));
@@ -582,6 +590,19 @@ public class ModalDialog extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+
+                int indexEstado = getKeyFromValue(StatesMap, selectEstado.getSelected());
+                int indexDeleg = getKeyFromValue(TownsMap, selectDelegacion.getSelected());
+
+                register (txtNombre.getText().trim(), txtApellido.getText().trim(), txtUsuario.getText().trim(),
+                        txtContrasena.getText(),txtCorreo.getText().trim(), btnCumpleanos.getText().toString(),"",
+                        sexo,txtCalle.getText().trim(), Integer.parseInt(txtNumero.getText().trim()),
+                        indexEstado,indexDeleg, txtCalle.getText().trim(), Integer.parseInt(txtCp.getText().trim()),
+                        txtTelefono.getText().trim()
+                        );
+
+                //register("nombre", "apellido", "swplus2","tokey", "lmirandela@swplus.com.mx", "11/06/1988","","m","Calzada mexico Tacuba",1595,9,0,"Argentina Poniente", 11230,"5549380509");
+
 
             }
         });
@@ -660,7 +681,6 @@ public class ModalDialog extends Dialog {
         });
 
     }
-
     public void requestTownsForState (int StateId) {
 
         Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
@@ -742,6 +762,7 @@ public class ModalDialog extends Dialog {
 
 
     }
+
 
     public static int getKeyFromValue(Map hm, Object value) {
         for (Object o : hm.keySet()) {
