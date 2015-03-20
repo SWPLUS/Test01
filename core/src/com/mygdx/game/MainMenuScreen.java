@@ -122,7 +122,7 @@ public class MainMenuScreen implements Screen {
 
 
 
-                    if (MainScreen.prefs.getString("GameData","") != null) {
+                    if (MainScreen.prefs.getString("GameData","").length() > 0) {
                         JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
                         ArrayList<GameData> DataList = new  ArrayList<GameData>();
                         Iterator<?> keys = game_data.keys();

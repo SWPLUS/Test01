@@ -60,6 +60,7 @@ public class LoginScreen implements Screen {
     Image imgCursor;
 
     ModalDialog registro;
+    RecoverDialog olvide;
 
     public LoginScreen(final MainScreen gam) {
         game = gam;
@@ -134,6 +135,26 @@ public class LoginScreen implements Screen {
         imgOlvide = new Image();
         imgOlvide.setDrawable(SkinLogin.getDrawable("olvidecontrasena"));
         imgOlvide.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((426 / 2),true),MainScreen.calcSize(520,false),MainScreen.calcSize(426,true),MainScreen.calcSize(44,false));
+        imgOlvide.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+
+
+                Window.WindowStyle style=new Window.WindowStyle();
+                style.titleFont=new BitmapFont();
+                style.titleFontColor= Color.WHITE;
+                olvide = new RecoverDialog(style, game);
+                olvide.show(stage);
+
+
+
+            }
+        });
+
 
         imgUsuario = new Image();
         imgUsuario.setDrawable(SkinLogin.getDrawable("usuariotang"));

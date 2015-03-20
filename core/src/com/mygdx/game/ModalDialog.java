@@ -590,18 +590,62 @@ public class ModalDialog extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+                int numero = 0;
+                int cp = 0;
 
-                int indexEstado = getKeyFromValue(StatesMap, selectEstado.getSelected());
-                int indexDeleg = getKeyFromValue(TownsMap, selectDelegacion.getSelected());
+                boolean valid = true;
 
-                register (txtNombre.getText().trim(), txtApellido.getText().trim(), txtUsuario.getText().trim(),
-                        txtContrasena.getText(),txtCorreo.getText().trim(), btnCumpleanos.getText().toString(),"",
-                        sexo,txtCalle.getText().trim(), Integer.parseInt(txtNumero.getText().trim()),
-                        indexEstado,indexDeleg, txtCalle.getText().trim(), Integer.parseInt(txtCp.getText().trim()),
-                        txtTelefono.getText().trim()
-                        );
+                if(btnCumpleanos.getText().toString().length() == 0){
+                    showAlert("El cumpleaños no puede ir vacío");
+                    valid =  false;
+                }
+                else if(txtTelefono.getText().trim().length() == 0){
+                    showAlert("El telefono no puede ir vacío");
+                    valid =  false;
+                }
+                else if(isNumeric(txtNumero.getText().trim()) == false){
 
-                //register("nombre", "apellido", "swplus2","tokey", "lmirandela@swplus.com.mx", "11/06/1988","","m","Calzada mexico Tacuba",1595,9,0,"Argentina Poniente", 11230,"5549380509");
+                    if(txtNumero.getText().trim().length() == 0){
+                        numero = 0;
+                    }
+                    else {
+                        showAlert("El número solo puede contener dígitos");
+                        valid =  false;
+                    }
+
+                }
+                else if(isNumeric(txtCp.getText().trim()) == false){
+
+                    if(txtCp.getText().trim().length() == 0){
+                        cp = 0;
+                    }
+                    else {
+                        showAlert("El código postal solo puede contener números");
+                        valid =  false;
+                    }
+
+                }
+
+
+                if(isNumeric(txtNumero.getText().trim()) == true){
+                    numero = Integer.parseInt(txtNumero.getText().trim());
+                }
+                if(isNumeric(txtCp.getText().trim()) == true){
+                    cp = Integer.parseInt(txtCp.getText().trim());
+                }
+
+                if (valid){
+                    int indexEstado = getKeyFromValue(StatesMap, selectEstado.getSelected());
+                    int indexDeleg = getKeyFromValue(TownsMap, selectDelegacion.getSelected());
+
+                    register (txtNombre.getText().trim(), txtApellido.getText().trim(), txtUsuario.getText().trim(),
+                            txtContrasena.getText(),txtCorreo.getText().trim(), btnCumpleanos.getText().toString(),"",
+                            sexo,txtCalle.getText().trim(), numero,indexEstado,indexDeleg, txtCalle.getText().trim(),
+                            cp, txtTelefono.getText().trim()
+                    );
+                }
+
+
 
 
             }
@@ -738,11 +782,31 @@ public class ModalDialog extends Dialog {
         Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
             public void handleHttpResponse(Net.HttpResponse httpResponse) {
                 JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
+                JSONObject user_data;
+
                 boolean success = jObject.getBoolean("success");
                 Gdx.app.log("hola mundo2", "" + jObject);
+
                 if (success) {
+                    user_data = jObject.getJSONObject("user_data");
+
+                    game.player.Logged = true;
+                    game.player.UserId = user_data.getString("id_user");
+                    game.player.Name = user_data.getString("first_name");
+                    game.player.LastName = user_data.getString("last_name");
+                    game.player.Mail = user_data.getString("email");
+
+                    MainScreen.prefs.putString("UserId", game.player.UserId);
+                    MainScreen.prefs.putString("Name", game.player.Name);
+                    MainScreen.prefs.putString("LastName", game.player.LastName);
+                    MainScreen.prefs.putString("Mail", game.player.Mail);
+
+                    MainScreen.prefs.flush();
+
+                    game.setScreen(new StoryScreen(game));
 
                 }
+
                 else {
                     String message = jObject.getString("message");
                     showAlert(message);
@@ -750,9 +814,9 @@ public class ModalDialog extends Dialog {
 
             }
 
-
             public void failed(Throwable t) {
                 Gdx.app.log("my app", t.getMessage());
+                showAlert(t.getMessage());
             }
             public void cancelled() {}
 
@@ -771,6 +835,19 @@ public class ModalDialog extends Dialog {
             }
         }
         return 0;
+    }
+
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            int d = Integer.parseInt(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
     }
 
 }
