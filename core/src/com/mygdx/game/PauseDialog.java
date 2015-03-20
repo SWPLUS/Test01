@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
 
 /**
  * Created by Ivan on 08/03/15.
@@ -26,13 +27,14 @@ public class PauseDialog extends Dialog {
     Image imgBackBlack, ImageBackGround;
 
     Texture TextureBackGround;
-
+    Timer GameTimer;
     TextButton NivelesButton, AgainButton, PlayButton, MusicButton, SoundButton;
+    public boolean closed=false;
 
-    public PauseDialog (WindowStyle window, int level) {
+    public PauseDialog (WindowStyle window, Timer timer) {
 
         super("",window);
-
+        GameTimer = timer;
         Pixmap background = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         background.setColor(0, 0, 0, .6f);
         background.fillRectangle(0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -67,7 +69,9 @@ public class PauseDialog extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-
+                GameTimer.start();
+                closed = true;
+                remove();
             }
         });
 
@@ -80,17 +84,6 @@ public class PauseDialog extends Dialog {
                                     MainScreen.calcSize(980,false));
         AgainButton.setHeight(MainScreen.calcSize(204,false));
         AgainButton.setWidth(MainScreen.calcSize(225,true));
-        AgainButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Pressed");
-                return true;
-            }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Released");
-
-            }
-        });
-
 
         TextButton.TextButtonStyle nivelesSyle = new TextButton.TextButtonStyle();
         nivelesSyle.font = font;

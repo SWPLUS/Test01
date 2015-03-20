@@ -66,7 +66,7 @@ public class BubbleArray {
             max = screenWidth - midvalue;
         } else {
             min = 0-midvalue;
-            max = screenHeight - midvalue;
+            max = (screenHeight - MainScreen.calcSize(138,false)) - midvalue;
         }
         midvalue = randomX.nextInt((max - min) + 1) + min;
         if ((level == 5) && (trapType != 2)){
@@ -97,23 +97,42 @@ public class BubbleArray {
     public AnimatedActor createSpecial(int screenWidth,int screenHeight, boolean left, boolean right){
         Bubble bbl = new Bubble(screenWidth,screenHeight,level,left,right,1);
         AnimatedActor act = new AnimatedActor(bbl);
-
         Random randomX = new Random();
         int midvalue;
-        if ((level != 5)) {
-            midvalue = MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionWidth(),true) / 2;
+        int imgHeight;
+        int imgWidth;
+        imgWidth = MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionWidth(),true);
+        imgHeight = MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionHeight(),false);
+        if (level == 6) {
+            midvalue = imgHeight / 2;
         } else {
-            midvalue = MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionWidth()/2,true) / 2;
+            midvalue = imgWidth / 2;
         }
-        int min = 0-midvalue;
-        int max = screenWidth - midvalue;
+        int min;
+        int max;
+        if (level != 6) {
+            min = 0-midvalue;
+            max = screenWidth - midvalue;
+        } else {
+            min = 0-midvalue;
+            max = (screenHeight - MainScreen.calcSize(138,false)) - midvalue;
+        }
         midvalue = randomX.nextInt((max - min) + 1) + min;
-        act.setSize(MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionWidth(),true),
-                MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionHeight(),false));
-        act.setPosition(midvalue, 0 - MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionHeight(),false));
-
+        act.setSize(imgWidth, imgHeight);
         MoveToAction moveAction = new MoveToAction();
-        moveAction.setPosition(midvalue,screenHeight + MainScreen.calcSize(act.bubble.AnimationBubble.getKeyFrames()[0].getRegionHeight(),false)+2);
+        if (left) {
+            act.setPosition(-1 - imgWidth, midvalue);
+            moveAction.setPosition(screenWidth + imgWidth + 1, midvalue);
+        } else if (right){
+            act.setPosition(screenWidth + 1, midvalue);
+            moveAction.setPosition(-1-imgWidth, midvalue);
+        } else if (level == 4){
+            act.setPosition(midvalue, screenHeight+1);
+            moveAction.setPosition(midvalue,-1 - imgHeight);
+        } else {
+            act.setPosition(midvalue, 0 - imgHeight);
+            moveAction.setPosition(midvalue,(screenHeight-MainScreen.calcSize(138,false)) + imgHeight + 1);
+        }
         moveAction.setDuration(act.bubble.mySpeed);
         act.addAction(moveAction);
         bubbles.add(act);
