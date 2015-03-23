@@ -1,7 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
+//import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,24 +9,24 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.Stage;
+//import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Dialog;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
+//import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
+//import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+//import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * Created by Ivan on 08/03/15.
+ * Last Modified by Luis Mirandela on 23/03/2015
  */
 public class WinDialog  extends Dialog {
 
     Skin WinSkin;
     TextureAtlas WinAtlas;
-    TextButton btnClose;
 
     BitmapFont font;
     Image imgBackBlack;
@@ -37,14 +37,14 @@ public class WinDialog  extends Dialog {
     TextButton NivelesButton, AgainButton, NextButton;
 
 
-    public WinDialog (WindowStyle window, int score) {
+    public WinDialog (WindowStyle window, int specials) {
 
         super("",window);
 
         Pixmap background = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         background.setColor(0, 0, 0, .6f);
         background.fillRectangle(0, 0, Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        background.setBlending(Pixmap.Blending.None);
+        Pixmap.setBlending(Pixmap.Blending.None);
         imgBackBlack = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(background))));
 
         font = new BitmapFont(Gdx.files.internal("fonts/white.fnt"),false);
@@ -65,7 +65,22 @@ public class WinDialog  extends Dialog {
                 MainScreen.calcSize(700,true),MainScreen.calcSize(79,false));
 
         ImageStars = new Image();
-        ImageStars.setDrawable(WinSkin.getDrawable("stars-3"));
+        switch(specials){
+            case 5:
+                ImageStars.setDrawable(WinSkin.getDrawable("stars-0"));
+                break;
+            case 4:
+            case 3:
+                ImageStars.setDrawable(WinSkin.getDrawable("stars-1"));
+                break;
+            case 2:
+            case 1:
+                ImageStars.setDrawable(WinSkin.getDrawable("stars-2"));
+                break;
+            case 0:
+                ImageStars.setDrawable(WinSkin.getDrawable("stars-3"));
+                break;
+        }
         ImageStars.setBounds((Gdx.graphics.getWidth()- MainScreen.calcSize(666,true))/ 2,
                 MainScreen.calcSize(1100,false),
                 MainScreen.calcSize(666,true),MainScreen.calcSize(264,false));
