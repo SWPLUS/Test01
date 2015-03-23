@@ -43,6 +43,7 @@ public class IntroDialog extends Dialog {
                             MainScreen.calcSize(796,true),MainScreen.calcSize(721,false));
 
 
+
         initialize();
 
     }
