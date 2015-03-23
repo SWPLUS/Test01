@@ -47,6 +47,7 @@ public class FailDialog extends Dialog {
         WinSkin.addRegions(WinAtlas);
 
         TextureBackGround = new Texture("Dialogs/Fail/backgroud.png" );
+        TextureBackGround.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         ImageBackGround = new Image(TextureBackGround);
         ImageBackGround.setBounds((Gdx.graphics.getWidth() - MainScreen.calcSize(948,true))/ 2,
                 (Gdx.graphics.getHeight() - MainScreen.calcSize(1409,false))/ 2,

@@ -42,6 +42,7 @@ public class PauseDialog extends Dialog {
         imgBackBlack = new Image(new TextureRegionDrawable(new TextureRegion(new Texture(background))));
 
         TextureBackGround = new Texture("Dialogs/Pause/backgroud.png" );
+        TextureBackGround.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         ImageBackGround = new Image(TextureBackGround);
         ImageBackGround.setBounds((Gdx.graphics.getWidth() - MainScreen.calcSize(834,true))/ 2,
                 (Gdx.graphics.getHeight() - MainScreen.calcSize(1205,false))/ 2,
