@@ -63,7 +63,7 @@ public class MainScreen extends Game {
 
         batch = new SpriteBatch();
         //Use LibGDX's default Arial font.
-        font = getFont(16);
+        font = getFont(14);
         fontScore = getScoreFont(18);
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
         bgMusic.setLooping(true);
@@ -118,9 +118,13 @@ public class MainScreen extends Game {
     }
 
     public static BitmapFont getFont(int dp){
+
+        float scale = (Gdx.graphics.getWidth()/ 320.00f) * dp;
         com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/arial.ttf");
         FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
-        return ftfp.generateFont((int) (dp * Gdx.graphics.getDensity()));
+        BitmapFont font = ftfp.generateFont((int) (scale));
+        return font;
+
     }
 
     public static BitmapFont getScoreFont(int dp){

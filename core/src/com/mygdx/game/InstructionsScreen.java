@@ -57,7 +57,7 @@ public class InstructionsScreen implements Screen {
 
 
         TextButton.TextButtonStyle btnStyle = new TextButton.TextButtonStyle();
-        btnStyle.font = MainScreen.getFont(22);
+        btnStyle.font = MainScreen.getFont(14);
         TextButton btnCerrar = new TextButton("Cerrar", btnStyle);
         btnCerrar.setPosition(MainScreen.calcSize(30,true), Gdx.graphics.getHeight() - MainScreen.calcSize(100,false));
         btnCerrar.getLabel().setColor(1,0.56078f,0,1);
@@ -74,8 +74,12 @@ public class InstructionsScreen implements Screen {
         });
 
 
+        Gdx.app.log("my app", "" + Gdx.graphics.getDensity() );
+
         Label.LabelStyle textStyle = new Label.LabelStyle();
-        textStyle.font = MainScreen.getFont(22);
+        textStyle.font = MainScreen.getFont(14);
+
+
 
 
         ImgInstr1 = new Image(SkinInstr.getDrawable("orange"));
@@ -109,23 +113,23 @@ public class InstructionsScreen implements Screen {
         table.setWidth(Gdx.graphics.getWidth());
         table.setHeight(Gdx.graphics.getHeight());
 
-        table.add(ImgInstr1).width(MainScreen.calcSize(150,true)).height(MainScreen.calcSize(150, false)).padBottom(MainScreen.calcSize(30, false));
-        table.add(LblInstr1).width(MainScreen.calcSize(600,true)).padLeft(MainScreen.calcSize(70,true));
+        table.add(ImgInstr1).width(MainScreen.calcSize(150,true)).height(MainScreen.calcSize(150, false)).padBottom(MainScreen.calcSize(20, false));
+        table.add(LblInstr1).width(MainScreen.calcSize(700,true)).padLeft(MainScreen.calcSize(70,true)).padBottom(MainScreen.calcSize(20, false));
         table.row();
-        table.add(ImgInstr2).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(30, false));
-        table.add(LblInstr2).width(MainScreen.calcSize(600,true)).padLeft(MainScreen.calcSize(70,true));
+        table.add(ImgInstr2).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(20, false));
+        table.add(LblInstr2).width(MainScreen.calcSize(700,true)).padLeft(MainScreen.calcSize(70,true)).padBottom(MainScreen.calcSize(20, false));
         table.row();
-        table.add(ImgInstr3).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(30, false));
-        table.add(LblInstr3).width(MainScreen.calcSize(600,true)).padLeft(MainScreen.calcSize(70,true));
+        table.add(ImgInstr3).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(20, false));
+        table.add(LblInstr3).width(MainScreen.calcSize(700,true)).padLeft(MainScreen.calcSize(70,true)).padBottom(MainScreen.calcSize(20, false));
         table.row();
-        table.add(ImgInstr4).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(30, false));
-        table.add(LblInstr4).width(MainScreen.calcSize(600,true)).padLeft(MainScreen.calcSize(70,true));
+        table.add(ImgInstr4).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(20, false));
+        table.add(LblInstr4).width(MainScreen.calcSize(700,true)).padLeft(MainScreen.calcSize(70,true)).padBottom(MainScreen.calcSize(20, false));
         table.row();
-        table.add(ImgInstr5).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(30, false));
-        table.add(LblInstr5).width(MainScreen.calcSize(600,true)).padLeft(MainScreen.calcSize(70,true));
+        table.add(ImgInstr5).width(MainScreen.calcSize(200,true)).height(MainScreen.calcSize(200, false)).padBottom(MainScreen.calcSize(20, false));
+        table.add(LblInstr5).width(MainScreen.calcSize(700,true)).padLeft(MainScreen.calcSize(70,true)).padBottom(MainScreen.calcSize(20, false));
         table.row();
-        table.add(ImgInstr6).width(MainScreen.calcSize(69,true)).height(MainScreen.calcSize(61, false)).padBottom(MainScreen.calcSize(30, false));
-        table.add(LblInstr6).width(MainScreen.calcSize(600,true)).padLeft(MainScreen.calcSize(70,true));
+        table.add(ImgInstr6).width(MainScreen.calcSize(69,true)).height(MainScreen.calcSize(61, false)).padBottom(MainScreen.calcSize(20, false));
+        table.add(LblInstr6).width(MainScreen.calcSize(700,true)).padLeft(MainScreen.calcSize(70,true)).padBottom(MainScreen.calcSize(20, false));
         table.row();
 
         stage.addActor(imgBack);
