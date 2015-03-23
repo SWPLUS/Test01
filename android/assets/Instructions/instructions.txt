@@ -1,0 +1,46 @@
+instructions.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+double
+  rotate: false
+  xy: 2, 2
+  size: 354, 335
+  orig: 354, 335
+  offset: 0, 0
+  index: -1
+life
+  rotate: false
+  xy: 358, 2
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+naranjin
+  rotate: false
+  xy: 429, 2
+  size: 386, 387
+  orig: 386, 387
+  offset: 0, 0
+  index: -1
+orange
+  rotate: false
+  xy: 817, 2
+  size: 343, 325
+  orig: 343, 325
+  offset: 0, 0
+  index: -1
+shesko
+  rotate: false
+  xy: 1162, 2
+  size: 343, 324
+  orig: 343, 324
+  offset: 0, 0
+  index: -1
+special
+  rotate: false
+  xy: 1507, 2
+  size: 384, 371
+  orig: 384, 371
+  offset: 0, 0
+  index: -1

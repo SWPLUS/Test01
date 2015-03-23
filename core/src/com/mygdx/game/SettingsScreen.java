@@ -231,6 +231,8 @@ public class SettingsScreen implements Screen {
                     MainScreen.prefs.remove("GameData");
                     MainScreen.prefs.flush();
 
+                    game.player.Logged = false;
+
                     showAlert("Sesión Finalizada");
                 }
 
@@ -256,6 +258,7 @@ public class SettingsScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+                game.setScreen(new InstructionsScreen(game));
             }
         });
 

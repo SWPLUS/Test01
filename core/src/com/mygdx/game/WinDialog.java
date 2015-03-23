@@ -53,6 +53,7 @@ public class WinDialog  extends Dialog {
         WinSkin.addRegions(WinAtlas);
 
         TextureBackGround = new Texture("Dialogs/Win/backgroud.png" );
+        TextureBackGround.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         ImageBackGround = new Image(TextureBackGround);
         ImageBackGround.setBounds((Gdx.graphics.getWidth() - MainScreen.calcSize(991,true))/ 2,
                 (Gdx.graphics.getHeight() - MainScreen.calcSize(1405,false))/ 2,
@@ -119,7 +120,7 @@ public class WinDialog  extends Dialog {
         nextSyle.font = font;
         nextSyle.up = WinSkin.getDrawable("next-on");
         nextSyle.down = WinSkin.getDrawable("next-off");
-        NextButton = new TextButton("",nivelesSyle);
+        NextButton = new TextButton("",nextSyle);
         NextButton.setPosition(MainScreen.calcSize(690,true),MainScreen.calcSize(380,false));
         NextButton.setHeight(MainScreen.calcSize(204,false));
         NextButton.setWidth(MainScreen.calcSize(225,true));

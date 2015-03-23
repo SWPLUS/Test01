@@ -31,10 +31,12 @@ public class IntroDialog extends Dialog {
         IntroName = "lv_000" + level + ".png";
 
         TextureBackGround = new Texture("Settings/background.png");
+        TextureBackGround.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         ImgBackGroud = new Image(TextureBackGround);
         ImgBackGroud.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
         TextureIntro = new Texture("GamePlay/" + IntroName);
+        TextureIntro.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         ImgIntro = new Image(TextureIntro);
         ImgIntro.setBounds((Gdx.graphics.getWidth() - MainScreen.calcSize(796,true))/ 2,
                             (Gdx.graphics.getHeight() - MainScreen.calcSize(721,true))/ 2,
