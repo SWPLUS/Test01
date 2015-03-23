@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-//import com.badlogic.gdx.graphics.g3d.particles.influencers.RegionInfluencer;
-//import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -191,8 +189,8 @@ public class GamePlayScreen implements Screen {
                 if (Score >= MaxScore){
                     gameFinished = true;
                     IsPlaying = false;
-                    showWinDialog(1);
-                    Timer.instance().clear();
+                    showWinDialog();
+                    Timer.instance().stop();
                 }
             }
         };
@@ -216,11 +214,11 @@ public class GamePlayScreen implements Screen {
         intro.show(stage);
     }
 
-    private void showWinDialog(int score){
+    private void showWinDialog(){
         Window.WindowStyle style=new Window.WindowStyle();
         style.titleFont=new BitmapFont();
         style.titleFontColor= Color.WHITE;
-        win = new WinDialog(style, score);
+        win = new WinDialog(style, Specials);
         win.show(stage);
         win.AgainButton.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -229,6 +227,7 @@ public class GamePlayScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+                gameFinished = false;
                 restartGame();
                 win.remove();
                 IsPlaying = true;
@@ -270,7 +269,6 @@ public class GamePlayScreen implements Screen {
         SkinHeader = new Skin();
         skinIcons = new Skin(BubblesAtlas.IconsAtlas);
 
-                //
         AtlasHeader = new TextureAtlas("GamePlay/colors.txt");
         SkinHeader.addRegions(AtlasHeader);
         font = MainScreen.getFont(16);
@@ -377,8 +375,8 @@ public class GamePlayScreen implements Screen {
         stage.addActor(imgBack);
         stage.addActor(imgPause);
         txtScore.setText("0");
-        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
         Score = 0;
+        txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
         Lives = 5;
         Specials = 5;
         Timer.instance().stop();
@@ -400,7 +398,6 @@ public class GamePlayScreen implements Screen {
                 imgLive.setDrawable(skinIcons.getDrawable("vida-on"));
             }
         }
-
     }
 
     @Override
@@ -416,7 +413,6 @@ public class GamePlayScreen implements Screen {
             stage.act(delta);
             if (noBubbles){
                 if (Level != 6){
-                    Gdx.app.log("lives","bubble schedule created");
                     Timer.schedule(new Task(){
                         @Override
                         public void run() {
