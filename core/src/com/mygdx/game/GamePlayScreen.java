@@ -259,8 +259,7 @@ public class GamePlayScreen implements Screen {
                 Gdx.app.log("my app", "Released");
                 if (Level < 6){
                     Level++;
-                    HeaderImage.setDrawable(SkinHeader.getDrawable("levels-color-000" + Level));
-                    HeaderImage.setBounds(0,ScreenHeight - MainScreen.calcSize(138,false), MainScreen.calcSize(1080,true),MainScreen.calcSize(138,false));
+                    MaxScore = Levels.GetLevelMaxScore(Level);
                     switch (Level){
                         case 1:
                             specialName = "naranja-";
@@ -281,23 +280,7 @@ public class GamePlayScreen implements Screen {
                             specialName = "grape-";
                             break;
                     }
-                    Image ImageSpecial1 = new Image(skinIcons.getDrawable(specialName + "off"));
-                    int specialWidth,specialHeight;
-                    specialWidth = MainScreen.calcSize((int)ImageSpecial1.getWidth(),true);
-                    specialHeight = MainScreen.calcSize((int)ImageSpecial1.getHeight(),false);
-                    ImageSpecial1.setSize(specialWidth,specialHeight);
-                    Image ImageSpecial2 = new Image(skinIcons.getDrawable(specialName + "off"));
-                    ImageSpecial2.setPosition(ImageSpecial1.getWidth() + 1,0);
-                    ImageSpecial2.setSize(specialWidth,specialHeight);
-                    Image ImageSpecial3 = new Image(skinIcons.getDrawable(specialName + "off"));
-                    ImageSpecial3.setPosition((ImageSpecial1.getWidth()*2) + 1,0);
-                    ImageSpecial3.setSize(specialWidth,specialHeight);
-                    Image ImageSpecial4 = new Image(skinIcons.getDrawable(specialName + "off"));
-                    ImageSpecial4.setPosition((ImageSpecial1.getWidth()*3) + 1,0);
-                    ImageSpecial4.setSize(specialWidth,specialHeight);
-                    Image ImageSpecial5 = new Image(skinIcons.getDrawable(specialName + "off"));
-                    ImageSpecial5.setPosition((ImageSpecial1.getWidth()*4) + 1,0);
-                    ImageSpecial5.setSize(specialWidth,specialHeight);
+                    startGame();
                     win.disposeObjects();
                     win.remove();
                     showIntro(Level);
