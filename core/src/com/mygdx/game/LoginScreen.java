@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
@@ -8,6 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.Net.HttpRequest;
@@ -29,6 +32,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 
 /**
  * Created by Ivan on 24/02/15.
@@ -172,6 +176,35 @@ public class LoginScreen implements Screen {
         //txtStyle.cursor.setTopHeight(game.calcSize(125,false));
         txtUsername = new TextField("",txtStyle);
         txtUsername.setBounds((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize((811 / 2),true),MainScreen.calcSize(1459-48-133,false),MainScreen.calcSize(811,true),MainScreen.calcSize(133,false));
+
+/*
+        txtUsername.setOnscreenKeyboard(new TextField.OnscreenKeyboard() {
+            @Override
+            public void show(boolean visible) {
+                //Gdx.input.setOnscreenKeyboardVisible(true);
+                Gdx.input.getTextInput(new Input.TextInputListener() {
+                    @Override
+                    public void input(String text) {
+                        txtUsername.setText(text);
+                    }
+
+                    @Override
+                    public void canceled() {
+                        System.out.println("Cancelled.");
+                    }
+                }, "Title", "Default text...","");
+            }
+        });
+
+        txtUsername.addListener(new FocusListener() {
+            @Override
+            public void keyboardFocusChanged(FocusListener.FocusEvent event, Actor actor, boolean focused){
+                Gdx.app.log("focus", "" + focused);
+            }
+
+        });
+        */
+
 
         imgPassword = new Image();
         imgPassword.setDrawable(SkinLogin.getDrawable("contrasena"));
