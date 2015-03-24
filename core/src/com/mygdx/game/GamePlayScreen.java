@@ -21,6 +21,7 @@ import java.util.UUID;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.Input.Keys;
 
 /**
  * Created by Ivan on 02/03/15.
@@ -55,6 +56,7 @@ public class GamePlayScreen implements Screen {
     Skin skinIcons;
     IntroDialog intro;
     WinDialog win;
+    FailDialog fail;
     PauseDialog pause;
     boolean IsPlaying;
     final InputListener bubbleListner;
@@ -64,8 +66,10 @@ public class GamePlayScreen implements Screen {
     String specialName;
     boolean wasPaused;
     Image imgPause;
+    boolean muestraTimer = false;
 
     public GamePlayScreen(final MainScreen gam, int lev) {
+
         game = gam;
         Level = lev;
         MaxScore = Levels.GetLevelMaxScore(Level);
@@ -189,17 +193,19 @@ public class GamePlayScreen implements Screen {
                 if (Score >= MaxScore){
                     gameFinished = true;
                     IsPlaying = false;
-                    showWinDialog();
                     Timer.instance().stop();
+                    showWinDialog();
                 }
             }
         };
-
+        Timer.instance().clear();
+        Timer.instance().start();
         Timer.schedule(new Task(){
             @Override
             public void run() {
                 IsPlaying = true;
                 AtlasHeader = BubblesAtlas.BurstAtlas;
+                intro.disposeObjects();
                 intro.remove();
                 startGame();
             }}, 5,5,0);
@@ -218,6 +224,7 @@ public class GamePlayScreen implements Screen {
         Window.WindowStyle style=new Window.WindowStyle();
         style.titleFont=new BitmapFont();
         style.titleFontColor= Color.WHITE;
+        IsPlaying = false;
         win = new WinDialog(style, Specials);
         win.show(stage);
         win.AgainButton.addListener(new InputListener() {
@@ -227,22 +234,134 @@ public class GamePlayScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-                gameFinished = false;
-                restartGame();
+                win.disposeObjects();
                 win.remove();
-                IsPlaying = true;
+                showIntro(Level);
+                Timer.instance().clear();
+                muestraTimer = true;
+            }
+        });
+        win.NivelesButton.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new LevelSelectionScreen(game));
+            }
+        });
+        win.NextButton.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+                if (Level < 6){
+                    Level++;
+                    HeaderImage.setDrawable(SkinHeader.getDrawable("levels-color-000" + Level));
+                    HeaderImage.setBounds(0,ScreenHeight - MainScreen.calcSize(138,false), MainScreen.calcSize(1080,true),MainScreen.calcSize(138,false));
+                    switch (Level){
+                        case 1:
+                            specialName = "naranja-";
+                            break;
+                        case 2:
+                            specialName = "lemmon-";
+                            break;
+                        case 3:
+                            specialName = "strawberry-";
+                            break;
+                        case 4:
+                            specialName = "pineaple-";
+                            break;
+                        case 5:
+                            specialName = "mango-";
+                            break;
+                        case 6:
+                            specialName = "grape-";
+                            break;
+                    }
+                    Image ImageSpecial1 = new Image(skinIcons.getDrawable(specialName + "off"));
+                    int specialWidth,specialHeight;
+                    specialWidth = MainScreen.calcSize((int)ImageSpecial1.getWidth(),true);
+                    specialHeight = MainScreen.calcSize((int)ImageSpecial1.getHeight(),false);
+                    ImageSpecial1.setSize(specialWidth,specialHeight);
+                    Image ImageSpecial2 = new Image(skinIcons.getDrawable(specialName + "off"));
+                    ImageSpecial2.setPosition(ImageSpecial1.getWidth() + 1,0);
+                    ImageSpecial2.setSize(specialWidth,specialHeight);
+                    Image ImageSpecial3 = new Image(skinIcons.getDrawable(specialName + "off"));
+                    ImageSpecial3.setPosition((ImageSpecial1.getWidth()*2) + 1,0);
+                    ImageSpecial3.setSize(specialWidth,specialHeight);
+                    Image ImageSpecial4 = new Image(skinIcons.getDrawable(specialName + "off"));
+                    ImageSpecial4.setPosition((ImageSpecial1.getWidth()*3) + 1,0);
+                    ImageSpecial4.setSize(specialWidth,specialHeight);
+                    Image ImageSpecial5 = new Image(skinIcons.getDrawable(specialName + "off"));
+                    ImageSpecial5.setPosition((ImageSpecial1.getWidth()*4) + 1,0);
+                    ImageSpecial5.setSize(specialWidth,specialHeight);
+                    win.disposeObjects();
+                    win.remove();
+                    showIntro(Level);
+                    Timer.instance().clear();
+                    muestraTimer = true;
+                }
+            }
+        });
+    }
+
+    private void showFailDialog(){
+        Window.WindowStyle style=new Window.WindowStyle();
+        style.titleFont=new BitmapFont();
+        style.titleFontColor= Color.WHITE;
+        IsPlaying = false;
+        Timer.instance().stop();
+        fail = new FailDialog(style, Level);
+        fail.show(stage);
+        fail.AgainButton.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+                fail.remove();
+                fail.disposeObjects();
+                Timer.instance().clear();
+                showIntro(Level);
+                muestraTimer = true;
+            }
+        });
+        fail.NivelesButton.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new LevelSelectionScreen(game));
             }
         });
     }
 
     private void showPauseDialog(){
-        wasPaused = true;
         Timer.instance().stop();
         Window.WindowStyle style=new Window.WindowStyle();
         style.titleFont=new BitmapFont();
         style.titleFontColor= Color.WHITE;
+        IsPlaying = false;
         pause = new PauseDialog(style, Timer.instance());
         pause.show(stage);
+        pause.PlayButton.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Released");
+                Timer.instance().start();
+                pause.disposeObjects();
+                pause.remove();
+                IsPlaying = true;
+            }
+        });
         pause.AgainButton.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Pressed");
@@ -250,10 +369,20 @@ public class GamePlayScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-                restartGame();
-                pause.closed = true;
+                //restartGame();
                 pause.remove();
-                IsPlaying = true;
+                Timer.instance().clear();
+                showIntro(Level);
+                muestraTimer = true;
+            }
+        });
+        pause.NivelesButton.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.log("my app", "Pressed");
+                return true;
+            }
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new LevelSelectionScreen(game));
             }
         });
     }
@@ -379,6 +508,7 @@ public class GamePlayScreen implements Screen {
         txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
         Lives = 5;
         Specials = 5;
+        nextFruit = Levels.GetNextScoreSpecial(Level,0);
         Timer.instance().stop();
         Timer.instance().start();
         for (int z = 5; z != 0; z--) {
@@ -400,42 +530,61 @@ public class GamePlayScreen implements Screen {
         }
     }
 
+    public void startTimers(){
+        if (Level != 6){
+            Timer.schedule(new Task(){
+                @Override
+                public void run() {
+                    AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
+                    bubble.addListener(bubbleListner);
+                    stage.addActor(bubble);
+                }}, 1,Levels.GetFruitDelay(Level) * 2);
+        } else {
+            Timer.schedule(new Task(){
+                @Override
+                public void run() {
+                    AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),true,false);
+                    bubble.addListener(bubbleListner);
+                    stage.addActor(bubble);
+                }}, 1,Levels.GetFruitDelay(Level) * 2);
+            Timer.schedule(new Task(){
+                @Override
+                public void run() {
+                    AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,true);
+                    bubble.addListener(bubbleListner);
+                    stage.addActor(bubble);
+                }}, 1,Levels.GetFruitDelay(Level) * 2);
+        }
+    }
+
     @Override
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0.2f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if ((wasPaused) && (pause.closed) && (!IsPlaying)){
-            IsPlaying = true;
+        if (muestraTimer){
+            muestraTimer = false;
+            Timer.instance().start();
+            Timer.schedule(new Task(){
+                @Override
+                public void run() {
+                    intro.disposeObjects();
+                    intro.remove();
+                    gameFinished = false;
+                    IsPlaying = true;
+                    restartGame();
+                }}, 5);
+            startTimers();
+        }
+
+        if (Gdx.input.isKeyPressed(Keys.BACK)){
+            game.setScreen(new MainMenuScreen(game));
         }
 
         if (IsPlaying){
             stage.act(delta);
             if (noBubbles){
-                if (Level != 6){
-                    Timer.schedule(new Task(){
-                        @Override
-                        public void run() {
-                            AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,false);
-                            bubble.addListener(bubbleListner);
-                            stage.addActor(bubble);
-                        }}, 1,Levels.GetFruitDelay(Level) * 2);
-                } else {
-                    Timer.schedule(new Task(){
-                        @Override
-                        public void run() {
-                            AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),true,false);
-                            bubble.addListener(bubbleListner);
-                            stage.addActor(bubble);
-                        }}, 1,Levels.GetFruitDelay(Level) * 2);
-                    Timer.schedule(new Task(){
-                        @Override
-                        public void run() {
-                            AnimatedActor bubble = bubbles.createNew(MainScreen.calcSize(1080,false),MainScreen.calcSize(1980,false),false,true);
-                            bubble.addListener(bubbleListner);
-                            stage.addActor(bubble);
-                        }}, 1,Levels.GetFruitDelay(Level) * 2);
-                }
+                startTimers();
                 noBubbles = false;
             }
 
@@ -456,6 +605,9 @@ public class GamePlayScreen implements Screen {
                             }
                         }
                         Gdx.input.vibrate(333);
+                        if (Lives == 0){
+                            showFailDialog();
+                        }
                     }
                 }
             }
@@ -465,10 +617,11 @@ public class GamePlayScreen implements Screen {
         if ((IsPlaying) || (wasPaused)){
             game.batch.begin();
             HeaderImage.draw(game.batch, 1);
-            txtScore.draw(game.batch,1);
-            groupLives.draw(game.batch,1);
-            groupSpecials.draw(game.batch, 1);
-            //imgPause.draw(game.batch,1);
+            //if (intro == null){
+                txtScore.draw(game.batch,1);
+                groupLives.draw(game.batch,1);
+                groupSpecials.draw(game.batch, 1);
+            //}
             game.batch.end();
         }
 
@@ -484,6 +637,16 @@ public class GamePlayScreen implements Screen {
 
     @Override
     public void hide() {
+        /*font.dispose();
+        AtlasHeader.dispose();
+        SkinHeader.dispose();
+        Timer.instance().clear();
+        skinPoints.dispose();
+        skinIcons.dispose();
+        intro = null;
+        win = null;
+        fail = null;
+        pause = null;*/
     }
 
     @Override

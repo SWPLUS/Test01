@@ -183,5 +183,11 @@ public class WinDialog  extends Dialog {
         return Gdx.graphics.getHeight();
     }
 
+    public void disposeObjects(){
+        WinSkin.dispose();
+        WinAtlas.dispose();
+        font.dispose();
+        TextureBackGround.dispose();
+    }
 
 }

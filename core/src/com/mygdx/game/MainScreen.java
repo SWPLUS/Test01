@@ -67,6 +67,7 @@ public class MainScreen extends Game {
         fontScore = getScoreFont(18);
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
         bgMusic.setLooping(true);
+        Gdx.input.setCatchBackKey(true);
         this.setScreen(new MainMenuScreen(this));
     }
 
@@ -135,16 +136,11 @@ public class MainScreen extends Game {
         return font;
     }
 
-    public static String valueOf(Object obj) {
-        return (obj == null) ? "null" : obj.toString();
-    }
-
-
-    public void showConfirmation(String message, OnConfirmationListener listener) {
+    /*public void showConfirmation(String message, OnConfirmationListener listener) {
         if (externalInterface != null) {
             externalInterface.showConfirmation(message, listener);
         }
-    }
+    }*/
 
     public void showAlert(String message, OnConfirmationListener listener) {
         if (externalInterface != null) {
