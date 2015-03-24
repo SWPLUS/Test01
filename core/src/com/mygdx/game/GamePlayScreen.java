@@ -260,6 +260,7 @@ public class GamePlayScreen implements Screen {
                 if (Level < 6){
                     Level++;
                     MaxScore = Levels.GetLevelMaxScore(Level);
+
                     switch (Level){
                         case 1:
                             specialName = "naranja-";
