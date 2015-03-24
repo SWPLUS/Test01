@@ -17,6 +17,8 @@ import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.audio.Sound;
+
+import java.util.ArrayList;
 import java.util.UUID;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.math.Vector2;
@@ -225,71 +227,101 @@ public class GamePlayScreen implements Screen {
         style.titleFont=new BitmapFont();
         style.titleFontColor= Color.WHITE;
         IsPlaying = false;
-        win = new WinDialog(style, Specials);
-        win.show(stage);
-        win.AgainButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Pressed");
-                return true;
-            }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Released");
-                win.disposeObjects();
-                win.remove();
-                showIntro(Level);
-                Timer.instance().clear();
-                muestraTimer = true;
-            }
-        });
-        win.NivelesButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Pressed");
-                return true;
-            }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new LevelSelectionScreen(game));
-            }
-        });
-        win.NextButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Pressed");
-                return true;
-            }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Released");
-                if (Level < 6){
-                    Level++;
-                    MaxScore = Levels.GetLevelMaxScore(Level);
-
-                    switch (Level){
-                        case 1:
-                            specialName = "naranja-";
-                            break;
-                        case 2:
-                            specialName = "lemmon-";
-                            break;
-                        case 3:
-                            specialName = "strawberry-";
-                            break;
-                        case 4:
-                            specialName = "pineaple-";
-                            break;
-                        case 5:
-                            specialName = "mango-";
-                            break;
-                        case 6:
-                            specialName = "grape-";
-                            break;
-                    }
-                    startGame();
+        GameData MyGameData = new GameData();
+        MyGameData.Level = Level;
+        MyGameData.Score = Score;
+        switch(Specials){
+            case 5:
+                MyGameData.Stars = 0;
+                break;
+            case 4:
+            case 3:
+                MyGameData.Stars = 1;
+                break;
+            case 2:
+            case 1:
+                MyGameData.Stars = 2;
+                break;
+            case 0:
+                MyGameData.Stars = 3;
+                break;
+        }
+        if (game.player.Data != null){
+            game.player.Data.add(MyGameData);
+        } else {
+            ArrayList<GameData> DataList = new  ArrayList<GameData>();
+            DataList.add(MyGameData);
+            game.player.Data = DataList;
+        }
+        if (MyGameData.Stars > 0){
+            win = new WinDialog(style, Specials);
+            win.show(stage);
+            win.AgainButton.addListener(new InputListener() {
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    Gdx.app.log("my app", "Pressed");
+                    return true;
+                }
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    Gdx.app.log("my app", "Released");
                     win.disposeObjects();
                     win.remove();
                     showIntro(Level);
                     Timer.instance().clear();
                     muestraTimer = true;
                 }
-            }
-        });
+            });
+            win.NivelesButton.addListener(new InputListener() {
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    Gdx.app.log("my app", "Pressed");
+                    return true;
+                }
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    game.setScreen(new LevelSelectionScreen(game));
+                }
+            });
+            win.NextButton.addListener(new InputListener() {
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    Gdx.app.log("my app", "Pressed");
+                    return true;
+                }
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    Gdx.app.log("my app", "Released");
+                    if (Level < 6){
+                        Level++;
+                        MaxScore = Levels.GetLevelMaxScore(Level);
+
+                        switch (Level){
+                            case 1:
+                                specialName = "naranja-";
+                                break;
+                            case 2:
+                                specialName = "lemmon-";
+                                break;
+                            case 3:
+                                specialName = "strawberry-";
+                                break;
+                            case 4:
+                                specialName = "pineaple-";
+                                break;
+                            case 5:
+                                specialName = "mango-";
+                                break;
+                            case 6:
+                                specialName = "grape-";
+                                break;
+                        }
+                        startGame();
+                        win.disposeObjects();
+                        win.remove();
+                        showIntro(Level);
+                        Timer.instance().clear();
+                        muestraTimer = true;
+                    }
+                }
+            });
+        } else {
+            showFailDialog();
+        }
     }
 
     private void showFailDialog(){
