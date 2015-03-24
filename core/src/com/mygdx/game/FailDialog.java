@@ -21,7 +21,6 @@ public class FailDialog extends Dialog {
 
     Skin WinSkin;
     TextureAtlas WinAtlas;
-    TextButton btnClose;
 
     BitmapFont font;
     Image imgBackBlack;
@@ -118,6 +117,13 @@ public class FailDialog extends Dialog {
     @Override
     public float getPrefHeight() {
         return Gdx.graphics.getHeight();
+    }
+
+    public void disposeObjects(){
+        WinSkin.dispose();
+        WinAtlas.dispose();
+        font.dispose();
+        TextureBackGround.dispose();
     }
 
 }

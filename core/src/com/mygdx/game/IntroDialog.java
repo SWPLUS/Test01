@@ -72,5 +72,8 @@ public class IntroDialog extends Dialog {
         return Gdx.graphics.getHeight();
     }
 
-
+    public void disposeObjects(){
+        TextureBackGround.dispose();
+        TextureIntro.dispose();
+    }
 }

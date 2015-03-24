@@ -63,18 +63,6 @@ public class PauseDialog extends Dialog {
                                 MainScreen.calcSize(1250,false));
         PlayButton.setHeight(MainScreen.calcSize(204,false));
         PlayButton.setWidth(MainScreen.calcSize(225,true));
-        PlayButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Pressed");
-                return true;
-            }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Released");
-                GameTimer.start();
-                closed = true;
-                remove();
-            }
-        });
 
         TextButton.TextButtonStyle againSyle = new TextButton.TextButtonStyle();
         againSyle.font = font;
@@ -95,19 +83,6 @@ public class PauseDialog extends Dialog {
                                     MainScreen.calcSize(710,false));
         NivelesButton.setHeight(MainScreen.calcSize(204,false));
         NivelesButton.setWidth(MainScreen.calcSize(225,true));
-        NivelesButton.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Pressed");
-                return true;
-            }
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.log("my app", "Released");
-            }
-        });
-
-
-
-
 
         TextButton.TextButtonStyle SoundSyle = new TextButton.TextButtonStyle();
         SoundSyle.font = font;
@@ -185,10 +160,6 @@ public class PauseDialog extends Dialog {
             }
         });
 
-
-
-
-
         initialize();
 
     }
@@ -208,6 +179,13 @@ public class PauseDialog extends Dialog {
 
     }
 
+    public void disposeObjects(){
+        PauseSkin.dispose();
+        PauseAtlas.dispose();
+        font.dispose();
+        TextureBackGround.dispose();
+    }
+
     @Override
     public float getPrefWidth() {
         return Gdx.graphics.getWidth();
@@ -217,4 +195,5 @@ public class PauseDialog extends Dialog {
     public float getPrefHeight() {
         return Gdx.graphics.getHeight();
     }
+
 }

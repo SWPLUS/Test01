@@ -81,7 +81,6 @@ public class InstructionsScreen implements Screen {
 
 
 
-
         ImgInstr1 = new Image(SkinInstr.getDrawable("orange"));
         LblInstr1 = new Label("1.- Revienta las burbujas y gana los puntos necesarios para pasar de nivel.",textStyle);
         LblInstr1.setWrap(true);
