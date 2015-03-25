@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Timer.Task;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.audio.Sound;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.UUID;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.math.Vector2;
@@ -119,7 +119,7 @@ public class GamePlayScreen implements Screen {
                         int scored = a.bubble.Explode();
                         Score += scored;
                         final Image imgPoints;
-                        boolean isImage = true;
+                        //boolean isImage = true;
                         switch (scored) {
                             case 5:
                                 imgPoints = new Image(skinPoints.getDrawable("mas5"));
@@ -151,11 +151,11 @@ public class GamePlayScreen implements Screen {
                                         imgSpecial.setDrawable(skinIcons.getDrawable(specialName + "on"));
                                     }
                                 }
-                                imgPoints = new Image();
-                                isImage = false;
+                                imgPoints = new Image(skinPoints.getDrawable(specialName));
+                                //isImage = true;
                                 break;
                         }
-                        if (isImage){
+                        //if (isImage){
                             imgPoints.setSize(MainScreen.calcSize((int) imgPoints.getWidth(), true), MainScreen.calcSize((int) imgPoints.getHeight(), false));
                             Vector2 pos = a.localToStageCoordinates(new Vector2(0, 0));
                             imgPoints.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight());
@@ -170,7 +170,7 @@ public class GamePlayScreen implements Screen {
                                     imgPoints.remove();
                                 }
                             }, 0.9f);
-                        }
+                        //}
                         txtScore.setText(String.valueOf(Score));
                         txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
                         plop.play();
@@ -437,6 +437,7 @@ public class GamePlayScreen implements Screen {
         imgBack.setBounds(0,0,ScreenWidth,ScreenHeight);
 
         skinPoints = new Skin(BubblesAtlas.PointsAtlas);
+        skinPoints.addRegions(BubblesAtlas.SpecialPointsAtlas);
         SkinHeader = new Skin();
         skinIcons = new Skin(BubblesAtlas.IconsAtlas);
 
@@ -523,7 +524,7 @@ public class GamePlayScreen implements Screen {
         groupSpecials.setPosition(MainScreen.calcSize(700,true),(ScreenHeight - MainScreen.calcSize(138,false)) + ((MainScreen.calcSize(138,false) - ImageSpecial1.getHeight())/2));
         groupSpecials.toFront();
 
-        imgPause = new Image(new Texture(Gdx.files.internal("Login/regpasso1/close.png")));
+        imgPause = new Image(new Texture(Gdx.files.internal("GamePlay/pause.png")));
         imgPause.setSize(MainScreen.calcSize((int)imgPause.getWidth(),true), MainScreen.calcSize((int)imgPause.getHeight(),false));
         imgPause.setPosition(ScreenWidth - imgPause.getWidth() - MainScreen.calcSize(20,true), ScreenHeight - MainScreen.calcSize(178,false) - imgPause.getHeight());
         imgPause.addListener(new InputListener() {

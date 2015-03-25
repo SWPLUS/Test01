@@ -1,0 +1,47 @@
+
+plus51.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+strawberry-
+  rotate: false
+  xy: 2, 2
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+pineaple-
+  rotate: false
+  xy: 119, 2
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+naranja-
+  rotate: false
+  xy: 236, 2
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+mango-
+  rotate: false
+  xy: 353, 2
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+lemmon-
+  rotate: false
+  xy: 470, 2
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
+grape-
+  rotate: false
+  xy: 587, 2
+  size: 115, 92
+  orig: 115, 92
+  offset: 0, 0
+  index: -1
