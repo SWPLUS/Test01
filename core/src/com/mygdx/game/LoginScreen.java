@@ -232,7 +232,6 @@ public class LoginScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
-                //Login("swplus", "tokey");
                 Login(txtUsername.getText(), txtPassword.getText());
                 Gdx.input.setOnscreenKeyboardVisible(false);
 
@@ -275,17 +274,24 @@ public class LoginScreen implements Screen {
                 if (success) {
                     user_data = jObject.getJSONObject("user_data");
 
-
                     game.player.Logged = true;
                     game.player.UserId = user_data.getString("id_user");
                     game.player.Name = user_data.getString("first_name");
                     game.player.LastName = user_data.getString("last_name");
                     game.player.Mail = user_data.getString("email");
+                    game.player.token = jObject.getString("token");
+
+                    java.util.Calendar cal = java.util.Calendar.getInstance(); // creates calendar
+                    cal.setTime(new java.util.Date()); // sets calendar time/date
+                    cal.add(java.util.Calendar.HOUR_OF_DAY, 1); // adds one hour
+                    game.player.tokenExpireDate = cal.getTime();
 
                     MainScreen.prefs.putString("UserId", game.player.UserId);
                     MainScreen.prefs.putString("Name", game.player.Name);
                     MainScreen.prefs.putString("LastName", game.player.LastName);
                     MainScreen.prefs.putString("Mail", game.player.Mail);
+                    MainScreen.prefs.putString("token", game.player.token);
+                    MainScreen.prefs.putString("tokenExpireDate", game.player.tokenExpireDate.toString());
 
                     MainScreen.prefs.flush();
 

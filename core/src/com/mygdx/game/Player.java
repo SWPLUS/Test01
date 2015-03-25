@@ -18,6 +18,8 @@ public class Player {
     public Date Birthday;
     public String Street;
     public boolean Gender;
+    public String token;
+    public Date tokenExpireDate;
 
     public List<GameData> Data;
 
