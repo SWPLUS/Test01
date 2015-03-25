@@ -14,15 +14,18 @@ public class BubbleArray {
     public ArrayList<AnimatedActor> bubbles;
     public int cheskoLimit;
     public int doubleLimit;
+    public int specialLimit;
     public int level;
     private int cheskoCount;
     private int doubleCount;
+    private int specialCount;
 
     public BubbleArray(int myLevel){
         bubbles = new ArrayList<AnimatedActor>();
         level = myLevel;
         cheskoLimit = Levels.GetCheskoLimit(level);
         doubleLimit = Levels.GetDoubleLimit(level);
+        specialLimit = Levels.GetSpecialLimit(level);
     }
 
     public AnimatedActor createNew(int screenWidth,int screenHeight, boolean left, boolean right){
@@ -30,7 +33,7 @@ public class BubbleArray {
         int imgHeight;
         int imgWidth;
         Bubble bbl = new Bubble();
-        if (((cheskoCount == cheskoLimit) || (doubleCount == doubleLimit)) && (cheskoCount > 0)){
+        if (((cheskoCount == cheskoLimit) || (doubleCount == doubleLimit) || (specialCount == specialLimit)) && (cheskoCount > 0)){
             if (cheskoCount == cheskoLimit){
                 trapType = 2;
                 bbl = new Bubble(screenWidth,screenHeight,level,left,right,2);
@@ -41,11 +44,17 @@ public class BubbleArray {
                 bbl = new Bubble(screenWidth,screenHeight,level,left,right,3);
                 doubleCount = 0;
             }
+            if (specialCount == specialLimit){
+                trapType = 4;
+                bbl = new Bubble(screenWidth,screenHeight,level,left,right,trapType);
+                specialCount = 0;
+            }
         } else {
             bbl = new Bubble(screenWidth,screenHeight,level,left,right,0);
             trapType = 0;
             cheskoCount++;
             doubleCount++;
+            specialCount++;
         }
         AnimatedActor act = new AnimatedActor(bbl);
         Random randomX = new Random();

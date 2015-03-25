@@ -14,6 +14,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 
 public class MainScreen extends Game {
 
@@ -154,4 +156,41 @@ public class MainScreen extends Game {
         }
     }
 
+    public int findMaxStarsByLevel(int level){
+
+        for (GameData gd : player.Data) {
+            if (gd.Level == level){
+                return gd.Stars;
+            }
+        }
+
+        return -1;
+    }
+
+    public void setLevelScore(int level, int score, int stars){
+        boolean isUpdated = false;
+        if (player.Data != null) {
+            for (GameData gd : player.Data) {
+                if (gd.Level == level) {
+                    if (gd.Stars < stars) {
+                        gd.Stars = stars;
+                    }
+                    if (gd.Score < score) {
+                        gd.Score = score;
+                    }
+                    isUpdated = true;
+                }
+            }
+        } else {
+            ArrayList<GameData> DataList = new  ArrayList<GameData>();
+            player.Data = DataList;
+        }
+        if (!isUpdated){
+            GameData myGD = new GameData();
+            myGD.Level = level;
+            myGD.Score = score;
+            myGD.Stars = stars;
+            player.Data.add(myGD);
+        }
+    }
 }

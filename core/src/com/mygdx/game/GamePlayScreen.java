@@ -114,12 +114,12 @@ public class GamePlayScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 AnimatedActor a = (AnimatedActor) event.getListenerActor();
-                //a.bubble.Explode();
                 if (!a.bubble.Exploted) {
                     if (a.bubble.trapType != 3) {
                         int scored = a.bubble.Explode();
                         Score += scored;
                         final Image imgPoints;
+                        boolean isImage = true;
                         switch (scored) {
                             case 5:
                                 imgPoints = new Image(skinPoints.getDrawable("mas5"));
@@ -129,6 +129,21 @@ public class GamePlayScreen implements Screen {
                                 break;
                             case 15:
                                 imgPoints = new Image(skinPoints.getDrawable("mas15"));
+                                break;
+                            case -10:
+                                imgPoints = new Image(skinPoints.getDrawable("menos10"));
+                                Lives--;
+                                for (int z = 0;z<5;z++){
+                                    Image imgLive = (Image)groupLives.getChildren().get(z);
+                                    if((z+1)>Lives){
+                                        imgLive.setDrawable(skinIcons.getDrawable("vida-off"));
+                                    } else {
+                                        imgLive.setDrawable(skinIcons.getDrawable("vida-on"));
+                                    }
+                                }
+                                Gdx.input.vibrate(333);
+                                break;
+                            default:
                                 Specials--;
                                 for (int z = 5; z != 0; z--) {
                                     if (z > Specials) {
@@ -136,26 +151,26 @@ public class GamePlayScreen implements Screen {
                                         imgSpecial.setDrawable(skinIcons.getDrawable(specialName + "on"));
                                     }
                                 }
-                                break;
-                            default:
-                                imgPoints = new Image(skinPoints.getDrawable("menos10"));
+                                imgPoints = new Image();
+                                isImage = false;
                                 break;
                         }
-                        imgPoints.setSize(MainScreen.calcSize((int) imgPoints.getWidth(), true), MainScreen.calcSize((int) imgPoints.getHeight(), false));
-                        Vector2 pos = a.localToStageCoordinates(new Vector2(0, 0));
-                        imgPoints.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight());
-                        MoveToAction moveAction = new MoveToAction();
-                        moveAction.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight() + MainScreen.calcSize(100, false));
-                        moveAction.setDuration(1);
-                        imgPoints.addAction(moveAction);
-                        stage.addActor(imgPoints);
-                        Timer.schedule(new Task() {
-                            @Override
-                            public void run() {
-                                imgPoints.remove();
-                            }
-                        }, 0.9f);
-
+                        if (isImage){
+                            imgPoints.setSize(MainScreen.calcSize((int) imgPoints.getWidth(), true), MainScreen.calcSize((int) imgPoints.getHeight(), false));
+                            Vector2 pos = a.localToStageCoordinates(new Vector2(0, 0));
+                            imgPoints.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight());
+                            MoveToAction moveAction = new MoveToAction();
+                            moveAction.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight() + MainScreen.calcSize(100, false));
+                            moveAction.setDuration(1);
+                            imgPoints.addAction(moveAction);
+                            stage.addActor(imgPoints);
+                            Timer.schedule(new Task() {
+                                @Override
+                                public void run() {
+                                    imgPoints.remove();
+                                }
+                            }, 0.9f);
+                        }
                         txtScore.setText(String.valueOf(Score));
                         txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
                         plop.play();
@@ -165,6 +180,22 @@ public class GamePlayScreen implements Screen {
                             txtScore.setText(String.valueOf(Score));
                             txtScore.getStyle().background.setLeftWidth((txtScore.getWidth() / 2) - (MainScreen.fontScore.getBounds(String.valueOf(Score)).width / 2));
                             plop.play();
+                            final Image imgPoints;
+                            imgPoints = new Image(skinPoints.getDrawable("mas10"));
+                            imgPoints.setSize(MainScreen.calcSize((int) imgPoints.getWidth(), true), MainScreen.calcSize((int) imgPoints.getHeight(), false));
+                            Vector2 pos = a.localToStageCoordinates(new Vector2(0, 0));
+                            imgPoints.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight());
+                            MoveToAction moveAction = new MoveToAction();
+                            moveAction.setPosition(pos.x + (a.getWidth() / 2), pos.y + a.getHeight() + MainScreen.calcSize(100, false));
+                            moveAction.setDuration(1);
+                            imgPoints.addAction(moveAction);
+                            stage.addActor(imgPoints);
+                            Timer.schedule(new Task() {
+                                @Override
+                                public void run() {
+                                    imgPoints.remove();
+                                }
+                            }, 0.9f);
                         } else {
                             a.bubble.tappedUno = true;
                         }
@@ -227,33 +258,28 @@ public class GamePlayScreen implements Screen {
         style.titleFont=new BitmapFont();
         style.titleFontColor= Color.WHITE;
         IsPlaying = false;
-        GameData MyGameData = new GameData();
-        MyGameData.Level = Level;
-        MyGameData.Score = Score;
+        int stars;
         switch(Specials){
             case 5:
-                MyGameData.Stars = 0;
+                stars = 0;
                 break;
             case 4:
             case 3:
-                MyGameData.Stars = 1;
+                stars = 1;
                 break;
             case 2:
             case 1:
-                MyGameData.Stars = 2;
+                stars = 2;
                 break;
             case 0:
-                MyGameData.Stars = 3;
+                stars = 3;
+                break;
+            default:
+                stars = 0;
                 break;
         }
-        if (game.player.Data != null){
-            game.player.Data.add(MyGameData);
-        } else {
-            ArrayList<GameData> DataList = new  ArrayList<GameData>();
-            DataList.add(MyGameData);
-            game.player.Data = DataList;
-        }
-        if (MyGameData.Stars > 0){
+        game.setLevelScore(Level,Score,stars);
+        if (stars > 0){
             win = new WinDialog(style, Specials);
             win.show(stage);
             win.AgainButton.addListener(new InputListener() {

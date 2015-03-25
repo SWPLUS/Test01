@@ -294,6 +294,30 @@ public class Levels {
 
     }
 
+    public static int GetSpecialLimit(int lvl){
+
+        int returnValue;
+        switch (lvl){
+            case 3:
+                returnValue = 21;
+                break;
+            case 4:
+                returnValue = 26;
+                break;
+            case 5:
+                returnValue = 14;
+                break;
+            case 6:
+                returnValue = 24;
+                break;
+            default:
+                returnValue = 0;
+                break;
+        }
+        return returnValue;
+
+    }
+
     public static int GetLevelMaxScore(int lvl) {
 
         int returnValue;

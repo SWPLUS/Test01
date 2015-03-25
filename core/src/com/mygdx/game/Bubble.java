@@ -74,11 +74,13 @@ public class Bubble {
             AtlasBubble = BubblesAtlas.SheskoAtlas;
         } else if(trapType == 3){
             AtlasBubble = BubblesAtlas.DoubleAtlas;
+        } else if(trapType == 4){
+            AtlasBubble = BubblesAtlas.SpecialAtlas;
         }
         AtlasRegion[] trAni = new AtlasRegion[8];
         for(int ct = 0; ct < 8; ct++)
         {
-            trAni[ct]=AtlasBubble.findRegion("org_" + (ct +1));
+            trAni[ct]=AtlasBubble.findRegion("org_" + (ct + 1));
         }
         float animationSpeed = 0.10f;
         AnimationBubble = new Animation(animationSpeed, trAni);
@@ -137,7 +139,7 @@ public class Bubble {
                 //imgPoints = BubblesAtlas.PointsAtlas.findRegion("mas5");
                 break;
             case 1:
-                returnValue = 15;
+                returnValue = 0;
                 break;
             case 2:
                 returnValue = -10;
@@ -146,7 +148,7 @@ public class Bubble {
                 returnValue = 10;
                 break;
             default:
-                returnValue = 5;
+                returnValue = 15;
                 break;
         }
         return returnValue;

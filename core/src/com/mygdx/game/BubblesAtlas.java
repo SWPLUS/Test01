@@ -24,6 +24,7 @@ public class BubblesAtlas {
     public static TextureAtlas SpecialStrawberryAtlas = new TextureAtlas("GamePlay/special/strawbeery.txt");
     public static TextureAtlas PointsAtlas = new TextureAtlas("GamePlay/points.txt");
     public static TextureAtlas IconsAtlas = new TextureAtlas("GamePlay/icons.txt");
+    public static TextureAtlas SpecialAtlas = new TextureAtlas("GamePlay/bspecial.txt");
 
     public static void reloadTextures(){
         OrangeAtlas = new TextureAtlas("GamePlay/orange.txt");
@@ -43,6 +44,7 @@ public class BubblesAtlas {
         SpecialStrawberryAtlas = new TextureAtlas("GamePlay/special/strawbeery.txt");
         PointsAtlas = new TextureAtlas("GamePlay/points.txt");
         IconsAtlas = new TextureAtlas("GamePlay/points.txt");
+        SpecialAtlas = new TextureAtlas("GamePlay/bspecial.txt");
     }
 
 }
