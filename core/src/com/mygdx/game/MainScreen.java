@@ -194,7 +194,7 @@ public class MainScreen extends Game {
             player.Data.add(myGD);
         }
 
-        if (player.UserId != ""){
+        if (player != null){
             if (player.token != ""){
                 java.util.Calendar cal = java.util.Calendar.getInstance();
                 cal.setTime(new java.util.Date());
