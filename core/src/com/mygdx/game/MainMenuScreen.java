@@ -23,6 +23,7 @@ import org.json.JSONObject;
 
 import com.mygdx.game.MainScreen.OnConfirmationListener;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -119,8 +120,6 @@ public class MainMenuScreen implements Screen {
                     game.player.Name = MainScreen.prefs.getString("Name","");
                     game.player.LastName = MainScreen.prefs.getString("LastName","");
                     game.player.Mail = MainScreen.prefs.getString("Mail","");
-
-
 
                     if (MainScreen.prefs.getString("GameData","").length() > 0) {
                         JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
