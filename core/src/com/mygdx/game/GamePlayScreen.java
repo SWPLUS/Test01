@@ -241,7 +241,7 @@ public class GamePlayScreen implements Screen {
                 intro.disposeObjects();
                 intro.remove();
                 startGame();
-            }}, 5,5,0);
+            }}, 2);
 
     }
 
@@ -524,7 +524,9 @@ public class GamePlayScreen implements Screen {
         groupSpecials.setPosition(MainScreen.calcSize(700,true),(ScreenHeight - MainScreen.calcSize(138,false)) + ((MainScreen.calcSize(138,false) - ImageSpecial1.getHeight())/2));
         groupSpecials.toFront();
 
-        imgPause = new Image(new Texture(Gdx.files.internal("GamePlay/pause.png")));
+        Texture txtPause = new Texture(Gdx.files.internal("GamePlay/pause.png"));
+        txtPause.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
+        imgPause = new Image(txtPause);
         imgPause.setSize(MainScreen.calcSize((int)imgPause.getWidth(),true), MainScreen.calcSize((int)imgPause.getHeight(),false));
         imgPause.setPosition(ScreenWidth - imgPause.getWidth() - MainScreen.calcSize(20,true), ScreenHeight - MainScreen.calcSize(178,false) - imgPause.getHeight());
         imgPause.addListener(new InputListener() {
