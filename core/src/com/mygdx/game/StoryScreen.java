@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -38,6 +39,7 @@ public class StoryScreen implements Screen {
     Image StoryText3, StoryImage3;
     Image StoryText4, StoryImage4;
 
+    public static Music bgMusic;
 
     private float ScreenWidth, ScreenHeight;
     private int avance = 0;
@@ -50,6 +52,10 @@ public class StoryScreen implements Screen {
         SkinStory = new Skin();
         SkinStory.addRegions(AtlasSettings);
         font = new BitmapFont(Gdx.files.internal("fonts/white.fnt"),false);
+
+        game.bgMusic.stop();
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("story.mp3"));
+        bgMusic.setLooping(true);
 
         stage = new Stage();
         stage.clear();
@@ -120,7 +126,15 @@ public class StoryScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+
                 game.setScreen(new LevelSelectionScreen(game));
+
+                bgMusic.stop();
+                if (MainScreen.BoolMusic){
+                    MainScreen.bgMusic.play();
+                }
+
+
             }
         });
 
@@ -334,7 +348,9 @@ public class StoryScreen implements Screen {
 
     @Override
     public void show() {
-
+        if (MainScreen.BoolMusic){
+            bgMusic.play();
+        }
     }
 
     @Override

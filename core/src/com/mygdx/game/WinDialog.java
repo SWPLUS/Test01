@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 //import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -36,10 +37,16 @@ public class WinDialog  extends Dialog {
 
     TextButton NivelesButton, AgainButton, NextButton;
 
+    public static Music bgMusic;
 
     public WinDialog (WindowStyle window, int specials) {
 
         super("",window);
+
+        MainScreen.bgMusic.stop();
+        bgMusic = Gdx.audio.newMusic(Gdx.files.internal("win.mp3"));
+        bgMusic.setLooping(false);
+
 
         Pixmap background = new Pixmap(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), Pixmap.Format.RGBA8888);
         background.setColor(0, 0, 0, .6f);
@@ -108,7 +115,10 @@ public class WinDialog  extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-
+                bgMusic.stop();
+                if (MainScreen.BoolMusic){
+                    MainScreen.bgMusic.play();
+                }
             }
         });
 
@@ -127,7 +137,10 @@ public class WinDialog  extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-
+                bgMusic.stop();
+                if (MainScreen.BoolMusic){
+                    MainScreen.bgMusic.play();
+                }
             }
         });
 
@@ -146,7 +159,10 @@ public class WinDialog  extends Dialog {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
-
+                bgMusic.stop();
+                if (MainScreen.BoolMusic){
+                    MainScreen.bgMusic.play();
+                }
             }
         });
 
@@ -169,6 +185,10 @@ public class WinDialog  extends Dialog {
         addActor(NivelesButton);
         addActor(AgainButton);
         addActor(NextButton);
+
+        if (MainScreen.BoolMusic){
+            bgMusic.play();
+        }
 
 
     }
