@@ -140,6 +140,15 @@ public class MainScreen extends Game {
         return font;
     }
 
+    public static BitmapFont getScoreFont2(int dp){
+        float scale = (Gdx.graphics.getWidth()/ 320.00f) * dp;
+        com.badlogic.gdx.files.FileHandle fontFile = Gdx.files.internal("fonts/ufonts.com_house-a-rama-kingpin.ttf");
+        FreeTypeFontGenerator ftfp = new FreeTypeFontGenerator(fontFile);
+        BitmapFont font = ftfp.generateFont((int) scale);
+        font.setScale(0.9f,0.9f);
+        return font;
+    }
+
     public void showAlert(String message, OnConfirmationListener listener) {
         if (externalInterface != null) {
             externalInterface.showAlert(message, listener);

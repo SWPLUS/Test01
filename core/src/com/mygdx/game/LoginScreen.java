@@ -132,7 +132,7 @@ public class LoginScreen implements Screen {
         });
 
         Label.LabelStyle labelSyle = new Label.LabelStyle();
-        labelSyle.font = MainScreen.getScoreFont(24);
+        labelSyle.font = MainScreen.getScoreFont2(14);
         Label labelMsg = new Label("PRESIONA ESTE BOTON PARA OMITIR EL REGISTRO Y JUGARLO COMO INVITADO", labelSyle);
         labelMsg.setPosition(MainScreen.calcSize(450,true), MainScreen.calcSize(100,false));
         labelMsg.setWidth(MainScreen.calcSize(600,true));
