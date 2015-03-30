@@ -28,7 +28,6 @@ public class WinDialog  extends Dialog {
 
     Skin WinSkin;
     TextureAtlas WinAtlas;
-
     BitmapFont font;
     Image imgBackBlack;
 
