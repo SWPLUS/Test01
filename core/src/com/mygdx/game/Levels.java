@@ -95,9 +95,6 @@ public class Levels {
                 break;
         }
 
-        //speed[0] = screenHeight / (int)(seconds[0] * Gdx.graphics.getFramesPerSecond());
-        //speed[1] = screenHeight / (int)(seconds[1] * Gdx.graphics.getFramesPerSecond());
-
         return seconds;
     }
 
@@ -296,26 +293,19 @@ public class Levels {
 
     public static int GetSpecialLimit(int lvl){
 
-        int returnValue;
         switch (lvl){
+            case 1:
+            case 2:
+                return 150;
             case 3:
-                returnValue = 21;
-                break;
             case 4:
-                returnValue = 26;
-                break;
+                return 250;
             case 5:
-                returnValue = 14;
-                break;
             case 6:
-                returnValue = 24;
-                break;
+                return 500;
             default:
-                returnValue = 0;
-                break;
+                return 2500;
         }
-        return returnValue;
-
     }
 
     public static int GetLevelMaxScore(int lvl) {

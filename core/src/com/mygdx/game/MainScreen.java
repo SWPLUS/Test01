@@ -30,6 +30,8 @@ public class MainScreen extends Game {
     public Player player;
     public static BitmapFont font;
     public static BitmapFont fontScore;
+    public int screenHeight;
+    public int screenWidth;
 
 
     public interface ExternalInterface {
@@ -104,7 +106,6 @@ public class MainScreen extends Game {
         font.dispose();
     }
 
-
     public static int calcSize(int objSize,boolean width){
 
         int pantalla;
@@ -139,12 +140,6 @@ public class MainScreen extends Game {
         return font;
     }
 
-    /*public void showConfirmation(String message, OnConfirmationListener listener) {
-        if (externalInterface != null) {
-            externalInterface.showConfirmation(message, listener);
-        }
-    }*/
-
     public void showAlert(String message, OnConfirmationListener listener) {
         if (externalInterface != null) {
             externalInterface.showAlert(message, listener);
@@ -155,17 +150,6 @@ public class MainScreen extends Game {
         if (externalInterface != null) {
             externalInterface.showDatePickerDialog(listener);
         }
-    }
-
-    public int findMaxStarsByLevel(int level){
-
-        for (GameData gd : player.Data) {
-            if (gd.Level == level){
-                return gd.Stars;
-            }
-        }
-
-        return -1;
     }
 
     public void setLevelScore(int level, int score, int stars){
@@ -198,25 +182,46 @@ public class MainScreen extends Game {
             if (player.token != ""){
                 java.util.Calendar cal = java.util.Calendar.getInstance();
                 cal.setTime(new java.util.Date());
-                if (cal.getTime().after(player.tokenExpireDate)){
-                    Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
-                    httpPost.setUrl("http://tang.com.mx/webservices/ws001");
-                    httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-                    httpPost.setContent("id_user=" + player.UserId);
-                    Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
-                        public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                            JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
-                            player.token = jObject.getString("token");
-                            java.util.Calendar cal = java.util.Calendar.getInstance();
-                            cal.setTime(new java.util.Date());
-                            cal.add(java.util.Calendar.HOUR_OF_DAY, 1);
-                            player.tokenExpireDate = cal.getTime();
-                        }
-                        public void failed(Throwable t) {
-                            Gdx.app.log("my app", t.getMessage());
-                        }
-                        public void cancelled() {}
-                    });
+                if (player.tokenExpireDate != null){
+                    if (cal.getTime().after(player.tokenExpireDate)){
+                        Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
+                        httpPost.setUrl("http://tang.com.mx/webservices/ws001");
+                        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+                        httpPost.setContent("id_user=" + player.UserId);
+                        Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
+                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                                JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
+                                player.token = jObject.getString("token");
+                                java.util.Calendar cal = java.util.Calendar.getInstance();
+                                cal.setTime(new java.util.Date());
+                                cal.add(java.util.Calendar.HOUR_OF_DAY, 1);
+                                player.tokenExpireDate = cal.getTime();
+                            }
+                            public void failed(Throwable t) {
+                                Gdx.app.log("my app", t.getMessage());
+                            }
+                            public void cancelled() {}
+                        });
+                    } else {
+                        Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
+                        httpPost.setUrl("http://tang.com.mx/webservices/ws001");
+                        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
+                        httpPost.setContent("id_user=" + player.UserId);
+                        Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
+                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
+                                JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
+                                player.token = jObject.getString("token");
+                                java.util.Calendar cal = java.util.Calendar.getInstance(); // creates calendar
+                                cal.setTime(new java.util.Date()); // sets calendar time/date
+                                cal.add(java.util.Calendar.HOUR_OF_DAY, 1); // adds one hour
+                                player.tokenExpireDate = cal.getTime();
+                            }
+                            public void failed(Throwable t) {
+                                Gdx.app.log("my app", t.getMessage());
+                            }
+                            public void cancelled() {}
+                        });
+                    }
                 }
             } else {
                 Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
@@ -251,6 +256,14 @@ public class MainScreen extends Game {
                 }
                 public void cancelled() {}
             });
+        }
+    }
+
+    public boolean isBigScreen(){
+        if (screenHeight > 960){
+            return true;
+        } else {
+            return false;
         }
     }
 }

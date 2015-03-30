@@ -14,6 +14,7 @@ public class AnimatedActor extends Image
     public AnimatedActor(Bubble b) {
         super(b.AnimationBubble.getKeyFrame(0));
         bubble = b;
+        setZIndex(1);
     }
 
     @Override

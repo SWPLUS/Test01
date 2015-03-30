@@ -39,14 +39,18 @@ public class SettingsScreen implements Screen {
     public SettingsScreen(final MainScreen gam) {
         game = gam;
 
+        if (game.isBigScreen()){
+            img = new Texture("Settings/background.png");
+            AtlasSettings = new TextureAtlas("Settings/settings.txt");
+        } else {
+            img = new Texture("Settings/background_lr.png");
+            AtlasSettings = new TextureAtlas("Settings/settings_lr.pack");
+        }
 
-
-
-        img = new Texture("Settings/background.png");
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        AtlasSettings = new TextureAtlas("Settings/settings.txt");
+
         SkinSettings = new Skin();
         SkinSettings.addRegions(AtlasSettings);
         font = new BitmapFont(Gdx.files.internal("fonts/white.fnt"),false);

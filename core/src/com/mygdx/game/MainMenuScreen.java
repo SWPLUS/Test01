@@ -51,25 +51,31 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(final MainScreen gam) {
        // batch = new SpriteBatch();
         game = gam;
+        game.screenHeight = Gdx.graphics.getHeight();
+        game.screenWidth = Gdx.graphics.getWidth();
 
-        img = new Texture("cover.png");
+        if (game.isBigScreen()){
+            img = new Texture("cover.png");
+            buttonsAtlas = new TextureAtlas("btnConfig.pack"); //** button atlas image **//
+            buttonPlayAtlas = new TextureAtlas("btnPlay.pack"); //** button atlas image **//
+
+        } else {
+            img = new Texture("cover_lr.png");
+            buttonsAtlas = new TextureAtlas("btnConfig_lr.pack"); //** button atlas image **//
+            buttonPlayAtlas = new TextureAtlas("btnConfig_lr.pack"); //** button atlas image **//
+        }
+
         img.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-        //bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
-        //bgMusic.setLooping(true);
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
 
-
-        buttonsAtlas = new TextureAtlas("btnConfig.pack"); //** button atlas image **//
         buttonSkin = new Skin();
         buttonSkin.addRegions(buttonsAtlas); //** skins for on and off **//
         font = new BitmapFont(Gdx.files.internal("fonts/white.fnt"),false); //** font **//
 
-        buttonPlayAtlas = new TextureAtlas("btnPlay.pack"); //** button atlas image **//
         buttonPlaySkin = new Skin();
         buttonPlaySkin.addRegions(buttonPlayAtlas); //** skins for on and off **//
 
@@ -78,8 +84,6 @@ public class MainMenuScreen implements Screen {
         Gdx.input.setInputProcessor(stage); //** stage is responsive **//
 
         TextButtonStyle style = new TextButtonStyle(); //** Button properties **//
-        buttonSkin.getRegion("coverdown").getTexture().setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
-        buttonSkin.getRegion("coverup").getTexture().setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         style.up = buttonSkin.getDrawable("coverdown");
         style.down = buttonSkin.getDrawable("coverup");
         style.font = font;
@@ -95,7 +99,6 @@ public class MainMenuScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
                 game.setScreen(new SettingsScreen(game));
-
             }
         });
 
@@ -120,7 +123,15 @@ public class MainMenuScreen implements Screen {
                     game.player.Name = MainScreen.prefs.getString("Name","");
                     game.player.LastName = MainScreen.prefs.getString("LastName","");
                     game.player.Mail = MainScreen.prefs.getString("Mail","");
-
+                    game.player.token = MainScreen.prefs.getString("token","");
+                    try {
+                        java.text.DateFormat format = new java.text.SimpleDateFormat();
+                        if (MainScreen.prefs.getString("tokenExpireDate","") != ""){
+                            game.player.tokenExpireDate = format.parse(MainScreen.prefs.getString("tokenExpireDate",""));
+                        }
+                    } catch (java.text.ParseException e) {
+                        game.player.tokenExpireDate = new java.util.Date();
+                    }
                     if (MainScreen.prefs.getString("GameData","").length() > 0) {
                         JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
                         ArrayList<GameData> DataList = new  ArrayList<GameData>();
@@ -135,19 +146,15 @@ public class MainMenuScreen implements Screen {
                         }
                         game.player.Data = DataList;
                     }
-
-
                     game.setScreen(new StoryScreen(game));
                 } else {
                     game.setScreen(new LoginScreen(game));
                 }
             }
         });
-
         stage.addActor(imgBack);
         stage.addActor(buttonConfig);
         stage.addActor(buttonPlay);
-
     }
 
     @Override
@@ -163,13 +170,6 @@ public class MainMenuScreen implements Screen {
 
         game.batch.begin();
 
-        //Sprite pantalla;
-        //pantalla = new Sprite(img);
-
-        //pantalla.setPosition(0, 0);
-        //pantalla.setBounds(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-
-        //pantalla.draw(game.batch);
         stage.draw();
         game.batch.end();
 
@@ -178,7 +178,6 @@ public class MainMenuScreen implements Screen {
     @Override
     public void resize(int width, int height) {
     }
-
 
     @Override
     public void show() {

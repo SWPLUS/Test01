@@ -1,0 +1,32 @@
+btnConfig_lr.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+coverplay
+  rotate: false
+  xy: 2, 2
+  size: 149, 101
+  orig: 149, 101
+  offset: 0, 0
+  index: -1
+coverdown
+  rotate: false
+  xy: 2, 105
+  size: 149, 101
+  orig: 149, 101
+  offset: 0, 0
+  index: -1
+coverup
+  rotate: false
+  xy: 2, 208
+  size: 149, 100
+  orig: 149, 100
+  offset: 0, 0
+  index: -1
+coverplaydown
+  rotate: false
+  xy: 2, 310
+  size: 149, 100
+  orig: 149, 100
+  offset: 0, 0
+  index: -1
