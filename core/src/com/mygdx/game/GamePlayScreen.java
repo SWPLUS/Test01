@@ -133,7 +133,7 @@ public class GamePlayScreen implements Screen {
                                 imgPoints = new Image(skinPoints.getDrawable("menos10"));
                                 Lives--;
                                 for (int z = 0;z<5;z++){
-                                    Image imgLive = (Image)groupLives.getChildren().get(z);
+                                    Image imgLive = (Image)groupLives.getChildren().get(5-(z+1));
                                     if((z+1)>Lives){
                                         imgLive.setDrawable(skinIcons.getDrawable("vida-off"));
                                     } else {
@@ -677,10 +677,10 @@ public class GamePlayScreen implements Screen {
                 if (b.getActions().size == 0){
                     i.remove();
                     b.remove();
-                    if ((!b.bubble.Exploted) && (b.bubble.trapType != 2)) {
+                    if ((!b.bubble.Exploted) && (b.bubble.trapType != 2) && (b.bubble.trapType != 1)) {
                         Lives--;
                         for (int z = 0;z<5;z++){
-                            Image imgLive = (Image)groupLives.getChildren().get(z);
+                            Image imgLive = (Image)groupLives.getChildren().get(5-(z+1));
                             if((z+1)>Lives){
                                 imgLive.setDrawable(skinIcons.getDrawable("vida-off"));
                             } else {
