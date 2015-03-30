@@ -20,6 +20,7 @@ import com.badlogic.gdx.Net.HttpResponseListener;
 import org.json.JSONObject;
 
 //BUTONES Y IMAGENES
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -116,7 +117,7 @@ public class LoginScreen implements Screen {
         backSyle.up = SkinLogin.getDrawable("loginup");
         backSyle.down = SkinLogin.getDrawable("logindown");
         btnBack = new TextButton("",backSyle);
-        btnBack.setPosition((Gdx.graphics.getWidth() / 2) - MainScreen.calcSize(113,true), MainScreen.calcSize(100,false));
+        btnBack.setPosition(MainScreen.calcSize(180,true), MainScreen.calcSize(100,false));
         btnBack.setHeight(MainScreen.calcSize(204,false));
         btnBack.setWidth(MainScreen.calcSize(226,true));
         btnBack.addListener(new InputListener() {
@@ -130,6 +131,13 @@ public class LoginScreen implements Screen {
             }
         });
 
+        Label.LabelStyle labelSyle = new Label.LabelStyle();
+        labelSyle.font = MainScreen.getScoreFont(24);
+        Label labelMsg = new Label("PRESIONA ESTE BOTON PARA OMITIR EL REGISTRO Y JUGARLO COMO INVITADO", labelSyle);
+        labelMsg.setPosition(MainScreen.calcSize(450,true), MainScreen.calcSize(100,false));
+        labelMsg.setWidth(MainScreen.calcSize(600,true));
+        labelMsg.setHeight(MainScreen.calcSize(200,true));
+        labelMsg.setWrap(true);
 
         logo = new Texture("Login/tanglogo.png");
         logo.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
@@ -249,6 +257,7 @@ public class LoginScreen implements Screen {
         stage.addActor(btnRegistro);
         stage.addActor(imgOlvide);
         stage.addActor(btnBack);
+        stage.addActor(labelMsg);
 
 
         //showAlert("Hola Mundo");
