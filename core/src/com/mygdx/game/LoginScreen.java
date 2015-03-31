@@ -334,9 +334,8 @@ public class LoginScreen implements Screen {
                     showAlert("Usuario o contraseña incorrecta");
                 }
             }
-
-
             public void failed(Throwable t) {
+                showAlert("Ocurrio un error al iniciar sesión.");
                 Gdx.app.log("my app", t.getMessage());
             }
             public void cancelled() {}
