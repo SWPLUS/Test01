@@ -18,9 +18,6 @@ public class Bubble {
     public Vector2 Position = new Vector2();
     public float stateTime;
     public Fruta TipoFruta;
-    public float sizeX;
-    public float sizeY;
-    public TextureRegion RegionBubble;
     public int Level;
     public boolean Exploted;
     private TextureAtlas AtlasBubble;
@@ -29,11 +26,8 @@ public class Bubble {
     public boolean tappedUno;
     float[] speed = new float[2];
     public float mySpeed;
-    private boolean isLeft;
-    private boolean isRight;
     public boolean isSpecial;
     public int trapType;
-    public TextureRegion imgPoints;
 
     public enum Fruta {
         NARANJA,LIMON,FRESA,PINA,MANGO,UVA,//DOUBLE,SHESKO

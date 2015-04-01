@@ -1,0 +1,53 @@
+chesko_hr.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org_1
+  rotate: false
+  xy: 2, 2
+  size: 111, 110
+  orig: 111, 110
+  offset: 0, 0
+  index: 1
+org_7
+  rotate: false
+  xy: 115, 2
+  size: 111, 106
+  orig: 111, 106
+  offset: 0, 0
+  index: 7
+org_6
+  rotate: false
+  xy: 228, 2
+  size: 111, 98
+  orig: 111, 98
+  offset: 0, 0
+  index: 6
+org_2
+  rotate: false
+  xy: 341, 2
+  size: 111, 98
+  orig: 111, 98
+  offset: 0, 0
+  index: 2
+org_5
+  rotate: false
+  xy: 454, 2
+  size: 111, 92
+  orig: 111, 92
+  offset: 0, 0
+  index: 5
+org_3
+  rotate: false
+  xy: 567, 2
+  size: 111, 92
+  orig: 111, 92
+  offset: 0, 0
+  index: 3
+org_4
+  rotate: false
+  xy: 680, 2
+  size: 111, 91
+  orig: 111, 91
+  offset: 0, 0
+  index: 4
