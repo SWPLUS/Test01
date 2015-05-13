@@ -155,6 +155,12 @@ public class MainScreen extends Game {
         }
     }
 
+    public void showConfirmation(String message, OnConfirmationListener listener) {
+        if (externalInterface != null) {
+            externalInterface.showConfirmation(message, listener);
+        }
+    }
+
     public void showDatePickerDialog( OnSetDateListener listener) {
         if (externalInterface != null) {
             externalInterface.showDatePickerDialog(listener);

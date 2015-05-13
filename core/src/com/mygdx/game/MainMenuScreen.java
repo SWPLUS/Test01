@@ -118,6 +118,9 @@ public class MainMenuScreen implements Screen {
             }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
+
+                game.setScreen(new StoryScreen(game));
+                /*
                 if (MainScreen.prefs.getString("UserId","").length() > 0) {
                     game.player.Logged = true;
                     game.player.UserId = MainScreen.prefs.getString("UserId","");
@@ -151,6 +154,8 @@ public class MainMenuScreen implements Screen {
                 } else {
                     game.setScreen(new LoginScreen(game));
                 }
+
+                */
             }
         });
         stage.addActor(imgBack);
