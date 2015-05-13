@@ -82,12 +82,12 @@ public class Levels {
                 seconds[1] = 4;
                 break;
             case 5:
-                seconds[0] = 2;
-                seconds[1] = 4;
+                seconds[0] = 3;
+                seconds[1] = 5;
                 break;
             case 6:
-                seconds[0] = 1.5f;
-                seconds[1] = 2;
+                seconds[0] = 3;
+                seconds[1] = 5;
                 break;
             default:
                 seconds[0] = 3;

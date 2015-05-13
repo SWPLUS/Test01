@@ -216,7 +216,7 @@ public class SettingsScreen implements Screen {
         StyleButtonReset.down = SkinSettings.getDrawable("arroba-off");
         StyleButtonReset.font = font;
         ButtonReset = new TextButton("", StyleButtonReset);
-        ButtonReset.setPosition(game.calcSize(200,true), game.calcSize(((1920-200)-828)-330,false));
+        ButtonReset.setPosition(game.calcSize(200,true), game.calcSize(((1920-200)-652)-165,false));
         ButtonReset.setHeight(game.calcSize(255,false));
         ButtonReset.setWidth(game.calcSize(288,true));
         ButtonReset.addListener(new InputListener() {
@@ -227,6 +227,9 @@ public class SettingsScreen implements Screen {
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.log("my app", "Released");
 
+                showConfirmation("El progreso del juego se perderá. ¿Desea Continuar?");
+
+                /*
                 if (MainScreen.prefs.getString("UserId","").length() > 0){
                     MainScreen.prefs.remove("UserId");
                     MainScreen.prefs.remove("Name");
@@ -239,7 +242,7 @@ public class SettingsScreen implements Screen {
 
                     showAlert("Sesión Finalizada");
                 }
-
+                */
 
 
             }
@@ -252,7 +255,7 @@ public class SettingsScreen implements Screen {
         StyleButtonInstr.down = SkinSettings.getDrawable("instrucciones-off");
         StyleButtonInstr.font = font;
         ButtonInstr = new TextButton("", StyleButtonInstr);
-        ButtonInstr.setPosition(game.calcSize(600,true), game.calcSize(((1920-200)-828)-330,false));
+        ButtonInstr.setPosition(game.calcSize(600,true), game.calcSize(((1920-200)-652)-165,false));
         ButtonInstr.setHeight(game.calcSize(255,false));
         ButtonInstr.setWidth(game.calcSize(288,true));
         ButtonInstr.addListener(new InputListener() {
@@ -274,7 +277,7 @@ public class SettingsScreen implements Screen {
         stage.addActor(ButtonMusic);
         stage.addActor(ButtonSound);
         stage.addActor(ButtonAcerca);
-        stage.addActor(ButtonTang);
+        //stage.addActor(ButtonTang);
         stage.addActor(ButtonInstr);
         stage.addActor(ButtonReset);
 
@@ -330,5 +333,28 @@ public class SettingsScreen implements Screen {
             });
         }
     }
+
+
+    public void showConfirmation(String message) {
+        if (game != null) {
+            game.showConfirmation(message, new MainScreen.OnConfirmationListener() {
+                @Override
+                public void onConfirmation(boolean confirmed) {
+                    Gdx.app.log("my app", "" + confirmed);
+
+                    if (confirmed) {
+                        game.player.Data = null;
+                        MainScreen.prefs.remove("UserId");
+                        MainScreen.prefs.remove("Name");
+                        MainScreen.prefs.remove("LastName");
+                        MainScreen.prefs.remove("Mail");
+                        MainScreen.prefs.remove("GameData");
+                        MainScreen.prefs.flush();
+                    }
+                }
+            });
+        }
+    }
+
 
 }
