@@ -366,6 +366,8 @@ public class GamePlayScreen implements Screen {
                         showIntro(Level);
                         Timer.instance().clear();
                         muestraTimer = true;
+                    } else {
+                        game.setScreen(new EndMovie(game));
                     }
                 }
             });

@@ -1,0 +1,54 @@
+
+limon1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org4
+  rotate: false
+  xy: 2, 2
+  size: 83, 88
+  orig: 83, 88
+  offset: 0, 0
+  index: -1
+org6
+  rotate: false
+  xy: 87, 2
+  size: 83, 87
+  orig: 83, 87
+  offset: 0, 0
+  index: -1
+org3
+  rotate: false
+  xy: 172, 2
+  size: 83, 87
+  orig: 83, 87
+  offset: 0, 0
+  index: -1
+org5
+  rotate: false
+  xy: 257, 2
+  size: 83, 86
+  orig: 83, 86
+  offset: 0, 0
+  index: -1
+org2
+  rotate: false
+  xy: 342, 2
+  size: 83, 86
+  orig: 83, 86
+  offset: 0, 0
+  index: -1
+org7
+  rotate: false
+  xy: 427, 2
+  size: 83, 84
+  orig: 83, 84
+  offset: 0, 0
+  index: -1
+org1
+  rotate: false
+  xy: 512, 2
+  size: 83, 84
+  orig: 83, 84
+  offset: 0, 0
+  index: -1

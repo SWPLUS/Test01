@@ -18,7 +18,9 @@ public class EndMovie  implements Screen {
     final MainScreen game;
     ParallaxBackground screen;
     private TextureAtlas AtlasChesko;
+    private TextureAtlas AtlasNaranja;
     private Animation AnimationChesko;
+    private Animation AnimationNaranja;
     private float stateTime;
     public TextureRegion RegionBubble;
     private int groundHeight;
@@ -58,6 +60,15 @@ public class EndMovie  implements Screen {
         float animationSpeed = 0.15f;
         AnimationChesko = new Animation(animationSpeed, trAni);
 
+        //NARANJIN
+        AtlasNaranja = new TextureAtlas("EndMovie/fruits/naranjinwalking.pack");
+        TextureAtlas.AtlasRegion[] trAniN = new TextureAtlas.AtlasRegion[7];
+        for(int ct = 0; ct < 7; ct++)
+        {
+            trAniN[ct]=AtlasNaranja.findRegion("org_" + (ct + 1));
+        }
+        AnimationNaranja = new Animation(animationSpeed, trAniN);
+
     }
 
     @Override
@@ -74,6 +85,11 @@ public class EndMovie  implements Screen {
         RegionBubble = AnimationChesko.getKeyFrame(stateTime, true);
         game.batch.draw(RegionBubble,Gdx.graphics.getWidth() - MainScreen.calcSize(RegionBubble.getRegionWidth()+30,true),
                 MainScreen.calcSize(groundHeight-10,false), MainScreen.calcSize(RegionBubble.getRegionWidth(),true),MainScreen.calcSize(RegionBubble.getRegionHeight(),false));
+
+        TextureRegion RegionNaranjin = AnimationNaranja.getKeyFrame(stateTime,true);
+        game.batch.draw(RegionNaranjin,Gdx.graphics.getWidth() - MainScreen.calcSize(RegionNaranjin.getRegionWidth()+230,true),
+                MainScreen.calcSize(groundHeight-10,false), MainScreen.calcSize(RegionNaranjin.getRegionWidth(),true),MainScreen.calcSize(RegionNaranjin.getRegionHeight(),false));
+
         game.batch.end();
 
     }

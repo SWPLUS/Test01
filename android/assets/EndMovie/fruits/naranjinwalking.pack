@@ -1,0 +1,53 @@
+naranjawalking1.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+org_1
+  rotate: false
+  xy: 2, 2
+  size: 75, 92
+  orig: 75, 92
+  offset: 0, 0
+  index: 4
+org_2
+  rotate: false
+  xy: 79, 2
+  size: 75, 92
+  orig: 75, 92
+  offset: 0, 0
+  index: 2
+org_3
+  rotate: false
+  xy: 156, 2
+  size: 75, 91
+  orig: 75, 91
+  offset: 0, 0
+  index: 5
+org_4
+  rotate: false
+  xy: 233, 2
+  size: 75, 90
+  orig: 75, 90
+  offset: 0, 0
+  index: 6
+org_5
+  rotate: false
+  xy: 310, 2
+  size: 75, 89
+  orig: 75, 89
+  offset: 0, 0
+  index: 3
+org_6
+  rotate: false
+  xy: 387, 2
+  size: 75, 88
+  orig: 75, 88
+  offset: 0, 0
+  index: 1
+org_7
+  rotate: false
+  xy: 464, 2
+  size: 75, 87
+  orig: 75, 87
+  offset: 0, 0
+  index: 7
