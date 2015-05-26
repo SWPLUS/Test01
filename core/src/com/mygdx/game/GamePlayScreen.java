@@ -89,16 +89,16 @@ public class GamePlayScreen implements Screen {
 
         switch (Level){
             case 1:
-                specialName = "naranja-";
+                specialName = "orange-";
                 break;
             case 2:
-                specialName = "lemmon-";
+                specialName = "lemon-";
                 break;
             case 3:
                 specialName = "strawberry-";
                 break;
             case 4:
-                specialName = "pineaple-";
+                specialName = "pineapple-";
                 break;
             case 5:
                 specialName = "mango-";
@@ -342,16 +342,16 @@ public class GamePlayScreen implements Screen {
 
                         switch (Level){
                             case 1:
-                                specialName = "naranja-";
+                                specialName = "orange-";
                                 break;
                             case 2:
-                                specialName = "lemmon-";
+                                specialName = "lemon-";
                                 break;
                             case 3:
                                 specialName = "strawberry-";
                                 break;
                             case 4:
-                                specialName = "pineaple-";
+                                specialName = "pineapple-";
                                 break;
                             case 5:
                                 specialName = "mango-";
@@ -535,16 +535,16 @@ public class GamePlayScreen implements Screen {
         specialHeight = MainScreen.calcSize((int)ImageSpecial1.getHeight(),false);
         ImageSpecial1.setSize(specialWidth,specialHeight);
         Image ImageSpecial2 = new Image(skinIcons.getDrawable(specialName + "off"));
-        ImageSpecial2.setPosition(ImageSpecial1.getWidth() + 1,0);
+        ImageSpecial2.setPosition(ImageSpecial1.getWidth() - 4,0);
         ImageSpecial2.setSize(specialWidth,specialHeight);
         Image ImageSpecial3 = new Image(skinIcons.getDrawable(specialName + "off"));
-        ImageSpecial3.setPosition((ImageSpecial1.getWidth()*2) + 1,0);
+        ImageSpecial3.setPosition((ImageSpecial1.getWidth()*2) - 8,0);
         ImageSpecial3.setSize(specialWidth,specialHeight);
         Image ImageSpecial4 = new Image(skinIcons.getDrawable(specialName + "off"));
-        ImageSpecial4.setPosition((ImageSpecial1.getWidth()*3) + 1,0);
+        ImageSpecial4.setPosition((ImageSpecial1.getWidth()*3) - 12,0);
         ImageSpecial4.setSize(specialWidth,specialHeight);
         Image ImageSpecial5 = new Image(skinIcons.getDrawable(specialName + "off"));
-        ImageSpecial5.setPosition((ImageSpecial1.getWidth()*4) + 1,0);
+        ImageSpecial5.setPosition((ImageSpecial1.getWidth()*4) - 16,0);
         ImageSpecial5.setSize(specialWidth,specialHeight);
         groupSpecials.addActor(ImageSpecial1);
         groupSpecials.addActor(ImageSpecial2);
@@ -554,6 +554,7 @@ public class GamePlayScreen implements Screen {
         groupSpecials.setSize((MainScreen.calcSize((int)ImageSpecial1.getWidth(),true) * 5) + 5, MainScreen.calcSize((int)ImageSpecial1.getHeight(),false));
         groupSpecials.setPosition(MainScreen.calcSize(700,true),(ScreenHeight - MainScreen.calcSize(138,false)) + ((MainScreen.calcSize(138,false) - ImageSpecial1.getHeight())/2));
         stage.addActor(groupSpecials);
+
 
         Texture txtPause = new Texture(Gdx.files.internal("GamePlay/pause.png"));
         txtPause.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);

@@ -10,14 +10,14 @@ strawberry-
   orig: 115, 92
   offset: 0, 0
   index: -1
-pineaple-
+pineapple-
   rotate: false
   xy: 119, 2
   size: 115, 92
   orig: 115, 92
   offset: 0, 0
   index: -1
-naranja-
+orange-
   rotate: false
   xy: 236, 2
   size: 115, 92
@@ -31,7 +31,7 @@ mango-
   orig: 115, 92
   offset: 0, 0
   index: -1
-lemmon-
+lemon-
   rotate: false
   xy: 470, 2
   size: 115, 92
