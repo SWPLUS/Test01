@@ -21,12 +21,18 @@ public class SettingsScreen implements Screen {
     final MainScreen game;
 
     Texture img;
+    Texture resetButton;
     Image imgBack;
     private Stage stage; //** stage holds the Button **//
 
     private BitmapFont font;
     private TextureAtlas AtlasSettings;
     private Skin SkinSettings;
+
+    private TextureAtlas AtlasResetButton;
+    private Skin SkinResetButton;
+
+
     private TextButton ButtonBack;
     private TextButton ButtonMusic;
     private TextButton ButtonSound;
@@ -46,6 +52,12 @@ public class SettingsScreen implements Screen {
             img = new Texture("Settings/background_lr.png");
             AtlasSettings = new TextureAtlas("Settings/settings_lr.pack");
         }
+
+        resetButton = new Texture("Settings/reset.png");
+        AtlasResetButton = new TextureAtlas("Settings/reset.txt");
+        SkinResetButton = new Skin();
+        SkinResetButton.addRegions(AtlasResetButton);
+
 
         imgBack = new Image(img);
         imgBack.setBounds(0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
@@ -209,11 +221,9 @@ public class SettingsScreen implements Screen {
 
 
 
-
-
         TextButton.TextButtonStyle StyleButtonReset = new TextButton.TextButtonStyle();
-        StyleButtonReset.up = SkinSettings.getDrawable("arroba-on");
-        StyleButtonReset.down = SkinSettings.getDrawable("arroba-off");
+        StyleButtonReset.up = SkinResetButton.getDrawable("b-registro-on");
+        StyleButtonReset.down = SkinResetButton.getDrawable("b-registro-off");
         StyleButtonReset.font = font;
         ButtonReset = new TextButton("", StyleButtonReset);
         ButtonReset.setPosition(game.calcSize(200,true), game.calcSize(((1920-200)-652)-165,false));
