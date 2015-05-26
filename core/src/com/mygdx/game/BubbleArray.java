@@ -23,6 +23,7 @@ public class BubbleArray {
         level = myLevel;
         cheskoLimit = Levels.GetCheskoLimit(level);
         doubleLimit = Levels.GetDoubleLimit(level);
+
     }
 
     public AnimatedActor createNew(int screenWidth,int screenHeight, boolean left, boolean right){
