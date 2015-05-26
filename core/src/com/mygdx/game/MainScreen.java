@@ -14,6 +14,7 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeType;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import org.json.JSONObject;
+import java.util.Iterator;
 
 import java.util.ArrayList;
 
@@ -67,13 +68,28 @@ public class MainScreen extends Game {
         player = new Player();
 
         batch = new SpriteBatch();
-        //Use LibGDX's default Arial font.
         font = getFont(14);
         fontScore = getScoreFont(18);
         bgMusic = Gdx.audio.newMusic(Gdx.files.internal("groove.mp3"));
         bgMusic.setLooping(true);
         Gdx.input.setCatchBackKey(true);
         this.setScreen(new MainMenuScreen(this));
+
+        if (MainScreen.prefs.getString("GameData","").length() > 0) {
+            JSONObject game_data = new JSONObject(MainScreen.prefs.getString("GameData",""));
+            ArrayList<GameData> DataList = new  ArrayList<GameData>();
+            Iterator<?> keys = game_data.keys();
+            while (keys.hasNext()) {
+                String key = (String) keys.next();
+                GameData MyData =  new GameData();
+                MyData.Score = game_data.getJSONObject(key).getInt("score");
+                MyData.Level = game_data.getJSONObject(key).getInt("level");
+                MyData.Stars = game_data.getJSONObject(key).getInt("stars");
+                DataList.add(MyData);
+            }
+            player.Data = DataList;
+        }
+
     }
 
     public void render() {
@@ -99,8 +115,6 @@ public class MainScreen extends Game {
 
             prefs.putString("GameData",jsonGameData);
         }
-
-
 
         batch.dispose();
         font.dispose();
@@ -193,84 +207,23 @@ public class MainScreen extends Game {
             player.Data.add(myGD);
         }
 
-        if (player != null){
-            if (player.token != ""){
-                java.util.Calendar cal = java.util.Calendar.getInstance();
-                cal.setTime(new java.util.Date());
-                if (player.tokenExpireDate != null){
-                    if (cal.getTime().after(player.tokenExpireDate)){
-                        Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
-                        httpPost.setUrl("http://tang.com.mx/webservices/ws001");
-                        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-                        httpPost.setContent("id_user=" + player.UserId);
-                        Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
-                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                                JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
-                                player.token = jObject.getString("token");
-                                java.util.Calendar cal = java.util.Calendar.getInstance();
-                                cal.setTime(new java.util.Date());
-                                cal.add(java.util.Calendar.HOUR_OF_DAY, 1);
-                                player.tokenExpireDate = cal.getTime();
-                            }
-                            public void failed(Throwable t) {
-                                Gdx.app.log("my app", t.getMessage());
-                            }
-                            public void cancelled() {}
-                        });
-                    } else {
-                        Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
-                        httpPost.setUrl("http://tang.com.mx/webservices/ws001");
-                        httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-                        httpPost.setContent("id_user=" + player.UserId);
-                        Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
-                            public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                                JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
-                                player.token = jObject.getString("token");
-                                java.util.Calendar cal = java.util.Calendar.getInstance(); // creates calendar
-                                cal.setTime(new java.util.Date()); // sets calendar time/date
-                                cal.add(java.util.Calendar.HOUR_OF_DAY, 1); // adds one hour
-                                player.tokenExpireDate = cal.getTime();
-                            }
-                            public void failed(Throwable t) {
-                                Gdx.app.log("my app", t.getMessage());
-                            }
-                            public void cancelled() {}
-                        });
-                    }
+        if (player.Data != null) {
+            int counter = 0;
+            String jsonGameData = "{";
+
+            for(GameData gd : player.Data){
+                if (counter>0){
+                    jsonGameData += ",";
                 }
-            } else {
-                Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
-                httpPost.setUrl("http://tang.com.mx/webservices/ws001");
-                httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-                httpPost.setContent("id_user=" + player.UserId);
-                Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
-                    public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                        JSONObject jObject = new JSONObject(httpResponse.getResultAsString());
-                        player.token = jObject.getString("token");
-                        java.util.Calendar cal = java.util.Calendar.getInstance(); // creates calendar
-                        cal.setTime(new java.util.Date()); // sets calendar time/date
-                        cal.add(java.util.Calendar.HOUR_OF_DAY, 1); // adds one hour
-                        player.tokenExpireDate = cal.getTime();
-                    }
-                    public void failed(Throwable t) {
-                        Gdx.app.log("my app", t.getMessage());
-                    }
-                    public void cancelled() {}
-                });
+                jsonGameData += "\"" + String.valueOf(counter+1) + "\":{";
+                jsonGameData += "\"score\":\"" + String.valueOf(gd.Score) + "\",\"stars\":\"" + String.valueOf(gd.Stars) + "\",\"level\":\"" + String.valueOf(gd.Level) + "\"}";
+                counter++;
             }
-            Net.HttpRequest httpPost = new Net.HttpRequest(Net.HttpMethods.POST);
-            httpPost.setUrl("http://tang.com.mx/webservices/ws006");
-            httpPost.setHeader("Content-Type", "application/x-www-form-urlencoded");
-            httpPost.setContent("token=" + player.token + "&id_nivel=" + level + "&puntos=" + score + "&stars=" + stars);
-            Gdx.net.sendHttpRequest(httpPost, new Net.HttpResponseListener() {
-                public void handleHttpResponse(Net.HttpResponse httpResponse) {
-                    Gdx.app.log("RESPONSESCORE", httpResponse.getResultAsString());
-                }
-                public void failed(Throwable t) {
-                    Gdx.app.log("my app", t.getMessage());
-                }
-                public void cancelled() {}
-            });
+
+            jsonGameData += "}";
+
+            prefs.putString("GameData",jsonGameData);
+            prefs.flush();
         }
     }
 
