@@ -555,6 +555,7 @@ public class GamePlayScreen implements Screen {
         groupSpecials.setPosition(MainScreen.calcSize(700,true),(ScreenHeight - MainScreen.calcSize(138,false)) + ((MainScreen.calcSize(138,false) - ImageSpecial1.getHeight())/2));
         stage.addActor(groupSpecials);
 
+
         Texture txtPause = new Texture(Gdx.files.internal("GamePlay/pause.png"));
         txtPause.setFilter(Texture.TextureFilter.Linear,Texture.TextureFilter.Linear);
         imgPause = new Image(txtPause);
