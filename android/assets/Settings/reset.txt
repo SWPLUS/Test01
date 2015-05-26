@@ -1,0 +1,18 @@
+reset.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+b-registro-off
+  rotate: false
+  xy: 2, 2
+  size: 288, 255
+  orig: 288, 255
+  offset: 0, 0
+  index: -1
+b-registro-on
+  rotate: false
+  xy: 292, 2
+  size: 288, 255
+  orig: 288, 255
+  offset: 0, 0
+  index: -1
