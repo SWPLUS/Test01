@@ -1,0 +1,102 @@
+frutas.png
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+grape-off
+  rotate: false
+  xy: 2, 2
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+grape-on
+  rotate: false
+  xy: 84, 2
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+vida-on
+  rotate: false
+  xy: 166, 2
+  size: 69, 61
+  orig: 69, 61
+  offset: 0, 0
+  index: -1
+vida-off
+  rotate: false
+  xy: 237, 2
+  size: 63, 55
+  orig: 63, 55
+  offset: 0, 0
+  index: -1
+lemon-off
+  rotate: false
+  xy: 302, 2
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+lemon-on
+  rotate: false
+  xy: 2, 80
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+mango-off
+  rotate: false
+  xy: 84, 80
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+mango-on
+  rotate: false
+  xy: 166, 80
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+orange-off
+  rotate: false
+  xy: 248, 80
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+orange-on
+  rotate: false
+  xy: 330, 80
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+pineapple-off
+  rotate: false
+  xy: 2, 158
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+pineapple-on
+  rotate: false
+  xy: 84, 158
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+strawberry-off
+  rotate: false
+  xy: 166, 158
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
+strawberry-on
+  rotate: false
+  xy: 248, 158
+  size: 80, 76
+  orig: 80, 76
+  offset: 0, 0
+  index: -1
