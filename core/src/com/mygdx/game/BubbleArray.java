@@ -42,6 +42,7 @@ public class BubbleArray {
                 bbl = new Bubble(screenWidth,screenHeight,level,left,right,3);
                 doubleCount = 0;
             }
+
         } else {
             bbl = new Bubble(screenWidth,screenHeight,level,left,right,0);
             trapType = 0;
